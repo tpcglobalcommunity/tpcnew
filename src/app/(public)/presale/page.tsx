@@ -3,6 +3,7 @@ import { PremiumShell } from "@/components/ui/PremiumShell";
 import { PremiumCard } from "@/components/ui/PremiumCard";
 import { PremiumButton } from "@/components/ui/PremiumButton";
 import { Badge } from "@/components/ui/Badge";
+import CountdownTimer from "@/components/ui/CountdownTimer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -49,13 +50,7 @@ export default function PresalePage() {
           <div className="grid md:grid-cols-2 gap-6 mb-12">
             <PremiumCard variant="gold">
               <h3 className="text-lg font-semibold mb-4 text-[#d4af37]">Presale Countdown</h3>
-              <div className="text-3xl font-bold mb-2">⏳ 6 Months</div>
-              <p className="text-sm text-[#a0a0a0]">
-                Presale ends February 15, 2026 (SGT / UTC+8)
-              </p>
-              <p className="text-xs text-[#6b7280] mt-2">
-                Presale may end earlier if stage supply is fully allocated.
-              </p>
+              <CountdownTimer targetDate="2026-02-15T00:00:00+08:00" />
             </PremiumCard>
 
             <PremiumCard>
