@@ -35,7 +35,7 @@ export default function PresalePage({ params }: PresalePageProps) {
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
         
         <Container className="relative z-10">
-          <div className="text-center max-w-5xl mx-auto px-4">
+          <div className="text-center w-full">
             {/* Status Badge */}
             <div className="inline-flex items-center px-3 py-1.5 bg-amber-500/20 border border-amber-500/30 rounded-full mb-4">
               <div className="w-2 h-2 bg-amber-400 rounded-full mr-2 animate-pulse"></div>
@@ -48,12 +48,12 @@ export default function PresalePage({ params }: PresalePageProps) {
             </h1>
             
             {/* Subheadline */}
-            <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed font-light max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed font-light">
               {copy.hero.subtitle}
             </p>
             
             {/* Countdown Timer */}
-            <div className="mb-6 bg-[#1A1F2E]/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-4 max-w-xs mx-auto">
+            <div className="mb-6 bg-[#1A1F2E]/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-4 w-full mx-auto">
               <div className="text-center mb-3">
                 <span className="text-amber-400 text-xs font-medium uppercase tracking-wider">Waktu Tersisa</span>
               </div>
@@ -68,7 +68,7 @@ export default function PresalePage({ params }: PresalePageProps) {
             </div>
             
             {/* CTA Button */}
-            <div className="relative">
+            <div className="relative w-full mx-auto">
               <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-amber-600 rounded-lg blur-lg opacity-50"></div>
               <PremiumButton 
                 href={publicPath(lang, '/member/buy')}
@@ -96,20 +96,20 @@ export default function PresalePage({ params }: PresalePageProps) {
         }}></div>
         
         <Container className="relative z-10 px-4">
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 w-full">
             <div className="inline-flex items-center px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full mb-3">
               <span className="text-amber-400 text-xs font-medium">Tahapan Presale</span>
             </div>
             <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
               {copy.stages.title}
             </h2>
-            <p className="text-gray-300 text-base leading-relaxed max-w-xl mx-auto">
+            <p className="text-gray-300 text-base leading-relaxed">
               {copy.stages.subtitle}
             </p>
           </div>
           
           {/* Stage Cards */}
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 w-full">
             {copy.stages.items.map((stage, index) => (
               <PremiumCard key={index} className="border border-gray-700 bg-[#1A1F2E] hover:border-amber-500/50 transition-all duration-300 relative overflow-hidden group">
                 {/* Card Glow Effect */}
@@ -167,7 +167,7 @@ export default function PresalePage({ params }: PresalePageProps) {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-amber-500/5"></div>
         
         <Container className="relative z-10 px-4">
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 w-full">
             <div className="inline-flex items-center px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full mb-4">
               <span className="text-amber-400 text-xs font-medium">Utilitas Token</span>
             </div>
@@ -177,7 +177,7 @@ export default function PresalePage({ params }: PresalePageProps) {
           </div>
           
           {/* Utility Items */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
             {copy.tokenUtility.items.map((item, index) => (
               <div key={index} className="group">
                 <div className="bg-[#1A1F2E]/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-4 text-center transition-all duration-300 hover:border-amber-500/50 hover:bg-[#1A1F2E]/80">
@@ -201,20 +201,20 @@ export default function PresalePage({ params }: PresalePageProps) {
         }}></div>
         
         <Container className="relative z-10 px-4">
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 w-full">
             <div className="inline-flex items-center px-3 py-1.5 bg-green-500/10 border border-green-500/20 rounded-full mb-3">
               <span className="text-green-400 text-xs font-medium">Transparansi & Kepercayaan</span>
             </div>
             <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
               {copy.transparency.title}
             </h2>
-            <p className="text-gray-300 text-base leading-relaxed max-w-xl mx-auto">
+            <p className="text-gray-300 text-base leading-relaxed">
               {copy.transparency.subtitle}
             </p>
           </div>
           
           {/* Transparency Panel */}
-          <PremiumCard className="border border-gray-700 bg-[#1A1F2E]/50 backdrop-blur-sm relative overflow-hidden">
+          <PremiumCard className="border border-gray-700 bg-[#1A1F2E]/50 backdrop-blur-sm relative overflow-hidden w-full">
             {/* Panel Glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent"></div>
             
@@ -245,7 +245,7 @@ export default function PresalePage({ params }: PresalePageProps) {
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
         
         <Container className="relative z-10 px-4">
-          <div className="text-center max-w-xl mx-auto">
+          <div className="text-center w-full">
             <div className="inline-flex items-center px-3 py-1.5 bg-amber-500/20 border border-amber-500/30 rounded-full mb-4">
               <span className="text-amber-400 text-xs font-medium uppercase tracking-wider">Langkah Terakhir</span>
             </div>
@@ -257,7 +257,7 @@ export default function PresalePage({ params }: PresalePageProps) {
             </p>
             
             {/* CTA Button */}
-            <div className="relative mb-6">
+            <div className="relative mb-6 w-full">
               <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-amber-600 rounded-lg blur-lg opacity-50"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-500 rounded-lg blur opacity-30 animate-pulse"></div>
               <PremiumButton 
