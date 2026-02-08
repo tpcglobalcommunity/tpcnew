@@ -14,7 +14,7 @@ export default function LangLayout({ children, params }: { children: React.React
         <LanguageSwitch />
       </div>
       
-      <div className="pb-28">
+      <div className="pb-20">
         {children}
       </div>
       <BottomNavigation lang={lang} />

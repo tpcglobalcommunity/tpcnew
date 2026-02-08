@@ -89,14 +89,14 @@ export default function PresalePage({ params }: PresalePageProps) {
       </Section>
 
       {/* SECTION 2 — PRESALE STAGES */}
-      <Section className="py-12 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
+      <Section className="py-8 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-20" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239CA3AF' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
         }}></div>
         
         <Container className="relative z-10 px-4">
-          <div className="text-center mb-8 w-full">
+          <div className="text-center mb-6 w-full">
             <div className="inline-flex items-center px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full mb-3">
               <span className="text-amber-400 text-xs font-medium">Tahapan Presale</span>
             </div>
@@ -134,16 +134,16 @@ export default function PresalePage({ params }: PresalePageProps) {
                   </div>
                   
                   {/* Stage Details */}
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center py-2 border-b border-gray-700/50">
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center py-3 border-b border-gray-700/50">
                       <span className="text-gray-400 text-xs">Harga</span>
                       <span className="text-white font-medium">{stage.price}</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-gray-700/50">
+                    <div className="flex justify-between items-center py-3 border-b border-gray-700/50">
                       <span className="text-gray-400 text-xs">Supply</span>
                       <span className="text-white font-medium text-sm">{stage.supply}</span>
                     </div>
-                    <div className="flex justify-between items-center py-2">
+                    <div className="flex justify-between items-center py-3">
                       <span className="text-gray-400 text-xs">Status</span>
                       <span className={`font-medium text-xs ${
                         stage.status === 'Active' || stage.status === 'Aktif' 
@@ -162,12 +162,12 @@ export default function PresalePage({ params }: PresalePageProps) {
       </Section>
 
       {/* SECTION 3 — TOKEN UTILITY */}
-      <Section className="py-12 bg-gradient-to-b from-[#0B0E11] to-[#1A1F2E] relative w-full max-w-full overflow-hidden">
+      <Section className="py-8 bg-gradient-to-b from-[#0B0E11] to-[#1A1F2E] relative w-full max-w-full overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-amber-500/5"></div>
         
         <Container className="relative z-10 px-4">
-          <div className="text-center mb-8 w-full">
+          <div className="text-center mb-6 w-full">
             <div className="inline-flex items-center px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full mb-4">
               <span className="text-amber-400 text-xs font-medium">Utilitas Token</span>
             </div>
@@ -193,22 +193,22 @@ export default function PresalePage({ params }: PresalePageProps) {
         </Container>
       </Section>
 
-      {/* SECTION 4 — TRANSPARENCY & TRUST */}
-      <Section className="py-12 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
+      {/* SECTION 4 — TRANSPARENSI & TRUST */}
+      <Section className="py-8 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M20 20l-4-4m4 4l4-4m-4 4l4 4' stroke='%239CA3AF' stroke-width='1' stroke-opacity='0.2'/%3E%3C/g%3E%3C/svg%3E")`
         }}></div>
         
         <Container className="relative z-10 px-4">
-          <div className="text-center mb-8 w-full">
+          <div className="text-center mb-6 w-full">
             <div className="inline-flex items-center px-3 py-1.5 bg-green-500/10 border border-green-500/20 rounded-full mb-3">
               <span className="text-green-400 text-xs font-medium">Transparansi & Kepercayaan</span>
             </div>
             <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
               {copy.transparency.title}
             </h2>
-            <p className="text-gray-300 text-base leading-relaxed">
+            <p className="text-gray-300 text-base leading-relaxed max-w-2xl mx-auto">
               {copy.transparency.subtitle}
             </p>
           </div>
@@ -221,13 +221,13 @@ export default function PresalePage({ params }: PresalePageProps) {
             <PremiumCardContent className="p-6 relative z-10">
               <div className="space-y-4">
                 {copy.transparency.items.map((item, index) => (
-                  <div key={index} className="flex items-start gap-3 group">
-                    <div className="w-10 h-10 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  <div key={index} className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                       <span className="text-lg">{item.icon}</span>
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <h4 className="text-white font-semibold mb-1 text-sm">{item.title}</h4>
-                      <p className="text-gray-400 text-xs leading-relaxed">{item.description}</p>
+                      <p className="text-gray-300 text-xs leading-relaxed">{item.description}</p>
                     </div>
                   </div>
                 ))}
@@ -238,7 +238,7 @@ export default function PresalePage({ params }: PresalePageProps) {
       </Section>
 
       {/* SECTION 5 — FINAL CTA */}
-      <Section className="py-12 bg-gradient-to-b from-[#0B0E11] via-[#1A1F2E] to-[#0B0E11] relative w-full max-w-full overflow-hidden">
+      <Section className="py-8 bg-gradient-to-b from-[#0B0E11] via-[#1A1F2E] to-[#0B0E11] relative w-full max-w-full overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-transparent to-blue-500/5"></div>
         <div className="absolute top-0 left-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
