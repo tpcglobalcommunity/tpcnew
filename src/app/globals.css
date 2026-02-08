@@ -1,84 +1,67 @@
 @import "tailwindcss";
 
 :root {
-  /* TPC Premium Dark Theme */
-  --background: #0a0a0f;
-  --foreground: #ffffff;
-  --background-secondary: #12121a;
-  --background-tertiary: #1a1a24;
-  
-  /* Gold Accent Colors */
-  --gold-primary: #d4af37;
-  --gold-light: #ffd700;
-  --gold-dark: #b8941f;
-  --gold-muted: #8b7355;
-  
-  /* Text Colors */
-  --text-primary: #ffffff;
-  --text-secondary: #a0a0a0;
-  --text-muted: #6b7280;
-  
-  /* Status Colors */
-  --success: #22c55e;
-  --warning: #eab308;
-  --error: #ef4444;
-  --info: #3b82f6;
-  
-  /* Border */
-  --border: #2a2a3a;
-  --border-gold: rgba(212, 175, 55, 0.3);
+  /* TPC Premium Brown-Gold Theme - Design Tokens */
+  --bg: 14 11 7;           /* #0E0B07 */
+  --bg2: 21 17 12;         /* #15110C (secondary) */
+  --surface: 19 15 10;     /* slightly lighter surface */
+  --card: 255 255 255;     /* used with low alpha via tailwind */
+  --fg: 245 245 244;       /* #F5F5F4 */
+  --muted: 185 179 167;    /* #B9B3A7 */
+
+  --border: 255 255 255;   /* used with low alpha */
+  --ring: 200 162 77;      /* gold ring */
+  --accent: 200 162 77;    /* #C8A24D */
+  --accent2: 168 129 43;   /* deeper gold (hover) */
+
+  --danger: 239 68 68;
+  --success: 34 197 94;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-background-secondary: var(--background-secondary);
-  --color-background-tertiary: var(--background-tertiary);
-  --color-foreground: var(--foreground);
-  --color-gold-primary: var(--gold-primary);
-  --color-gold-light: var(--gold-light);
-  --color-gold-dark: var(--gold-dark);
-  --color-gold-muted: var(--gold-muted);
-  --color-text-primary: var(--text-primary);
-  --color-text-secondary: var(--text-secondary);
-  --color-text-muted: var(--text-muted);
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --color-error: var(--error);
-  --color-info: var(--info);
-  --color-border: var(--border);
-  --color-border-gold: var(--border-gold);
+  /* Map tokens to Tailwind theme */
+  --color-bg: rgb(var(--bg) / <alpha-value>);
+  --color-bg2: rgb(var(--bg2) / <alpha-value>);
+  --color-surface: rgb(var(--surface) / <alpha-value>);
+  --color-card: rgb(var(--card) / <alpha-value>);
+  --color-fg: rgb(var(--fg) / <alpha-value>);
+  --color-muted: rgb(var(--muted) / <alpha-value>);
+  --color-border: rgb(var(--border) / <alpha-value>);
+  --color-ring: rgb(var(--ring) / <alpha-value>);
+  --color-accent: rgb(var(--accent) / <alpha-value>);
+  --color-accent2: rgb(var(--accent2) / <alpha-value>);
+  --color-danger: rgb(var(--danger) / <alpha-value>);
+  --color-success: rgb(var(--success) / <alpha-value>);
+  
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
+/* Base styling */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  min-height: 100vh;
+  background-color: rgb(var(--bg));
+  color: rgb(var(--fg));
 }
 
-/* Custom scrollbar */
+/* Selection styling */
+::selection {
+  background-color: rgb(var(--accent) / 0.3);
+  color: rgb(var(--fg));
+}
+
+/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background-secondary);
+  background: rgb(var(--bg2));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--gold-muted);
+  background: rgb(var(--accent) / 0.5);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gold-primary);
-}
-
-/* Selection */
-::selection {
-  background: rgba(212, 175, 55, 0.3);
-  color: var(--foreground);
+  background: rgb(var(--accent) / 0.7);
 }
