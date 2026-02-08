@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { publicPath } from "@/content/homeCopy";
+import { publicPath } from "@/lib/lang-helpers";
 
 interface BottomNavigationProps {
   lang?: string;
