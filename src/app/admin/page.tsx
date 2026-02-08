@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { PremiumShell } from "@/components/ui/PremiumShell";
 import { PremiumCard } from "@/components/ui/PremiumCard";
-import { PremiumButton } from "@/components/ui/PremiumButton";
 import { Badge } from "@/components/ui/Badge";
-import { Alert } from "@/components/ui/Alert";
 import Link from "next/link";
+
+type StatusVariant = {
+  [key: string]: "default" | "warning" | "info" | "success" | "error" | "gold";
+};
 
 interface Invoice {
   id: string;
@@ -56,7 +58,7 @@ export default function AdminDashboard() {
   ];
 
   const getStatusBadge = (status: string) => {
-    const variants: Record<string, any> = {
+    const variants: StatusVariant = {
       DRAFT: "default",
       PENDING: "warning",
       VERIFYING: "info",

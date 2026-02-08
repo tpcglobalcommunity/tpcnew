@@ -82,7 +82,7 @@ export default function WhyTPCPage() {
                   <li>❌ skema investasi,</li>
                   <li>❌ bukan program bagi hasil,</li>
                   <li>❌ bukan janji passive income,</li>
-                  <li>❌ bukan platform "titip uang".</li>
+                  <li>❌ bukan platform &quot;titip uang&quot;.</li>
                 </ul>
               </div>
 
@@ -173,7 +173,7 @@ export default function WhyTPCPage() {
                 <li>• dan kebijakan anti-scam yang ketat.</li>
               </ul>
               <p className="text-[#a0a0a0] mt-4">
-                Bukan karena kami ingin terlihat "aman", tetapi karena kami ingin bertahan jangka panjang.
+                Bukan karena kami ingin terlihat &quot;aman&quot;, tetapi karena kami ingin bertahan jangka panjang.
               </p>
             </PremiumCard>
           </section>
@@ -197,7 +197,7 @@ export default function WhyTPCPage() {
                 <ul className="space-y-2 text-[#a0a0a0]">
                   <li>❌ pencari profit cepat,</li>
                   <li>❌ pemburu janji ROI,</li>
-                  <li>❌ atau mereka yang ingin "dipastikan untung".</li>
+                  <li>❌ atau mereka yang ingin &quot;dipastikan untung&quot;.</li>
                 </ul>
               </PremiumCard>
             </div>

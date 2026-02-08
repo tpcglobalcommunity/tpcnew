@@ -169,7 +169,7 @@ export default function RiskDisclosurePage() {
                 <ul className="space-y-2 text-[#a0a0a0]">
                   <li>❌ pencari profit cepat,</li>
                   <li>❌ pemburu janji ROI,</li>
-                  <li>❌ atau mereka yang ingin "dipastikan untung".</li>
+                  <li>❌ atau mereka yang ingin &quot;dipastikan untung&quot;.</li>
                 </ul>
               </PremiumCard>
             </div>
