@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { publicPath } from "@/lib/lang-helpers";
@@ -11,6 +11,12 @@ interface BottomNavigationProps {
 
 export default function BottomNavigation({ lang }: BottomNavigationProps) {
   const pathname = usePathname();
+  
+  // Debug: Log when component mounts and pathname changes
+  useEffect(() => {
+    console.log('BottomNavigation mounted with lang:', lang);
+    console.log('Current pathname:', pathname);
+  }, [pathname, lang]);
   
   // Extract current language from pathname or use prop
   const getCurrentLang = () => {
@@ -57,6 +63,8 @@ export default function BottomNavigation({ lang }: BottomNavigationProps) {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-bg border-t border-border/20 backdrop-blur-lg z-50 shadow-2xl" style={{ zIndex: 9999 }}>
       <div className="max-w-6xl mx-auto" style={{ position: 'relative', zIndex: 9999 }}>
+        {/* Debug: Visual indicator */}
+        <div className="absolute top-0 left-0 w-4 h-1 bg-red-500 rounded-full opacity-75"></div>
         <div className="flex justify-around items-center py-3">
           {navItems.map((item) => {
             let fullHref;
