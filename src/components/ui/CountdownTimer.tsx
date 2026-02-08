@@ -15,7 +15,9 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
   });
 
   useEffect(() => {
-    const target = new Date(targetDate).getTime();
+    const sixMonthsFromNow = new Date();
+    sixMonthsFromNow.setMonth(sixMonthsFromNow.getMonth() + 6);
+    const target = sixMonthsFromNow.getTime();
     
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -35,7 +37,7 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [targetDate]);
+  }, []);
 
   return (
     <div className="text-center">
@@ -58,7 +60,7 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
         </div>
       </div>
       <p className="text-xs md:text-sm text-[#a0a0a0]">
-        Presale berakhir {new Date(targetDate).toLocaleDateString('id-ID', {
+        Presale berakhir {new Date().toLocaleDateString('id-ID', {
           year: 'numeric',
           month: 'long',
           day: 'numeric',
