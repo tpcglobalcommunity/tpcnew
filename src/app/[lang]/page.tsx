@@ -45,10 +45,10 @@ export default function HomePage({ params }: HomePageProps) {
       <Section className="pt-16 pb-12">
         <Container>
           <div className="text-center">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 md:mb-8 leading-tight">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F4] mb-6 md:mb-8 leading-tight">
               {copy.hero.title}
             </h1>
-            <p className="text-lg md:text-xl lg:text-2xl text-[#a0a0a0] mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl lg:text-2xl text-[#B9B3A7] mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed">
               {copy.hero.subtitle}
             </p>
             
@@ -76,7 +76,7 @@ export default function HomePage({ params }: HomePageProps) {
       <Section>
         <Container>
           <div className="text-center mb-8">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
+            <h2 className="text-xl md:text-2xl font-bold text-[#F5F5F4] mb-4">
               Trust & Safety
             </h2>
           </div>
@@ -88,10 +88,10 @@ export default function HomePage({ params }: HomePageProps) {
       <Section>
         <Container>
           <div className="text-center mb-8">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
+            <h2 className="text-xl md:text-2xl font-bold text-[#F5F5F4] mb-4">
               {copy.whatIsTPC.title}
             </h2>
-            <p className="text-base md:text-lg text-[#a0a0a0] mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base md:text-lg text-[#B9B3A7] mb-8 max-w-3xl mx-auto leading-relaxed">
               {copy.whatIsTPC.description}
             </p>
           </div>
@@ -102,7 +102,7 @@ export default function HomePage({ params }: HomePageProps) {
                   <div className="w-12 h-12 bg-[#d4af37]/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-[#d4af37] text-xl font-bold">{index + 1}</span>
                   </div>
-                  <p className="text-sm md:text-base text-white leading-relaxed">
+                  <p className="text-sm md:text-base text-[#F5F5F4] leading-relaxed">
                     {point}
                   </p>
                 </PremiumCardContent>
@@ -116,7 +116,7 @@ export default function HomePage({ params }: HomePageProps) {
       <Section>
         <Container>
           <div className="text-center mb-8">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
+            <h2 className="text-xl md:text-2xl font-bold text-[#F5F5F4] mb-4">
               Core Features
             </h2>
           </div>
@@ -127,10 +127,10 @@ export default function HomePage({ params }: HomePageProps) {
                   <div className="text-3xl md:text-4xl mb-4">
                     {feature.icon}
                   </div>
-                  <h3 className="text-lg md:text-xl font-bold text-white mb-3">
+                  <h3 className="text-lg md:text-xl font-bold text-[#F5F5F4] mb-3">
                     {feature.title}
                   </h3>
-                  <p className="text-sm md:text-base text-[#a0a0a0] mb-4 leading-relaxed">
+                  <p className="text-sm md:text-base text-[#B9B3A7] mb-4 leading-relaxed">
                     {feature.description}
                   </p>
                   <a 
@@ -150,7 +150,7 @@ export default function HomePage({ params }: HomePageProps) {
       <Section>
         <Container>
           <div className="text-center mb-8">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
+            <h2 className="text-xl md:text-2xl font-bold text-[#F5F5F4] mb-4">
               {copy.howItWorks.title}
             </h2>
           </div>
@@ -162,7 +162,7 @@ export default function HomePage({ params }: HomePageProps) {
                     <div className="flex-shrink-0 w-8 h-8 bg-[#d4af37] rounded-full flex items-center justify-center text-black font-bold text-sm">
                       {index + 1}
                     </div>
-                    <p className="text-sm md:text-base text-[#a0a0a0] leading-relaxed">
+                    <p className="text-sm md:text-base text-[#B9B3A7] leading-relaxed">
                       {step}
                     </p>
                   </div>
@@ -177,7 +177,7 @@ export default function HomePage({ params }: HomePageProps) {
       <Section>
         <Container>
           <div className="text-center mb-8">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
+            <h2 className="text-xl md:text-2xl font-bold text-[#F5F5F4] mb-4">
               Frequently Asked Questions
             </h2>
           </div>
@@ -185,10 +185,10 @@ export default function HomePage({ params }: HomePageProps) {
             {copy.faq.map((item, index) => (
               <PremiumCard key={index}>
                 <PremiumCardContent>
-                  <h4 className="text-base md:text-lg font-bold text-white mb-3">
+                  <h4 className="text-base md:text-lg font-bold text-[#F5F5F4] mb-3">
                     {item.question}
                   </h4>
-                  <p className="text-sm md:text-base text-[#a0a0a0] leading-relaxed">
+                  <p className="text-sm md:text-base text-[#B9B3A7] leading-relaxed">
                     {item.answer}
                   </p>
                 </PremiumCardContent>
@@ -229,7 +229,7 @@ export default function HomePage({ params }: HomePageProps) {
                 href="https://t.me/tpcglobalcommunity"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-[#d4af37] hover:text-[#b8941f] transition-colors duration-300"
+                className="inline-flex items-center gap-2 text-[#C8A24D] hover:text-[#B8941F] transition-colors duration-300"
               >
                 <span className="text-xl">📱</span>
                 <span className="text-sm font-medium">Join Telegram Channel</span>

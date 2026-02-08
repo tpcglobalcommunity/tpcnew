@@ -10,7 +10,7 @@ interface PremiumShellProps {
 
 export default function PremiumShell({ children, className }: PremiumShellProps) {
   return (
-    <div className={cn("min-h-screen bg-[#0f0f1a] text-white", className)}>
+    <div className={cn("min-h-screen bg-[#0E0B07] text-[#F5F5F4]", className)}>
       {/* Language Switch - Fixed Top Right */}
       <div className="fixed top-4 right-4 z-50">
         <LanguageSwitch />
