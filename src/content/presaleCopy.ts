@@ -42,6 +42,15 @@ export const presaleCopy: Record<Language, {
     subtitle: string;
     buttonText: string;
   };
+  countdown: {
+    title: string;
+    endDate: string;
+  };
+  cardLabels: {
+    price: string;
+    supply: string;
+    status: string;
+  };
 }> = {
   en: {
     hero: {
@@ -128,6 +137,15 @@ export const presaleCopy: Record<Language, {
       title: 'Final Step',
       subtitle: 'Registration required for compliance & transparency',
       buttonText: 'Access Presale via Member Area'
+    },
+    countdown: {
+      title: 'Time Remaining',
+      endDate: 'August 9, 2026 (WIB / UTC+7)'
+    },
+    cardLabels: {
+      price: 'Price',
+      supply: 'Supply',
+      status: 'Status'
     }
   },
   id: {
@@ -215,6 +233,15 @@ export const presaleCopy: Record<Language, {
       title: 'Langkah Terakhir',
       subtitle: 'Registrasi diperlukan untuk kepatuhan dan transparansi',
       buttonText: 'Akses Presale via Member Area'
+    },
+    countdown: {
+      title: 'Waktu Tersisa',
+      endDate: '9 Agustus 2026 (WIB / UTC+7)'
+    },
+    cardLabels: {
+      price: 'Harga',
+      supply: 'Supply',
+      status: 'Status'
     }
   }
 };

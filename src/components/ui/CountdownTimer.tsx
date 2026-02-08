@@ -4,9 +4,25 @@ import { useState, useEffect } from "react";
 
 interface CountdownTimerProps {
   targetDate: string;
+  lang?: 'en' | 'id';
 }
 
-export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
+const labels = {
+  en: {
+    days: 'Days',
+    hours: 'Hours',
+    minutes: 'Minutes',
+    seconds: 'Seconds'
+  },
+  id: {
+    days: 'Hari',
+    hours: 'Jam',
+    minutes: 'Menit',
+    seconds: 'Detik'
+  }
+};
+
+export default function CountdownTimer({ targetDate, lang = 'en' }: CountdownTimerProps) {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -15,9 +31,7 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
   });
 
   useEffect(() => {
-    const sixMonthsFromNow = new Date();
-    sixMonthsFromNow.setMonth(sixMonthsFromNow.getMonth() + 6);
-    const target = sixMonthsFromNow.getTime();
+    const target = new Date(targetDate).getTime();
     
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -37,39 +51,30 @@ export default function CountdownTimer({ targetDate }: CountdownTimerProps) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [targetDate]);
+
+  const currentLabels = labels[lang];
 
   return (
     <div className="text-center">
       <div className="grid grid-cols-4 gap-1 md:gap-2 mb-3 md:mb-4">
         <div className="bg-[#1a1a24] rounded-lg p-2 md:p-3">
           <div className="text-lg md:text-2xl font-bold text-[#d4af37]">{timeLeft.days}</div>
-          <div className="text-xs md:text-sm text-[#6b7280]">Hari</div>
+          <div className="text-xs md:text-sm text-[#6b7280]">{currentLabels.days}</div>
         </div>
         <div className="bg-[#1a1a24] rounded-lg p-2 md:p-3">
           <div className="text-lg md:text-2xl font-bold text-[#d4af37]">{timeLeft.hours}</div>
-          <div className="text-xs md:text-sm text-[#6b7280]">Jam</div>
+          <div className="text-xs md:text-sm text-[#6b7280]">{currentLabels.hours}</div>
         </div>
         <div className="bg-[#1a1a24] rounded-lg p-2 md:p-3">
           <div className="text-lg md:text-2xl font-bold text-[#d4af37]">{timeLeft.minutes}</div>
-          <div className="text-xs md:text-sm text-[#6b7280]">Menit</div>
+          <div className="text-xs md:text-sm text-[#6b7280]">{currentLabels.minutes}</div>
         </div>
         <div className="bg-[#1a1a24] rounded-lg p-2 md:p-3">
           <div className="text-lg md:text-2xl font-bold text-[#d4af37]">{timeLeft.seconds}</div>
-          <div className="text-xs md:text-sm text-[#6b7280]">Detik</div>
+          <div className="text-xs md:text-sm text-[#6b7280]">{currentLabels.seconds}</div>
         </div>
       </div>
-      <p className="text-xs md:text-sm text-[#a0a0a0]">
-        Presale berakhir {new Date().toLocaleDateString('id-ID', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          timeZone: 'Asia/Singapore'
-        })} (WIB / UTC+7)
-      </p>
-      <p className="text-xs text-[#6b7280] mt-1 md:mt-2">
-        Presale dapat berakhir lebih awal jika supply tahap telah teralokasi penuh.
-      </p>
     </div>
   );
 }

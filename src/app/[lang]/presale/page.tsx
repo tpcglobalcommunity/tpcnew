@@ -58,11 +58,17 @@ export default function PresalePage({ params }: PresalePageProps) {
             <div className="mb-6 bg-[#1A1F2E]/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-4 w-full mx-auto">
               <div className="text-center mb-3">
                 <span className="text-amber-400 text-xs font-medium uppercase tracking-wider">
-                  {lang === 'en' ? 'Time Remaining' : 'Waktu Tersisa'}
+                  {copy.countdown.title}
+                </span>
+              </div>
+              <div className="text-center mb-2">
+                <span className="text-gray-300 text-xs">
+                  {copy.countdown.endDate}
                 </span>
               </div>
               <CountdownTimer 
-                targetDate={new Date(Date.now() + (6 * 30 * 24 * 60 * 60 * 1000)).toISOString()}
+                targetDate={new Date('2026-08-09T00:00:00+07:00').toISOString()}
+                lang={lang}
               />
             </div>
             
@@ -137,15 +143,15 @@ export default function PresalePage({ params }: PresalePageProps) {
                   {/* Stage Details */}
                   <div className="space-y-3">
                     <div className="flex justify-between items-center py-3 border-b border-gray-700/50">
-                      <span className="text-gray-400 text-xs">Harga</span>
+                      <span className="text-gray-400 text-xs">{copy.cardLabels.price}</span>
                       <span className="text-white font-medium">{stage.price}</span>
                     </div>
                     <div className="flex justify-between items-center py-3 border-b border-gray-700/50">
-                      <span className="text-gray-400 text-xs">Supply</span>
+                      <span className="text-gray-400 text-xs">{copy.cardLabels.supply}</span>
                       <span className="text-white font-medium text-sm">{stage.supply}</span>
                     </div>
                     <div className="flex justify-between items-center py-3">
-                      <span className="text-gray-400 text-xs">Status</span>
+                      <span className="text-gray-400 text-xs">{copy.cardLabels.status}</span>
                       <span className={`font-medium text-xs ${
                         stage.status === 'Active' || stage.status === 'Aktif' 
                           ? 'text-green-400' 
