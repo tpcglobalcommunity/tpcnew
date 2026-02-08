@@ -246,40 +246,27 @@ export default function PresalePage({ params }: PresalePageProps) {
         
         <Container className="relative z-10 px-4">
           <div className="text-center w-full">
+            {/* Status Badge */}
             <div className="inline-flex items-center px-3 py-1.5 bg-amber-500/20 border border-amber-500/30 rounded-full mb-4">
               <span className="text-amber-400 text-xs font-medium uppercase tracking-wider">Langkah Terakhir</span>
             </div>
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
-              {copy.finalCta.title}
-            </h2>
-            <p className="text-gray-300 text-base mb-6 leading-relaxed">
+            
+            <p className="text-gray-300 text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
               {copy.finalCta.subtitle}
             </p>
             
             {/* CTA Button */}
-            <div className="relative mb-6 w-full">
+            <div className="relative w-full mx-auto">
               <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-amber-600 rounded-lg blur-lg opacity-50"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-amber-500 rounded-lg blur opacity-30 animate-pulse"></div>
               <PremiumButton 
                 href={publicPath(lang, '/member/buy')}
                 size="md"
                 fullWidth
-                className="relative bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white border-0 shadow-2xl transform hover:scale-105 transition-all duration-300 font-semibold text-base py-3"
+                className="relative bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white border-0 shadow-2xl transform hover:scale-105 transition-all duration-300 font-semibold"
               >
                 {copy.finalCta.buttonText}
               </PremiumButton>
-            </div>
-            
-            {/* Trust Indicators */}
-            <div className="flex justify-center items-center gap-4 text-xs text-gray-400">
-              <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-                <span>Aman & Terpercaya</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 bg-amber-400 rounded-full"></div>
-                <span>Kepatuhan Terjamin</span>
-              </div>
             </div>
           </div>
         </Container>

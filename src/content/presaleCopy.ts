@@ -125,7 +125,7 @@ export const presaleCopy: Record<Language, {
       ]
     },
     finalCta: {
-      title: 'Continue via Member Area',
+      title: 'Final Step',
       subtitle: 'Registration required for compliance & transparency',
       buttonText: 'Access Presale via Member Area'
     }
@@ -212,7 +212,7 @@ export const presaleCopy: Record<Language, {
       ]
     },
     finalCta: {
-      title: 'Lanjut via Member Area',
+      title: 'Langkah Terakhir',
       subtitle: 'Registrasi diperlukan untuk kepatuhan dan transparansi',
       buttonText: 'Akses Presale via Member Area'
     }
