@@ -20,115 +20,201 @@ export const presaleCopy: Record<Language, {
       status: string;
     }>;
   };
-  tokenInfo: {
+  tokenUtility: {
     title: string;
-    subtitle: string;
-    stats: Array<{
-      label: string;
-      value: string;
+    items: Array<{
+      icon: string;
+      title: string;
+      description: string;
     }>;
   };
-  importantNotes: {
+  transparency: {
     title: string;
-    items: string[];
+    subtitle: string;
+    items: Array<{
+      icon: string;
+      title: string;
+      description: string;
+    }>;
+  };
+  finalCta: {
+    title: string;
+    subtitle: string;
+    buttonText: string;
   };
 }> = {
   en: {
     hero: {
-      title: 'TPC Presale',
-      subtitle: 'Join exclusive presale and be part of future of trading education.',
-      ctaPrimary: 'Join Presale',
+      title: 'TPC Presale — Early Community Access',
+      subtitle: 'Utility token for education & DAO-based trader community',
+      ctaPrimary: 'Access Presale via Member Area',
       ctaSecondary: 'Learn More'
     },
-    trustBadges: ['No Profit Promises', 'Education First', 'Transparent Operations'],
+    trustBadges: ['Education First', 'No Guaranteed Returns', 'Public Transparency', 'DAO-Based Decisions'],
     stages: {
       title: 'Presale Stages',
-      subtitle: 'Multiple stages with different benefits and pricing.',
+      subtitle: 'Structured access with clear pricing and supply allocation.',
       items: [
         {
           stage: 'Stage 1',
-          title: 'Early Bird',
-          description: 'Exclusive early access with bonus tokens.',
-          price: '0.001 ETH',
-          supply: '1,000,000 TPC',
+          title: 'Presale Stage 1',
+          description: 'Early community access with utility token allocation.',
+          price: '$0.001',
+          supply: '200,000,000 TPC',
           status: 'Active'
         },
         {
           stage: 'Stage 2',
-          title: 'Public Sale',
-          description: 'Open to everyone with standard pricing.',
-          price: '0.002 ETH',
-          supply: '2,000,000 TPC',
+          title: 'Presale Stage 2',
+          description: 'Extended access with adjusted pricing structure.',
+          price: '$0.002',
+          supply: '100,000,000 TPC',
           status: 'Upcoming'
         }
       ]
     },
-    tokenInfo: {
-      title: 'Token Information',
-      subtitle: 'Key details about TPC token.',
-      stats: [
-        { label: 'Token Name', value: 'TPC Token' },
-        { label: 'Symbol', value: 'TPC' },
-        { label: 'Total Supply', value: '3,000,000 TPC' },
-        { label: 'Network', value: 'Ethereum' }
+    tokenUtility: {
+      title: 'Token Utility',
+      items: [
+        {
+          icon: '🎓',
+          title: 'Education Access',
+          description: 'Premium trading education resources and tools'
+        },
+        {
+          icon: '🏛️',
+          title: 'DAO Governance',
+          description: 'Participate in community decision making'
+        },
+        {
+          icon: '👥',
+          title: 'Community Privileges',
+          description: 'Exclusive member benefits and features'
+        },
+        {
+          icon: '🌐',
+          title: 'Ecosystem Utility',
+          description: 'Access to platform services and applications'
+        }
       ]
     },
-    importantNotes: {
-      title: 'Important Notes',
+    transparency: {
+      title: 'Transparency & Trust',
+      subtitle: 'Our commitment to clarity and compliance.',
       items: [
-        'No profit guarantees or ROI promises.',
-        'Always verify official contract addresses.',
-        'Trading involves risk, invest responsibly.'
+        {
+          icon: '🎓',
+          title: 'Education-First Community',
+          description: 'Professional trading education without financial promises'
+        },
+        {
+          icon: '📊',
+          title: 'No Guaranteed Returns',
+          description: 'Token utility for platform access, not investment vehicle'
+        },
+        {
+          icon: '🔍',
+          title: 'Public On-Chain Transparency',
+          description: 'All transactions and allocations visible on blockchain'
+        },
+        {
+          icon: '🗳️',
+          title: 'DAO-Based Decision Making',
+          description: 'Community governance through structured voting'
+        }
       ]
+    },
+    finalCta: {
+      title: 'Continue via Member Area',
+      subtitle: 'Registration required for compliance & transparency',
+      buttonText: 'Access Presale via Member Area'
     }
   },
   id: {
     hero: {
-      title: 'Presale TPC',
-      subtitle: 'Bergabunglah dengan presale eksklusif dan menjadi bagian dari masa depan pendidikan trading.',
-      ctaPrimary: 'Bergabung Presale',
+      title: 'TPC Presale — Akses Komunitas Awal',
+      subtitle: 'Token utilitas untuk pendidikan & komunitas trader berbasis DAO',
+      ctaPrimary: 'Akses Presale via Member Area',
       ctaSecondary: 'Pelajari Lebih Lanjut'
     },
-    trustBadges: ['Tidak Ada Janji Profit', 'Pendidikan Prioritas', 'Operasi Transparan'],
+    trustBadges: ['Pendidikan Prioritas', 'Tidak Ada Jaminan Pengembalian', 'Transparansi Publik', 'Keputusan Berbasis DAO'],
     stages: {
       title: 'Tahapan Presale',
-      subtitle: 'Beberapa tahap dengan manfaat dan harga yang berbeda.',
+      subtitle: 'Akses terstruktur dengan harga dan alokasi suplai yang jelas.',
       items: [
         {
-          stage: 'Tahap 1',
-          title: 'Early Bird',
-          description: 'Akses awal eksklusif dengan token bonus.',
-          price: '0.001 ETH',
-          supply: '1.000.000 TPC',
+          stage: 'Stage 1',
+          title: 'Tahapan Presale 1',
+          description: 'Akses komunitas awal dengan alokasi token utilitas.',
+          price: '$0.001',
+          supply: '200,000,000 TPC',
           status: 'Aktif'
         },
         {
-          stage: 'Tahap 2',
-          title: 'Penjualan Publik',
-          description: 'Terbuka untuk semua dengan harga standar.',
-          price: '0.002 ETH',
-          supply: '2.000.000 TPC',
+          stage: 'Stage 2',
+          title: 'Tahapan Presale 2',
+          description: 'Akses diperluas dengan struktur harga yang disesuaikan.',
+          price: '$0.002',
+          supply: '100,000,000 TPC',
           status: 'Akan Datang'
         }
       ]
     },
-    tokenInfo: {
-      title: 'Informasi Token',
-      subtitle: 'Detail penting tentang token TPC.',
-      stats: [
-        { label: 'Nama Token', value: 'TPC Token' },
-        { label: 'Simbol', value: 'TPC' },
-        { label: 'Total Suplai', value: '3.000.000 TPC' },
-        { label: 'Jaringan', value: 'Ethereum' }
+    tokenUtility: {
+      title: 'Utilitas Token',
+      items: [
+        {
+          icon: '🎓',
+          title: 'Akses Pendidikan',
+          description: 'Sumber daya dan alat trading edukasi premium'
+        },
+        {
+          icon: '🏛️',
+          title: 'Tata Kelola DAO',
+          description: 'Partisipasi dalam pengambilan keputusan komunitas'
+        },
+        {
+          icon: '👥',
+          title: 'Privilegi Komunitas',
+          description: 'Benefit dan fitur eksklusif untuk anggota'
+        },
+        {
+          icon: '🌐',
+          title: 'Utilitas Ekosistem',
+          description: 'Akses ke layanan dan aplikasi platform'
+        }
       ]
     },
-    importantNotes: {
-      title: 'Catatan Penting',
+    transparency: {
+      title: 'Transparansi & Kepercayaan',
+      subtitle: 'Komitmen kami pada kejelasan dan kepatuhan.',
       items: [
-        'Tidak ada jaminan profit atau janji ROI.',
-        'Selalu verifikasi alamat kontrak resmi.',
-        'Trading melibatkan risiko, investasi dengan bertanggung jawab.'
+        {
+          icon: '🎓',
+          title: 'Komunitas Pendidikan Prioritas',
+          description: 'Pendidikan trading profesional tanpa janji finansial'
+        },
+        {
+          icon: '📊',
+          title: 'Tidak Ada Jaminan Pengembalian',
+          description: 'Token utilitas untuk akses platform, bukan kendara investasi'
+        },
+        {
+          icon: '🔍',
+          title: 'Transparansi On-Chain Publik',
+          description: 'Semua transaksi dan alokasi terlihat di blockchain'
+        },
+        {
+          icon: '🗳️',
+          title: 'Keputusan Berbasis DAO',
+          description: 'Tata kelola komunitas melalui voting terstruktur'
+        }
       ]
+    },
+    finalCta: {
+      title: 'Lanjut via Member Area',
+      subtitle: 'Registrasi diperlukan untuk kepatuhan dan transparansi',
+      buttonText: 'Akses Presale via Member Area'
     }
   }
 };

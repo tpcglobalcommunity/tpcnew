@@ -8,6 +8,7 @@ import { PremiumButton } from "@/components/ui/PremiumButton";
 import { BadgeRow } from "@/components/ui/BadgeRow";
 import { StatRow } from "@/components/ui/StatRow";
 import { publicPath } from "@/lib/lang-helpers";
+import CountdownTimer from "@/components/ui/CountdownTimer";
 
 interface PresalePageProps {
   params: LangParams;
@@ -24,76 +25,101 @@ export default function PresalePage({ params }: PresalePageProps) {
   const lang = normalizeLang(params.lang);
   const copy = presaleCopy[lang];
 
-  const presaleContent = copy;
-
   return (
     <PremiumShell>
-      {/* Hero Section */}
-      <Section className="pt-6 pb-12">
+      {/* SECTION 1 — HERO */}
+      <Section className="pt-16 pb-12 bg-gradient-to-b from-[#0B0E11] to-[#1A1F2E]">
         <Container>
-          <PremiumCard variant="glass" className="text-center p-8 md:p-12">
-            <div className="max-w-4xl mx-auto">
-              <h1 className="text-3xl md:text-5xl font-bold text-fg mb-6 leading-tight">
-                {presaleContent.hero.title}
-              </h1>
-              <p className="text-lg text-muted mb-8 max-w-3xl mx-auto leading-relaxed">
-                {presaleContent.hero.subtitle}
-              </p>
-              
-              {/* Trust Badges */}
-              <BadgeRow items={presaleContent.trustBadges} className="justify-center mb-8" />
-              
-              {/* CTA Button */}
-              <PremiumButton 
-                href={publicPath(lang, '/member/buy')}
-                size="md"
-                fullWidth
-              >
-                {presaleContent.hero.ctaPrimary}
-              </PremiumButton>
+          <div className="text-center max-w-4xl mx-auto">
+            {/* Headline */}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
+              {copy.hero.title}
+            </h1>
+            
+            {/* Subheadline */}
+            <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed font-light">
+              {copy.hero.subtitle}
+            </p>
+            
+            {/* Countdown Timer */}
+            <div className="mb-8">
+              <CountdownTimer 
+                targetDate={new Date(Date.now() + (6 * 30 * 24 * 60 * 60 * 1000)).toISOString()}
+              />
             </div>
-          </PremiumCard>
+            
+            {/* Trust Badges */}
+            <BadgeRow items={copy.trustBadges} className="justify-center mb-8" />
+            
+            {/* CTA Button */}
+            <PremiumButton 
+              href={publicPath(lang, '/member/buy')}
+              size="md"
+              fullWidth
+              className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white border-0 shadow-2xl transform hover:scale-105 transition-all duration-300"
+            >
+              {copy.hero.ctaPrimary}
+            </PremiumButton>
+            
+            {/* Secondary CTA */}
+            <p className="text-sm text-gray-400 mt-4">
+              {copy.hero.ctaSecondary}
+            </p>
+          </div>
         </Container>
       </Section>
 
-      {/* Section Divider */}
-      <div className="border-t border-border/10"></div>
-
-      {/* Presale Stages */}
-      <Section>
+      {/* SECTION 2 — PRESALE STAGES */}
+      <Section className="py-16 bg-[#0B0E11]">
         <Container>
-          <div className="text-center mb-8">
-            <h2 className="text-xl md:text-2xl font-bold text-fg mb-4">
-              {presaleContent.stages.title}
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              {copy.stages.title}
             </h2>
-            <p className="text-sm text-muted leading-relaxed max-w-2xl mx-auto">
-              {presaleContent.stages.subtitle}
+            <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto">
+              {copy.stages.subtitle}
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-6">
-            {presaleContent.stages.items.map((stage: any, index: number) => (
-              <PremiumCard key={index}>
-                <PremiumCardContent>
-                  <div className="text-center mb-4">
-                    <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-accent">{stage.stage}</span>
+          {/* Stage Cards */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {copy.stages.items.map((stage, index) => (
+              <PremiumCard key={index} className="border border-gray-700 bg-[#1A1F2E] hover:border-amber-500/50 transition-all duration-300">
+                <PremiumCardContent className="p-8">
+                  {/* Stage Header */}
+                  <div className="text-center mb-6">
+                    <div className="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 rounded-full text-sm font-medium mb-3">
+                      {stage.status}
                     </div>
-                    <h3 className="text-lg font-semibold text-fg mb-2">
+                    <h3 className="text-xl font-bold text-white mb-2">
                       {stage.title}
                     </h3>
-                    <p className="text-sm text-muted mb-4">
+                    <p className="text-gray-400 text-sm">
                       {stage.description}
                     </p>
                   </div>
                   
-                  <StatRow 
-                    items={[
-                      { label: "Price", value: stage.price },
-                      { label: "Supply", value: stage.supply },
-                      { label: "Status", value: stage.status }
-                    ]}
-                  />
+                  {/* Stage Details */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center py-2 border-b border-gray-700">
+                      <span className="text-gray-400 text-sm">Price</span>
+                      <span className="text-white font-medium">{stage.price}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-2 border-b border-gray-700">
+                      <span className="text-gray-400 text-sm">Supply</span>
+                      <span className="text-white font-medium">{stage.supply}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-2">
+                      <span className="text-gray-400 text-sm">Status</span>
+                      <span className={`font-medium ${
+                        stage.status === 'Active' || stage.status === 'Aktif' 
+                          ? 'text-green-400' 
+                          : 'text-amber-400'
+                      }`}>
+                        {stage.status}
+                      </span>
+                    </div>
+                  </div>
                 </PremiumCardContent>
               </PremiumCard>
             ))}
@@ -101,61 +127,83 @@ export default function PresalePage({ params }: PresalePageProps) {
         </Container>
       </Section>
 
-      {/* Section Divider */}
-      <div className="border-t border-border/10"></div>
-
-      {/* Token Information */}
-      <Section>
+      {/* SECTION 3 — TOKEN UTILITY */}
+      <Section className="py-16 bg-[#0B0E11]">
         <Container>
-          <div className="text-center mb-8">
-            <h2 className="text-xl md:text-2xl font-bold text-fg mb-4">
-              {presaleContent.tokenInfo.title}
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              {copy.tokenUtility.title}
             </h2>
-            <p className="text-sm text-muted leading-relaxed max-w-2xl mx-auto">
-              {presaleContent.tokenInfo.subtitle}
-            </p>
           </div>
           
-          <PremiumCard>
-            <PremiumCardContent>
-              <StatRow 
-                items={presaleContent.tokenInfo.stats}
-              />
-            </PremiumCardContent>
-          </PremiumCard>
+          {/* Utility Items */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {copy.tokenUtility.items.map((item, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">{item.icon}</span>
+                </div>
+                <h3 className="text-white font-semibold mb-2">{item.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
+              </div>
+            ))}
+          </div>
         </Container>
       </Section>
 
-      {/* Section Divider */}
-      <div className="border-t border-border/10"></div>
-
-      {/* Important Notes */}
-      <Section>
+      {/* SECTION 4 — TRANSPARENCY & TRUST */}
+      <Section className="py-16 bg-[#0B0E11]">
         <Container>
-          <div className="text-center mb-8">
-            <h2 className="text-xl md:text-2xl font-bold text-fg mb-4">
-              {presaleContent.importantNotes.title}
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              {copy.transparency.title}
             </h2>
-            <p className="text-sm text-muted leading-relaxed max-w-2xl mx-auto">
-              Please read carefully before participating in the presale.
+            <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto">
+              {copy.transparency.subtitle}
             </p>
           </div>
           
-          <PremiumCard>
-            <PremiumCardContent>
-              <div className="space-y-4">
-                {presaleContent.importantNotes.items.map((note, index) => (
-                  <div key={index} className="flex items-start gap-3 p-4 bg-surface/50 rounded-lg">
-                    <span className="text-2xl mt-1">🔒</span>
+          {/* Transparency Panel */}
+          <PremiumCard className="border border-gray-700 bg-[#1A1F2E]">
+            <PremiumCardContent className="p-8">
+              <div className="space-y-6">
+                {copy.transparency.items.map((item, index) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-amber-500/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-xl">{item.icon}</span>
+                    </div>
                     <div className="flex-1">
-                      <h4 className="text-sm font-semibold text-fg mb-1">{note}</h4>
-                      <p className="text-xs text-muted leading-relaxed">{note}</p>
+                      <h4 className="text-white font-semibold mb-2">{item.title}</h4>
+                      <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </PremiumCardContent>
           </PremiumCard>
+        </Container>
+      </Section>
+
+      {/* SECTION 5 — FINAL CTA */}
+      <Section className="py-16 bg-gradient-to-b from-[#0B0E11] to-[#1A1F2E]">
+        <Container>
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              {copy.finalCta.title}
+            </h2>
+            <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+              {copy.finalCta.subtitle}
+            </p>
+            
+            <PremiumButton 
+              href={publicPath(lang, '/member/buy')}
+              size="md"
+              fullWidth
+              className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white border-0 shadow-2xl transform hover:scale-105 transition-all duration-300"
+            >
+              {copy.finalCta.buttonText}
+            </PremiumButton>
+          </div>
         </Container>
       </Section>
     </PremiumShell>
