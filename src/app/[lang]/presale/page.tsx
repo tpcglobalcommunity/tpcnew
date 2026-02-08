@@ -39,7 +39,9 @@ export default function PresalePage({ params }: PresalePageProps) {
             {/* Status Badge */}
             <div className="inline-flex items-center px-3 py-1.5 bg-amber-500/20 border border-amber-500/30 rounded-full mb-4">
               <div className="w-2 h-2 bg-amber-400 rounded-full mr-2 animate-pulse"></div>
-              <span className="text-amber-400 text-xs font-medium">Presale Aktif</span>
+              <span className="text-amber-400 text-xs font-medium">
+                {lang === 'en' ? 'Presale Active' : 'Presale Aktif'}
+              </span>
             </div>
             
             {/* Headline */}
@@ -55,7 +57,9 @@ export default function PresalePage({ params }: PresalePageProps) {
             {/* Countdown Timer */}
             <div className="mb-6 bg-[#1A1F2E]/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-4 w-full mx-auto">
               <div className="text-center mb-3">
-                <span className="text-amber-400 text-xs font-medium uppercase tracking-wider">Waktu Tersisa</span>
+                <span className="text-amber-400 text-xs font-medium uppercase tracking-wider">
+                  {lang === 'en' ? 'Time Remaining' : 'Waktu Tersisa'}
+                </span>
               </div>
               <CountdownTimer 
                 targetDate={new Date(Date.now() + (6 * 30 * 24 * 60 * 60 * 1000)).toISOString()}
@@ -97,9 +101,6 @@ export default function PresalePage({ params }: PresalePageProps) {
         
         <Container className="relative z-10 px-4">
           <div className="text-center mb-6 w-full">
-            <div className="inline-flex items-center px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full mb-3">
-              <span className="text-amber-400 text-xs font-medium">Tahapan Presale</span>
-            </div>
             <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
               {copy.stages.title}
             </h2>
@@ -168,9 +169,6 @@ export default function PresalePage({ params }: PresalePageProps) {
         
         <Container className="relative z-10 px-4">
           <div className="text-center mb-6 w-full">
-            <div className="inline-flex items-center px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full mb-4">
-              <span className="text-amber-400 text-xs font-medium">Utilitas Token</span>
-            </div>
             <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
               {copy.tokenUtility.title}
             </h2>
@@ -202,9 +200,6 @@ export default function PresalePage({ params }: PresalePageProps) {
         
         <Container className="relative z-10 px-4">
           <div className="text-center mb-6 w-full">
-            <div className="inline-flex items-center px-3 py-1.5 bg-green-500/10 border border-green-500/20 rounded-full mb-3">
-              <span className="text-green-400 text-xs font-medium">Transparansi & Kepercayaan</span>
-            </div>
             <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
               {copy.transparency.title}
             </h2>
@@ -248,7 +243,9 @@ export default function PresalePage({ params }: PresalePageProps) {
           <div className="text-center w-full">
             {/* Status Badge */}
             <div className="inline-flex items-center px-3 py-1.5 bg-amber-500/20 border border-amber-500/30 rounded-full mb-4">
-              <span className="text-amber-400 text-xs font-medium uppercase tracking-wider">Langkah Terakhir</span>
+              <span className="text-amber-400 text-xs font-medium uppercase tracking-wider">
+                {lang === 'en' ? 'Final Step' : 'Langkah Terakhir'}
+              </span>
             </div>
             
             <p className="text-gray-300 text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
