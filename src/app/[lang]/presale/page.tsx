@@ -1,5 +1,5 @@
 import { normalizeLang, type LangParams } from "@/lib/lang-helpers";
-import { homeCopy } from "@/content/homeCopy";
+import { presaleCopy } from "@/content/presaleCopy";
 import { PremiumShell } from "@/components/ui/PremiumShell";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -22,74 +22,9 @@ export function generateStaticParams() {
 
 export default function PresalePage({ params }: PresalePageProps) {
   const lang = normalizeLang(params.lang);
-  const copy = homeCopy[lang];
+  const copy = presaleCopy[lang];
 
-  const presaleContent = {
-    hero: {
-      title: lang === 'en' ? 'TPC Presale' : 'Presale TPC',
-      subtitle: lang === 'en' 
-        ? 'Join the exclusive presale and be part of the future of trading education.'
-        : 'Bergabunglah dengan presale eksklusif dan menjadi bagian dari masa depan pendidikan trading.',
-      cta: lang === 'en' ? 'Join Presale' : 'Bergabung Presale'
-    },
-    trustBadges: lang === 'en' 
-      ? ['No Profit Promises', 'Education First', 'Secure Wallet Required', 'Verified Smart Contract']
-      : ['Tidak Ada Janji Profit', 'Pendidikan Prioritas', 'Wallet Aman Diperlukan', 'Smart Contract Terverifikasi'],
-    stages: {
-      title: lang === 'en' ? 'Presale Stages' : 'Tahapan Presale',
-      subtitle: lang === 'en' 
-        ? 'Multiple stages with different benefits and pricing.'
-        : 'Beberapa tahap dengan manfaat dan harga yang berbeda.',
-      items: [
-        {
-          stage: 'Stage 1',
-          title: lang === 'en' ? 'Early Bird' : 'Early Bird',
-          description: lang === 'en' 
-            ? 'Exclusive early access with bonus tokens.'
-            : 'Akses awal eksklusif dengan token bonus.',
-          price: '0.001 ETH',
-          supply: '1,000,000 TPC',
-          status: lang === 'en' ? 'Active' : 'Aktif'
-        },
-        {
-          stage: 'Stage 2', 
-          title: lang === 'en' ? 'Public Sale' : 'Penjualan Publik',
-          description: lang === 'en' 
-            ? 'Open to everyone with standard pricing.'
-            : 'Terbuka untuk semua dengan harga standar.',
-          price: '0.002 ETH',
-          supply: '2,000,000 TPC',
-          status: lang === 'en' ? 'Upcoming' : 'Akan Datang'
-        }
-      ]
-    },
-    tokenInfo: {
-      title: lang === 'en' ? 'Token Information' : 'Informasi Token',
-      subtitle: lang === 'en' 
-        ? 'Key details about the TPC token.'
-        : 'Detail penting tentang token TPC.',
-      stats: [
-        { label: 'Token Name', value: 'TPC Token' },
-        { label: 'Symbol', value: 'TPC' },
-        { label: 'Total Supply', value: '3,000,000 TPC' },
-        { label: 'Network', value: 'Ethereum' }
-      ]
-    },
-    importantNotes: {
-      title: lang === 'en' ? 'Important Notes' : 'Catatan Penting',
-      items: lang === 'en' 
-        ? [
-            'No profit guarantees or ROI promises.',
-            'Always verify official contract addresses.',
-            'Trading involves risk, invest responsibly.'
-          ]
-        : [
-            'Tidak ada jaminan profit atau janji ROI.',
-            'Selalu verifikasi alamat kontrak resmi.',
-            'Trading melibatkan risiko, investasi dengan bertanggung jawab.'
-          ]
-    }
-  };
+  const presaleContent = copy;
 
   return (
     <PremiumShell>
@@ -114,7 +49,7 @@ export default function PresalePage({ params }: PresalePageProps) {
                 size="md"
                 fullWidth
               >
-                {presaleContent.hero.cta}
+                {presaleContent.hero.ctaPrimary}
               </PremiumButton>
             </div>
           </PremiumCard>
@@ -202,7 +137,7 @@ export default function PresalePage({ params }: PresalePageProps) {
               {presaleContent.importantNotes.title}
             </h2>
             <p className="text-sm text-muted leading-relaxed max-w-2xl mx-auto">
-              {presaleContent.importantNotes.subtitle}
+              Please read carefully before participating in the presale.
             </p>
           </div>
           
@@ -211,10 +146,10 @@ export default function PresalePage({ params }: PresalePageProps) {
               <div className="space-y-4">
                 {presaleContent.importantNotes.items.map((note, index) => (
                   <div key={index} className="flex items-start gap-3 p-4 bg-surface/50 rounded-lg">
-                    <span className="text-2xl mt-1">{note.icon}</span>
+                    <span className="text-2xl mt-1">🔒</span>
                     <div className="flex-1">
-                      <h4 className="text-sm font-semibold text-fg mb-1">{note.title}</h4>
-                      <p className="text-xs text-muted leading-relaxed">{note.description}</p>
+                      <h4 className="text-sm font-semibold text-fg mb-1">{note}</h4>
+                      <p className="text-xs text-muted leading-relaxed">{note}</p>
                     </div>
                   </div>
                 ))}
