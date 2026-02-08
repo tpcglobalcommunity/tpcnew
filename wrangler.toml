@@ -1,0 +1,19 @@
+# Cloudflare Pages Configuration
+name = "tpc-global"
+compatibility_date = "2026-02-08"
+
+[env.production]
+# Production environment
+
+[env.staging]
+# Staging environment
+
+# Build settings
+[build]
+command = "npm run build"
+directory = ".next"
+
+# Environment variables (will be set via dashboard or CLI)
+# NEXT_PUBLIC_SUPABASE_URL
+# NEXT_PUBLIC_SUPABASE_ANON_KEY
+# etc.

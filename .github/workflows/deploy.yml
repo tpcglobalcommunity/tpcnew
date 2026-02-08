@@ -1,0 +1,54 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+          NEXT_PUBLIC_SOLANA_RPC_URL: ${{ secrets.NEXT_PUBLIC_SOLANA_RPC_URL }}
+          NEXT_PUBLIC_TPC_MINT_ADDRESS: ${{ secrets.NEXT_PUBLIC_TPC_MINT_ADDRESS }}
+          NEXT_PUBLIC_TREASURY_WALLET: ${{ secrets.NEXT_PUBLIC_TREASURY_WALLET }}
+          NEXT_PUBLIC_TOKEN_DECIMALS: ${{ secrets.NEXT_PUBLIC_TOKEN_DECIMALS }}
+          NEXT_PUBLIC_USDC_PRICE: ${{ secrets.NEXT_PUBLIC_USDC_PRICE }}
+          NEXT_PUBLIC_IDR_EXCHANGE_RATE: ${{ secrets.NEXT_PUBLIC_IDR_EXCHANGE_RATE }}
+          NEXT_PUBLIC_STAGE_1_SUPPLY_CAP: ${{ secrets.NEXT_PUBLIC_STAGE_1_SUPPLY_CAP }}
+          NEXT_PUBLIC_PRESALE_START_DATE: ${{ secrets.NEXT_PUBLIC_PRESALE_START_DATE }}
+          NEXT_PUBLIC_PRESALE_DURATION_MONTHS: ${{ secrets.NEXT_PUBLIC_PRESALE_DURATION_MONTHS }}
+          ADMIN_USER_IDS: ${{ secrets.ADMIN_USER_IDS }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_ADMIN_CHAT_ID: ${{ secrets.TELEGRAM_ADMIN_CHAT_ID }}
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: tpc-global
+          directory: .next
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
