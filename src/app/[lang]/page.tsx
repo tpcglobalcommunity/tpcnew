@@ -1,8 +1,11 @@
 import { Metadata } from "next";
 import { PremiumShell } from "@/components/ui/PremiumShell";
-import { Button } from "@/components/ui/Card";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
-import { TrustBadges, FeatureCard, Step, FAQItem } from "@/components/home/HomeComponents";
+import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
+import { PremiumCard, PremiumCardHeader, PremiumCardContent } from "@/components/ui/PremiumCardNew";
+import { PremiumButton } from "@/components/ui/PremiumButtonNew";
+import { BadgeRow } from "@/components/ui/BadgeRow";
+import { StatRow } from "@/components/ui/StatRow";
 import { publicPath, homeCopy, type Language } from "@/content/homeCopy";
 
 interface HomePageProps {
@@ -38,180 +41,209 @@ export default function HomePage({ params }: HomePageProps) {
 
   return (
     <PremiumShell>
-      <div className="min-h-screen">
-        {/* Hero Section */}
-        <section className="relative overflow-hidden">
-          {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0f] via-[#1a1a24] to-[#0f0f1a]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#d4af37]/5 to-transparent" />
-          
-          <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-24">
-            <div className="text-center mb-12 md:mb-16">
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 md:mb-8 leading-tight">
-                {copy.hero.title}
-              </h1>
-              <p className="text-lg md:text-xl lg:text-2xl text-[#a0a0a0] mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed">
-                {copy.hero.subtitle}
-              </p>
-              
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button 
-                  href={publicPath(lang, '/presale')}
-                  variant="primary"
-                  size="lg"
-                  className="w-full sm:w-auto"
-                >
-                  {copy.hero.ctaPrimary}
-                </Button>
-                <Button 
-                  href={publicPath(lang, '/transparency')}
-                  variant="secondary"
-                  size="lg"
-                  className="w-full sm:w-auto"
-                >
-                  {copy.hero.ctaSecondary}
-                </Button>
-              </div>
+      {/* Hero Section */}
+      <Section className="pt-16 pb-12">
+        <Container>
+          <div className="text-center">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 md:mb-8 leading-tight">
+              {copy.hero.title}
+            </h1>
+            <p className="text-lg md:text-xl lg:text-2xl text-[#a0a0a0] mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed">
+              {copy.hero.subtitle}
+            </p>
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <PremiumButton 
+                href={publicPath(lang, '/presale')}
+                size="md"
+              >
+                {copy.hero.ctaPrimary}
+              </PremiumButton>
+              <PremiumButton 
+                href={publicPath(lang, '/transparency')}
+                variant="secondary"
+                size="md"
+              >
+                {copy.hero.ctaSecondary}
+              </PremiumButton>
             </div>
           </div>
-        </section>
+        </Container>
+      </Section>
 
-        {/* Trust Badges Section */}
-        <section className="max-w-6xl mx-auto px-4 py-12 md:py-16">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+      {/* Trust Badges Section */}
+      <Section>
+        <Container>
+          <div className="text-center mb-8">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
               Trust & Safety
             </h2>
           </div>
-          <TrustBadges items={copy.trustBadges} />
-        </section>
+          <BadgeRow items={copy.trustBadges} className="justify-center" />
+        </Container>
+      </Section>
 
-        {/* What is TPC Section */}
-        <section className="max-w-6xl mx-auto px-4 py-12 md:py-16">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+      {/* What is TPC Section */}
+      <Section>
+        <Container>
+          <div className="text-center mb-8">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
               {copy.whatIsTPC.title}
             </h2>
             <p className="text-base md:text-lg text-[#a0a0a0] mb-8 max-w-3xl mx-auto leading-relaxed">
               {copy.whatIsTPC.description}
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {copy.whatIsTPC.points.map((point, index) => (
-              <Card key={index} className="text-center">
-                <CardContent>
+              <PremiumCard key={index} className="text-center">
+                <PremiumCardContent>
                   <div className="w-12 h-12 bg-[#d4af37]/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-[#d4af37] text-xl font-bold">{index + 1}</span>
                   </div>
                   <p className="text-sm md:text-base text-white leading-relaxed">
                     {point}
                   </p>
-                </CardContent>
-              </Card>
+                </PremiumCardContent>
+              </PremiumCard>
             ))}
           </div>
-        </section>
+        </Container>
+      </Section>
 
-        {/* Features Section */}
-        <section className="max-w-6xl mx-auto px-4 py-12 md:py-16">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+      {/* Features Section */}
+      <Section>
+        <Container>
+          <div className="text-center mb-8">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
               Core Features
             </h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {copy.features.map((feature, index) => (
-              <FeatureCard
-                key={index}
-                title={feature.title}
-                description={feature.description}
-                icon={feature.icon}
-                href={publicPath(lang, feature.href)}
-              />
+              <PremiumCard key={index} className="text-center">
+                <PremiumCardContent>
+                  <div className="text-3xl md:text-4xl mb-4">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-sm md:text-base text-[#a0a0a0] mb-4 leading-relaxed">
+                    {feature.description}
+                  </p>
+                  <a 
+                    href={publicPath(lang, feature.href)}
+                    className="inline-flex items-center text-[#d4af37] hover:text-[#b8941f] text-sm font-medium transition-colors duration-300"
+                  >
+                    Learn more →
+                  </a>
+                </PremiumCardContent>
+              </PremiumCard>
             ))}
           </div>
-        </section>
+        </Container>
+      </Section>
 
-        {/* How it Works Section */}
-        <section className="max-w-6xl mx-auto px-4 py-12 md:py-16">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+      {/* How it Works Section */}
+      <Section>
+        <Container>
+          <div className="text-center mb-8">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
               {copy.howItWorks.title}
             </h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {copy.howItWorks.steps.map((step, index) => (
-              <Step key={index} number={index + 1} text={step} />
+              <PremiumCard key={index}>
+                <PremiumCardContent>
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-8 h-8 bg-[#d4af37] rounded-full flex items-center justify-center text-black font-bold text-sm">
+                      {index + 1}
+                    </div>
+                    <p className="text-sm md:text-base text-[#a0a0a0] leading-relaxed">
+                      {step}
+                    </p>
+                  </div>
+                </PremiumCardContent>
+              </PremiumCard>
             ))}
           </div>
-        </section>
+        </Container>
+      </Section>
 
-        {/* FAQ Section */}
-        <section className="max-w-6xl mx-auto px-4 py-12 md:py-16">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+      {/* FAQ Section */}
+      <Section>
+        <Container>
+          <div className="text-center mb-8">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
               Frequently Asked Questions
             </h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid md:grid-cols-2 gap-6">
             {copy.faq.map((item, index) => (
-              <FAQItem
-                key={index}
-                question={item.question}
-                answer={item.answer}
-              />
+              <PremiumCard key={index}>
+                <PremiumCardContent>
+                  <h4 className="text-base md:text-lg font-bold text-white mb-3">
+                    {item.question}
+                  </h4>
+                  <p className="text-sm md:text-base text-[#a0a0a0] leading-relaxed">
+                    {item.answer}
+                  </p>
+                </PremiumCardContent>
+              </PremiumCard>
             ))}
           </div>
-        </section>
+        </Container>
+      </Section>
 
-        {/* Footer Section */}
-        <footer className="border-t border-[#2a2a3a]/50 mt-20">
-          <div className="max-w-6xl mx-auto px-4 py-8 md:py-12">
-            <div className="text-center">
-              <div className="flex flex-col md:flex-row gap-4 justify-center items-center mb-6">
-                <a 
-                  href={publicPath(lang, '/terms')}
-                  className="text-[#a0a0a0] hover:text-white text-sm transition-colors duration-300"
-                >
-                  Terms & Conditions
-                </a>
-                <span className="text-[#2a2a3a]">•</span>
-                <a 
-                  href={publicPath(lang, '/privacy')}
-                  className="text-[#a0a0a0] hover:text-white text-sm transition-colors duration-300"
-                >
-                  Privacy Policy
-                </a>
-                <span className="text-[#2a2a3a]">•</span>
-                <a 
-                  href={publicPath(lang, '/aml-policy')}
-                  className="text-[#a0a0a0] hover:text-white text-sm transition-colors duration-300"
-                >
-                  AML Policy
-                </a>
-              </div>
-              <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
-                <a 
-                  href="https://t.me/tpcglobalcommunity"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-[#d4af37] hover:text-[#b8941f] transition-colors duration-300"
-                >
-                  <span className="text-xl">📱</span>
-                  <span className="text-sm font-medium">Join Telegram Channel</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </a>
-                <div className="text-xs text-[#6b7280]">
-                  <span className="font-mono">@tpcglobalcommunity</span>
-                </div>
+      {/* Footer Section */}
+      <footer className="border-t border-[#2a2a3a]/50 mt-20">
+        <Container>
+          <div className="py-8 md:py-12 text-center">
+            <div className="flex flex-col md:flex-row gap-4 justify-center items-center mb-6">
+              <a 
+                href={publicPath(lang, '/terms')}
+                className="text-[#a0a0a0] hover:text-white text-sm transition-colors duration-300"
+              >
+                Terms & Conditions
+              </a>
+              <span className="text-[#2a2a3a]">•</span>
+              <a 
+                href={publicPath(lang, '/privacy')}
+                className="text-[#a0a0a0] hover:text-white text-sm transition-colors duration-300"
+              >
+                Privacy Policy
+              </a>
+              <span className="text-[#2a2a3a]">•</span>
+              <a 
+                href={publicPath(lang, '/aml-policy')}
+                className="text-[#a0a0a0] hover:text-white text-sm transition-colors duration-300"
+              >
+                AML Policy
+              </a>
+            </div>
+            <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
+              <a 
+                href="https://t.me/tpcglobalcommunity"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[#d4af37] hover:text-[#b8941f] transition-colors duration-300"
+              >
+                <span className="text-xl">📱</span>
+                <span className="text-sm font-medium">Join Telegram Channel</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+              <div className="text-xs text-[#6b7280]">
+                <span className="font-mono">@tpcglobalcommunity</span>
               </div>
             </div>
           </div>
-        </footer>
-      </div>
+        </Container>
+      </footer>
     </PremiumShell>
   );
 }
