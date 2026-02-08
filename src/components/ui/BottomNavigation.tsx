@@ -9,28 +9,34 @@ export default function BottomNavigation() {
   
   const navItems = [
     {
+      name: "Home",
+      href: "/",
+      icon: "🏠",
+      label: "Home"
+    },
+    {
+      name: "DAO",
+      href: "/dao",
+      icon: "🏛️",
+      label: "DAO"
+    },
+    {
       name: "Presale",
       href: "/presale",
       icon: "🚀",
-      label: "Beli Token"
+      label: "Presale"
     },
     {
-      name: "Kenapa TPC",
-      href: "/why-tpc",
-      icon: "💎",
-      label: "Tentang Kami"
+      name: "Academy",
+      href: "/academy",
+      icon: "📚",
+      label: "Academy"
     },
     {
-      name: "Risiko",
-      href: "/risk-disclosure",
-      icon: "⚠️",
-      label: "Disclosure"
-    },
-    {
-      name: "Masuk",
+      name: "Login",
       href: "/login",
       icon: "👤",
-      label: "Akun Saya"
+      label: "Login"
     }
   ];
 
@@ -48,32 +54,30 @@ export default function BottomNavigation() {
                 className={`group flex flex-col items-center justify-center px-3 py-2 rounded-xl transition-all duration-300 relative ${
                   isActive
                     ? "text-[#d4af37]"
-                    : "text-[#6b7280] hover:text-white"
+                    : "text-[#a0a0a0] hover:text-white"
                 }`}
               >
                 {/* Active indicator */}
                 {isActive && (
-                  <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-gradient-to-r from-[#d4af37] to-[#f4e4c1] rounded-full"></div>
+                  <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#d4af37] rounded-full"></div>
                 )}
                 
-                {/* Icon container */}
-                <div className={`relative transition-all duration-300 ${
-                  isActive ? "scale-110" : "scale-100 group-hover:scale-105"
+                {/* Icon */}
+                <span className={`text-lg md:text-xl mb-1 transition-transform duration-300 ${
+                  isActive ? "scale-110" : "group-hover:scale-105"
                 }`}>
-                  <span className="text-2xl block filter drop-shadow-lg">{item.icon}</span>
-                  {/* Glow effect for active */}
-                  {isActive && (
-                    <div className="absolute inset-0 bg-[#d4af37]/20 rounded-full blur-xl"></div>
-                  )}
-                </div>
+                  {item.icon}
+                </span>
                 
                 {/* Label */}
-                <span className="text-xs font-medium mt-1 leading-tight">
+                <span className="text-xs md:text-sm font-medium">
                   {item.name}
                 </span>
                 
-                {/* Subtle hover background */}
-                <div className={`absolute inset-0 bg-gradient-to-t from-[#d4af37]/10 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
+                {/* Hover effect */}
+                <div className={`absolute inset-0 bg-[#d4af37]/5 rounded-xl transition-opacity duration-300 ${
+                  isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                }`}></div>
               </Link>
             );
           })}
