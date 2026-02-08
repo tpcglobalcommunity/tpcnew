@@ -55,8 +55,8 @@ export default function BottomNavigation({ lang }: BottomNavigationProps) {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-bg border-t border-border/20 backdrop-blur-lg z-50 shadow-2xl">
-      <div className="max-w-6xl mx-auto">
+    <div className="fixed bottom-0 left-0 right-0 bg-bg border-t border-border/20 backdrop-blur-lg z-50 shadow-2xl" style={{ zIndex: 9999 }}>
+      <div className="max-w-6xl mx-auto" style={{ position: 'relative', zIndex: 9999 }}>
         <div className="flex justify-around items-center py-3">
           {navItems.map((item) => {
             let fullHref;
