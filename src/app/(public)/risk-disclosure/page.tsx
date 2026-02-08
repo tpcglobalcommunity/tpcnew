@@ -5,8 +5,8 @@ import { PremiumButton } from "@/components/ui/PremiumButton";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Risk Disclosure | TPC Presale - Understand the Risks",
-  description: "Full risk disclosure for TPC presale. Understand crypto volatility, no guarantees, and user responsibility before participating. Education-first approach.",
+  title: "Pengungkapan Risiko | TPC Presale - Pahami Risiko Sepenuhnya",
+  description: "Pengungkapan risiko lengkap untuk presale TPC. Pahami volatilitas kripto, tidak ada jaminan, dan tanggung jawab pengguna sebelum berpartisipasi. Pendekatan edukasi terlebih dahulu.",
 };
 
 export default function RiskDisclosurePage() {
@@ -14,221 +14,427 @@ export default function RiskDisclosurePage() {
     <PremiumShell>
       <div className="min-h-screen">
         {/* Header */}
-        <header className="border-b border-[#2a2a3a]">
-          <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-            <Link href="/" className="text-2xl font-bold text-[#d4af37]">TPC Global</Link>
-            <Link href="/presale" className="text-[#a0a0a0] hover:text-white transition">
-              ← Back to Presale
+        <header className="border-b border-[#2a2a3a]/50 backdrop-blur-sm">
+          <div className="max-w-6xl mx-auto px-4 py-6 flex justify-between items-center">
+            <Link href="/" className="text-2xl font-bold text-[#d4af37] flex items-center gap-2">
+              <span className="text-3xl">⚖️</span>
+              TPC Global
+            </Link>
+            <Link href="/presale" className="text-[#a0a0a0] hover:text-white transition flex items-center gap-2 bg-[#1a1a24] px-4 py-2 rounded-lg border border-[#2a2a3a] hover:border-[#d4af37]/50">
+              <span>←</span>
+              Kembali ke Presale
             </Link>
           </div>
         </header>
 
-        <main className="max-w-4xl mx-auto px-4 py-12">
-          {/* Hero */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Risk <span className="text-[#d4af37]">Disclosure</span>
+        <main className="max-w-6xl mx-auto px-4 py-16">
+          {/* Hero Section */}
+          <div className="text-center mb-20">
+            <div className="mb-8">
+              <div className="inline-flex items-center gap-3 bg-red-500/10 border border-red-500/30 rounded-full px-6 py-3 mb-6">
+                <span className="text-2xl">⚠️</span>
+                <span className="text-red-400 font-medium">Pernyataan Risiko Penting</span>
+              </div>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+              Pengungkapan <span className="text-red-400">Risiko</span>
             </h1>
-            <p className="text-xl text-[#a0a0a0]">
-              Please read carefully before participating
+            <p className="text-2xl text-[#a0a0a0] mb-8 max-w-3xl mx-auto">
+              Baca dengan Teliti Sebelum Membuat Keputusan Finansial
             </p>
+            <div className="bg-gradient-to-r from-red-500/20 to-transparent rounded-2xl p-8 max-w-4xl mx-auto border border-red-500/30">
+              <p className="text-xl text-white leading-relaxed mb-4">
+                Partisipasi dalam presale TPC melibatkan risiko signifikan yang dapat mengakibatkan kehilangan seluruh investasi Anda.
+              </p>
+              <p className="text-lg text-red-400 font-bold leading-relaxed">
+                HANYA INVESTASIKAN DANA YANG ANDA SIAP KEHILANGKAN SEPENUHNYA
+              </p>
+            </div>
           </div>
 
-          {/* Introduction */}
-          <PremiumCard className="mb-8">
-            <p className="text-lg text-[#a0a0a0] mb-4">
-              Presale TPC bukan penawaran investasi dan bukan skema keuntungan finansial.
-            </p>
-            <p className="text-lg text-[#a0a0a0]">
-              Presale ini adalah akses awal ke ekosistem TPC yang dibangun dengan prinsip edukasi, transparansi, dan tata kelola komunitas.
-            </p>
-          </PremiumCard>
-
-          {/* What You Get */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-[#d4af37]">🔍 Apa yang Kamu Dapatkan dari Presale TPC?</h2>
-            <PremiumCard>
-              <p className="text-[#a0a0a0] mb-4">
-                Dengan berpartisipasi di presale, kamu tidak membeli janji hasil, tetapi mendapatkan:
-              </p>
-              <ul className="space-y-3 text-white">
-                <li>✅ Akses awal ke ekosistem TPC</li>
-                <li>✅ Partisipasi dalam komunitas Trader Professional Community</li>
-                <li>✅ Hak menggunakan TPC sebagai utility token di dalam sistem</li>
-                <li>✅ Kesempatan mengikuti perkembangan platform sejak tahap awal</li>
-                <li>✅ Transparansi penuh atas supply, tahap, dan alokasi token</li>
-              </ul>
-              <p className="text-[#a0a0a0] mt-4">
-                Semua penggunaan TPC dijelaskan terbuka dan dapat diaudit.
-              </p>
-            </PremiumCard>
+          {/* Critical Warning */}
+          <section className="mb-20">
+            <div className="bg-red-900/20 border-2 border-red-500 rounded-2xl p-12">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-red-400 mb-4 flex items-center justify-center gap-3">
+                  <span className="text-4xl">🚨</span>
+                  Peringatan Kritis
+                </h2>
+              </div>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <span className="text-red-400 text-2xl mt-1">⚠️</span>
+                    <div>
+                      <h3 className="text-lg font-bold text-red-400 mb-2">Tidak Adanya Jaminan</h3>
+                      <p className="text-[#a0a0a0] leading-relaxed">
+                        TPC tidak menjamin keuntungan, return, atau likuiditas apa pun. Nilai token dapat turun menjadi nol.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <span className="text-red-400 text-2xl mt-1">⚠️</span>
+                    <div>
+                      <h3 className="text-lg font-bold text-red-400 mb-2">Volatilitas Ekstrem</h3>
+                      <p className="text-[#a0a0a0] leading-relaxed">
+                        Harga kripto sangat volatile dan dapat berubah drastis dalam waktu singkat tanpa peringatan.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <span className="text-red-400 text-2xl mt-1">⚠️</span>
+                    <div>
+                      <h3 className="text-lg font-bold text-red-400 mb-2">Risiko Regulasi</h3>
+                      <p className="text-[#a0a0a0] leading-relaxed">
+                        Perubahan regulasi dapat mempengaruhi nilai dan legalitas aset kripto secara signifikan.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <span className="text-red-400 text-2xl mt-1">⚠️</span>
+                    <div>
+                      <h3 className="text-lg font-bold text-red-400 mb-2">Risiko Teknologi</h3>
+                      <p className="text-[#a0a0a0] leading-relaxed">
+                        Bug, hack, atau kegagalan teknis dapat mengakibatkan kehilangan dana secara permanen.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
-          {/* Important Understanding */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-[#d4af37]">⚠️ Hal Penting yang Harus Dipahami</h2>
-            <PremiumCard variant="gold">
-              <h3 className="font-semibold mb-4 text-[#d4af37]">Presale TPC:</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <span className="text-red-500 font-bold">❌</span>
-                  <span>Bukan jaminan keuntungan</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-red-500 font-bold">❌</span>
-                  <span>Bukan program bagi hasil</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-red-500 font-bold">❌</span>
-                  <span>Bukan produk investasi</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-red-500 font-bold">❌</span>
-                  <span>Tidak menjanjikan ROI, APY, atau return apa pun</span>
-                </li>
-              </ul>
-              <p className="text-[#a0a0a0] mt-6">
-                Nilai dan manfaat yang dirasakan pengguna bergantung pada: partisipasi individu, pemahaman risiko, dan perkembangan ekosistem secara alami.
-              </p>
-            </PremiumCard>
-          </section>
-
-          {/* Why No Profit Promise */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-[#d4af37]">🧠 Kenapa TPC Tidak Menjanjikan Profit?</h2>
-            <PremiumCard>
-              <p className="text-[#a0a0a0] mb-4">
-                Karena TPC dibangun untuk jangka panjang, bukan sensasi sesaat.
-              </p>
-              <p className="text-white mb-4">Kami percaya:</p>
-              <ul className="space-y-2 text-[#a0a0a0] mb-6">
-                <li>• edukasi lebih penting dari hype,</li>
-                <li>• sistem lebih penting dari klaim,</li>
-                <li>• dan kejujuran lebih kuat dari janji manis.</li>
-              </ul>
-              <p className="text-[#a0a0a0]">
-                TPC memilih membangun fondasi, bukan menciptakan ekspektasi palsu.
-              </p>
-            </PremiumCard>
-          </section>
-
-          {/* Transparency */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-[#d4af37]">🧱 Transparansi Presale</h2>
-            <PremiumCard>
-              <p className="text-[#a0a0a0] mb-4">
-                Presale TPC dilakukan secara bertahap dan terbuka:
-              </p>
-              <ul className="space-y-2 text-white">
-                <li>• Harga & supply per tahap diumumkan jelas</li>
-                <li>• Wallet treasury dapat diverifikasi</li>
-                <li>• Riwayat transaksi tercatat</li>
-                <li>• Tidak ada mekanisme tersembunyi</li>
-              </ul>
-              <p className="text-[#a0a0a0] mt-4">
-                Setiap peserta dapat melihat apa yang terjadi dengan dana dan token.
-              </p>
-            </PremiumCard>
-          </section>
-
-          {/* Security */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-[#d4af37]">🛡️ Keamanan & Kepatuhan</h2>
-            <PremiumCard>
-              <p className="text-[#a0a0a0] mb-4">
-                TPC dirancang dengan:
-              </p>
-              <ul className="space-y-2 text-white">
-                <li>• sistem anti-scam,</li>
-                <li>• pencatatan transaksi yang rapi,</li>
-                <li>• kontrol internal berbasis aturan,</li>
-                <li>• dan kebijakan kepatuhan sejak awal.</li>
-              </ul>
-              <p className="text-[#a0a0a0] mt-4">
-                Ini bukan gimmick — ini fondasi agar ekosistem bisa bertahan.
-              </p>
-            </PremiumCard>
-          </section>
-
-          {/* For Whom */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-[#d4af37]">🚀 Untuk Siapa Presale Ini Cocok?</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <PremiumCard variant="gold">
-                <h3 className="font-semibold text-[#d4af37] mb-4">Presale cocok untuk:</h3>
-                <ul className="space-y-2 text-white">
-                  <li>✅ mereka yang memahami risiko,</li>
-                  <li>✅ ingin belajar & berkembang bersama komunitas,</li>
-                  <li>✅ menghargai transparansi,</li>
-                  <li>✅ dan tidak mencari janji hasil instan.</li>
+          {/* Detailed Risks */}
+          <section className="mb-20">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-[#d4af37] mb-4 flex items-center justify-center gap-3">
+                <span className="text-4xl">📋</span>
+                Risiko Rinci
+              </h2>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <PremiumCard className="h-full">
+                <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-red-500">
+                  <span className="text-2xl">📉</span>
+                </div>
+                <h3 className="text-xl font-bold text-red-400 mb-4">Risiko Pasar</h3>
+                <ul className="space-y-3 text-sm text-[#a0a0a0]">
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Harga dapat turun drastis atau menjadi nol</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Tidak ada likuiditas yang dijamin</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Pasar dapat dimanipulasi oleh whale</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Sentimen pasar mempengaruhi harga</span>
+                  </li>
                 </ul>
               </PremiumCard>
 
-              <PremiumCard>
-                <h3 className="font-semibold text-[#6b7280] mb-4">Presale tidak cocok untuk:</h3>
-                <ul className="space-y-2 text-[#a0a0a0]">
-                  <li>❌ pencari profit cepat,</li>
-                  <li>❌ pemburu janji ROI,</li>
-                  <li>❌ atau mereka yang ingin &quot;dipastikan untung&quot;.</li>
+              <PremiumCard className="h-full">
+                <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-red-500">
+                  <span className="text-2xl">🔐</span>
+                </div>
+                <h3 className="text-xl font-bold text-red-400 mb-4">Risiko Keamanan</h3>
+                <ul className="space-y-3 text-sm text-[#a0a0a0]">
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Risiko hack dan pencurian digital</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Kehilangan akses ke wallet</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Phishing dan social engineering</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Vulnerability smart contract</span>
+                  </li>
+                </ul>
+              </PremiumCard>
+
+              <PremiumCard className="h-full">
+                <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-red-500">
+                  <span className="text-2xl">⚖️</span>
+                </div>
+                <h3 className="text-xl font-bold text-red-400 mb-4">Risiko Legal</h3>
+                <ul className="space-y-3 text-sm text-[#a0a0a0]">
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Perubahan regulasi tiba-tiba</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Status legal yang tidak jelas</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Pajak dan pelaporan kompleks</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Batasan geografis tertentu</span>
+                  </li>
+                </ul>
+              </PremiumCard>
+
+              <PremiumCard className="h-full">
+                <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-red-500">
+                  <span className="text-2xl">💻</span>
+                </div>
+                <h3 className="text-xl font-bold text-red-400 mb-4">Risiko Teknis</h3>
+                <ul className="space-y-3 text-sm text-[#a0a0a0]">
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Kegagalan sistem blockchain</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Bug dalam smart contract</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Network congestion dan delay</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Upgrade sistem yang gagal</span>
+                  </li>
+                </ul>
+              </PremiumCard>
+
+              <PremiumCard className="h-full">
+                <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-red-500">
+                  <span className="text-2xl">🏢</span>
+                </div>
+                <h3 className="text-xl font-bold text-red-400 mb-4">Risiko Operasional</h3>
+                <ul className="space-y-3 text-sm text-[#a0a0a0]">
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Kegagalan manajemen tim</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Kurangnya likuiditas internal</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Konflik internal tim</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Kesalahan operasional</span>
+                  </li>
+                </ul>
+              </PremiumCard>
+
+              <PremiumCard className="h-full">
+                <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-red-500">
+                  <span className="text-2xl">🌍</span>
+                </div>
+                <h3 className="text-xl font-bold text-red-400 mb-4">Risiko Makro</h3>
+                <ul className="space-y-3 text-sm text-[#a0a0a0]">
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Krisis ekonomi global</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Kebijakan moneter bank sentral</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Geopolitik dan sanksi</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-400 mt-1">•</span>
+                    <span>Pandemi atau bencana alam</span>
+                  </li>
                 </ul>
               </PremiumCard>
             </div>
           </section>
 
-          {/* Agreement */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-[#d4af37]">✅ Sebelum Melanjutkan</h2>
-            <PremiumCard>
-              <p className="text-[#a0a0a0] mb-4">
-                Dengan mengikuti presale TPC, kamu menyatakan bahwa:
-              </p>
-              <ul className="space-y-3 text-white">
-                <li className="flex items-start gap-3">
-                  <span className="text-green-500">✓</span>
-                  <span>telah membaca dan memahami informasi di atas,</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-500">✓</span>
-                  <span>memahami bahwa tidak ada jaminan hasil finansial,</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-500">✓</span>
-                  <span>dan berpartisipasi secara sadar dan sukarela.</span>
-                </li>
-              </ul>
+          {/* User Responsibility */}
+          <section className="mb-20">
+            <PremiumCard className="bg-gradient-to-br from-[#1a1a24] to-[#0a0a0f] border-[#d4af37]/30">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-[#d4af37] mb-4 flex items-center justify-center gap-3">
+                  <span className="text-4xl">👤</span>
+                  Tanggung Jawab Pengguna
+                </h2>
+              </div>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-6">Sebelum Berpartisipasi:</h3>
+                  <ul className="space-y-4 text-[#a0a0a0]">
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#d4af37] mt-1">✓</span>
+                      <span>Lakukan riset independen menyeluruh</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#d4af37] mt-1">✓</span>
+                      <span>Pahami teknologi blockchain dan kripto</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#d4af37] mt-1">✓</span>
+                      <span>Konsultasi dengan penasihat finansial</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#d4af37] mt-1">✓</span>
+                      <span>Periksa status legal di yurisdiksi Anda</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#d4af37] mt-1">✓</span>
+                      <span>Hanya investasikan dana yang siap hilang</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-6">Selama Berpartisipasi:</h3>
+                  <ul className="space-y-4 text-[#a0a0a0]">
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#d4af37] mt-1">✓</span>
+                      <span>Amankan private keys dengan baik</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#d4af37] mt-1">✓</span>
+                      <span>Gunakan hardware wallet untuk jumlah besar</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#d4af37] mt-1">✓</span>
+                      <span>Waspadai phishing dan scam</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#d4af37] mt-1">✓</span>
+                      <span>Monitor perkembangan proyek secara aktif</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#d4af37] mt-1">✓</span>
+                      <span>Patuhi kewajiban perpajakan</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </PremiumCard>
           </section>
 
-          {/* Final Statement */}
-          <PremiumCard className="text-center mb-12">
-            <h2 className="text-2xl font-bold mb-4 text-[#d4af37]">TPC Presale</h2>
-            <p className="text-lg text-white mb-2">
-              Bukan janji profit.
-            </p>
-            <p className="text-lg text-white mb-2">
-              Bukan spekulasi kosong.
-            </p>
-            <p className="text-lg text-[#d4af37]">
-              Tapi akses ke ekosistem yang dibangun dengan serius.
-            </p>
-          </PremiumCard>
+          {/* No Guarantee Statement */}
+          <section className="mb-20">
+            <div className="bg-yellow-900/20 border-2 border-yellow-500 rounded-2xl p-12">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-yellow-400 mb-4 flex items-center justify-center gap-3">
+                  <span className="text-4xl">⚠️</span>
+                  Pernyataan Tidak Ada Jaminan
+                </h2>
+              </div>
+              <div className="text-center max-w-4xl mx-auto">
+                <p className="text-xl text-yellow-400 leading-relaxed mb-6">
+                  TPC, timnya, afiliasi, atau mitra TIDAK MEMBERIKAN JAMINAN APA PUN, baik tersurat maupun tersirat, mengenai:
+                </p>
+                <div className="grid md:grid-cols-2 gap-6 text-left">
+                  <div className="space-y-3">
+                    <p className="text-[#a0a0a0] flex items-start gap-2">
+                      <span className="text-yellow-400">•</span>
+                      <span>Keuntungan atau return investasi</span>
+                    </p>
+                    <p className="text-[#a0a0a0] flex items-start gap-2">
+                      <span className="text-yellow-400">•</span>
+                      <span>Kestabilan harga token</span>
+                    </p>
+                    <p className="text-[#a0a0a0] flex items-start gap-2">
+                      <span className="text-yellow-400">•</span>
+                      <span>Likuiditas pasar sekunder</span>
+                    </p>
+                    <p className="text-[#a0a0a0] flex items-start gap-2">
+                      <span className="text-yellow-400">•</span>
+                      <span>Keberhasilan proyek jangka panjang</span>
+                    </p>
+                  </div>
+                  <div className="space-y-3">
+                    <p className="text-[#a0a0a0] flex items-start gap-2">
+                      <span className="text-yellow-400">•</span>
+                      <span>Ketahanan terhadap serangan cyber</span>
+                    </p>
+                    <p className="text-[#a0a0a0] flex items-start gap-2">
+                      <span className="text-yellow-400">•</span>
+                      <span>Kepatuhan regulasi masa depan</span>
+                    </p>
+                    <p className="text-[#a0a0a0] flex items-start gap-2">
+                      <span className="text-yellow-400">•</span>
+                      <span>Tidak adanya masalah teknis</span>
+                    </p>
+                    <p className="text-[#a0a0a0] flex items-start gap-2">
+                      <span className="text-yellow-400">•</span>
+                      <span>Kualitas layanan berkelanjutan</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
-          {/* CTA */}
-          <div className="text-center">
-            <Link href="/presale">
-              <PremiumButton size="lg">
-                Saya Memahami Risiko - Lanjutkan ke Presale
-              </PremiumButton>
-            </Link>
-          </div>
+          {/* Final Confirmation */}
+          <section className="text-center">
+            <div className="bg-gradient-to-r from-red-500/20 to-transparent rounded-2xl p-12 border border-red-500/30">
+              <h2 className="text-3xl font-bold text-white mb-6">
+                Konfirmasi Pemahaman Risiko
+              </h2>
+              <p className="text-xl text-[#a0a0a0] mb-8 max-w-2xl mx-auto leading-relaxed">
+                Dengan melanjutkan ke presale, Anda mengkonfirmasi bahwa telah membaca, memahami, dan menerima semua risiko yang dijelaskan di halaman ini.
+              </p>
+              <div className="space-y-4">
+                <div className="bg-red-900/30 border border-red-500 rounded-lg p-6 max-w-md mx-auto">
+                  <p className="text-red-400 font-bold leading-relaxed">
+                    Saya memahami bahwa saya dapat kehilangan seluruh investasi saya dan saya hanya berinvestasi dana yang saya siap kehilangkan sepenuhnya.
+                  </p>
+                </div>
+                <div className="flex gap-4 justify-center">
+                  <Link href="/presale">
+                    <PremiumButton size="lg" className="px-8 py-4 bg-red-600 hover:bg-red-700">
+                      Saya Memahami Risiko - Lanjut ke Presale
+                    </PremiumButton>
+                  </Link>
+                  <Link href="/why-tpc" className="inline-flex items-center px-8 py-4 border border-[#d4af37]/50 rounded-lg text-[#d4af37] hover:bg-[#d4af37]/10 transition">
+                      📖 Pelajari Lebih Lanjut
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
         </main>
 
         {/* Footer */}
-        <footer className="border-t border-[#2a2a3a] mt-12">
-          <div className="max-w-4xl mx-auto px-4 py-8 text-center">
-            <Link href="/presale" className="text-[#d4af37] hover:underline">
-              ← Kembali ke Presale TPC
-            </Link>
+        <footer className="border-t border-[#2a2a3a]/50 mt-20">
+          <div className="max-w-6xl mx-auto px-4 py-12">
+            <div className="text-center">
+              <p className="text-[#6b7280] leading-relaxed max-w-3xl mx-auto">
+                Pengungkapan risiko ini tidak lengkap dan tidak mencakup semua kemungkinan risiko. Kripto adalah aset berisiko tinggi. Investasi dengan bijak.
+              </p>
+              <div className="flex gap-6 justify-center mt-6">
+                <Link href="/terms" className="text-[#d4af37] hover:underline text-sm">
+                  Syarat & Ketentuan
+                </Link>
+                <Link href="/privacy" className="text-[#d4af37] hover:underline text-sm">
+                  Kebijakan Privasi
+                </Link>
+                <Link href="/aml-policy" className="text-[#d4af37] hover:underline text-sm">
+                  Kebijakan AML
+                </Link>
+              </div>
+            </div>
           </div>
         </footer>
       </div>
