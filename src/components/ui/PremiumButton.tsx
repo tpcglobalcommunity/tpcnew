@@ -1,5 +1,6 @@
 import { cn } from "@/lib/cn";
 import { ReactNode } from "react";
+import Link from "next/link";
 
 interface PremiumButtonProps {
   children: ReactNode;
@@ -8,6 +9,7 @@ interface PremiumButtonProps {
   size?: "sm" | "md";
   fullWidth?: boolean;
   disabled?: boolean;
+  href?: string;
 }
 
 export function PremiumButton({ 
@@ -16,7 +18,8 @@ export function PremiumButton({
   variant = "primary", 
   size = "md", 
   fullWidth = false,
-  disabled = false 
+  disabled = false,
+  href
 }: PremiumButtonProps) {
   const baseClasses = "inline-flex items-center justify-center font-medium transition-all duration-300 rounded-xl focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-0";
   
@@ -37,15 +40,28 @@ export function PremiumButton({
       : "text-fg hover:bg-white/5"
   };
 
+  const buttonClasses = cn(
+    baseClasses,
+    sizes[size],
+    variants[variant],
+    fullWidth && "w-full",
+    className
+  );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className={buttonClasses}
+      >
+        {children}
+      </Link>
+    );
+  }
+
   return (
-    <button 
-      className={cn(
-        baseClasses,
-        sizes[size],
-        variants[variant],
-        fullWidth && "w-full",
-        className
-      )}
+    <button
+      className={buttonClasses}
       disabled={disabled}
     >
       {children}

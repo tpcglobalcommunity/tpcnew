@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { PremiumShell } from "@/components/ui/PremiumShell";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { PremiumCard, PremiumCardHeader, PremiumCardContent } from "@/components/ui/PremiumCardNew";
-import { PremiumButton } from "@/components/ui/PremiumButtonNew";
+import { PremiumCard, PremiumCardHeader, PremiumCardContent } from "@/components/ui/PremiumCard";
+import { PremiumButton } from "@/components/ui/PremiumButton";
 import { BadgeRow } from "@/components/ui/BadgeRow";
 import { StatRow } from "@/components/ui/StatRow";
 import { publicPath, homeCopy, type Language } from "@/content/homeCopy";
@@ -44,31 +44,33 @@ export default function HomePage({ params }: HomePageProps) {
       {/* Hero Section */}
       <Section className="pt-16 pb-12">
         <Container>
-          <div className="text-center">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-[#F5F5F4] mb-6 md:mb-8 leading-tight">
-              {copy.hero.title}
-            </h1>
-            <p className="text-lg md:text-xl lg:text-2xl text-[#B9B3A7] mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed">
-              {copy.hero.subtitle}
-            </p>
-            
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <PremiumButton 
-                href={publicPath(lang, '/presale')}
-                size="md"
-              >
-                {copy.hero.ctaPrimary}
-              </PremiumButton>
-              <PremiumButton 
-                href={publicPath(lang, '/transparency')}
-                variant="secondary"
-                size="md"
-              >
-                {copy.hero.ctaSecondary}
-              </PremiumButton>
+          <PremiumCard variant="glass" className="text-center p-8 md:p-12">
+            <div className="max-w-4xl mx-auto">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-fg mb-6 md:mb-8 leading-tight">
+                {copy.hero.title}
+              </h1>
+              <p className="text-lg md:text-xl lg:text-2xl text-muted mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed">
+                {copy.hero.subtitle}
+              </p>
+              
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <PremiumButton 
+                  href={publicPath(lang, '/presale')}
+                  size="md"
+                >
+                  {copy.hero.ctaPrimary}
+                </PremiumButton>
+                <PremiumButton 
+                  href={publicPath(lang, '/transparency')}
+                  variant="secondary"
+                  size="md"
+                >
+                  {copy.hero.ctaSecondary}
+                </PremiumButton>
+              </div>
             </div>
-          </div>
+          </PremiumCard>
         </Container>
       </Section>
 
