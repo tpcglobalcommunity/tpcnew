@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 import BottomNavigation from "./BottomNavigation";
+import LanguageSwitch from "./LanguageSwitch";
 
 interface PremiumShellProps {
   children: ReactNode;
@@ -10,6 +11,11 @@ interface PremiumShellProps {
 export default function PremiumShell({ children, className }: PremiumShellProps) {
   return (
     <div className={cn("min-h-screen bg-[#0f0f1a] text-white", className)}>
+      {/* Language Switch - Fixed Top Right */}
+      <div className="fixed top-4 right-4 z-50">
+        <LanguageSwitch />
+      </div>
+      
       <div className="pb-20">
         {children}
       </div>
