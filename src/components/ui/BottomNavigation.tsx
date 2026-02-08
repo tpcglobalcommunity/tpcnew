@@ -14,17 +14,17 @@ export default function BottomNavigation() {
       icon: "🚀"
     },
     {
-      name: "Why TPC",
+      name: "Kenapa TPC",
       href: "/why-tpc",
       icon: "💎"
     },
     {
-      name: "Risk",
+      name: "Risiko",
       href: "/risk-disclosure",
       icon: "⚠️"
     },
     {
-      name: "Login",
+      name: "Masuk",
       href: "/login",
       icon: "👤"
     }
