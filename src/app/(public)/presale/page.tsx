@@ -50,7 +50,7 @@ export default function PresalePage() {
           <div className="grid md:grid-cols-2 gap-6 mb-12">
             <PremiumCard variant="gold">
               <h3 className="text-lg font-semibold mb-4 text-[#d4af37]">Presale Countdown</h3>
-              <CountdownTimer targetDate="2026-02-15T00:00:00+08:00" />
+              <CountdownTimer targetDate="2026-08-15T00:00:00+08:00" />
             </PremiumCard>
 
             <PremiumCard>
