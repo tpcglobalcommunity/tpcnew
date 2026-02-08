@@ -1,5 +1,5 @@
 import { normalizeLang, type LangParams } from "@/lib/lang-helpers";
-import { homeCopy } from "@/content/homeCopy";
+import { daoCopy } from "@/content/daoCopy";
 import { PremiumShell } from "@/components/ui/PremiumShell";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -22,7 +22,7 @@ export function generateStaticParams() {
 
 export default function DAOPage({ params }: DAOPageProps) {
   const lang = normalizeLang(params.lang);
-  const copy = homeCopy[lang];
+  const copy = daoCopy[lang];
 
   const daoContent = {
     hero: {
