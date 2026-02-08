@@ -5,11 +5,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { publicPath } from "@/content/homeCopy";
 
-export default function BottomNavigation() {
+interface BottomNavigationProps {
+  lang?: string;
+}
+
+export default function BottomNavigation({ lang }: BottomNavigationProps) {
   const pathname = usePathname();
   
-  // Extract current language from pathname
+  // Extract current language from pathname or use prop
   const getCurrentLang = () => {
+    if (lang) return lang;
     const segments = pathname.split('/').filter(Boolean);
     return segments[0] || 'en';
   };

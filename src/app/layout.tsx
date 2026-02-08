@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-dvh bg-bg text-fg pb-24`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-dvh bg-bg text-fg`}
       >
         {/* Subtle background gradient overlay */}
         <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(60%_40%_at_50%_0%,rgb(var(--accent)/0.14),transparent_60%)]" />

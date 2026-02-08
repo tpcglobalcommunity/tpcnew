@@ -1,15 +1,16 @@
+import { normalizeLang, type LangParams } from "@/lib/lang-helpers";
+import { homeCopy } from "@/content/homeCopy";
+import { PremiumShell } from "@/components/ui/PremiumShell";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { PremiumCard, PremiumCardContent } from "@/components/ui/PremiumCard";
+import { PremiumCard, PremiumCardHeader, PremiumCardContent } from "@/components/ui/PremiumCard";
 import { PremiumButton } from "@/components/ui/PremiumButton";
-import { Badge } from "@/components/ui/Badge";
+import { BadgeRow } from "@/components/ui/BadgeRow";
 import { StatRow } from "@/components/ui/StatRow";
-import { publicPath, type Language } from "@/content/homeCopy";
+import { publicPath } from "@/lib/lang-helpers";
 
 interface DAOPageProps {
-  params: {
-    lang: Language;
-  };
+  params: LangParams;
 }
 
 export function generateStaticParams() {
@@ -20,128 +21,201 @@ export function generateStaticParams() {
 }
 
 export default function DAOPage({ params }: DAOPageProps) {
-  const { lang } = params;
+  const lang = normalizeLang(params.lang);
+  const copy = homeCopy[lang];
+
+  const daoContent = {
+    hero: {
+      title: lang === 'en' ? 'DAO Governance' : 'Tata Kelola DAO',
+      subtitle: lang === 'en' 
+        ? 'Community-driven platform governance and decision making.'
+        : 'Tata kelola platform yang digerakan oleh komunitas dan pengambilan keputusan.',
+    },
+    trustBadges: lang === 'en' 
+      ? ['Community Led', 'Transparent Voting', 'Secure Governance']
+      : ['Dipimpin Komunitas', 'Voting Transparan', 'Tata Kelola Aman'],
+    features: [
+      {
+        title: lang === 'en' ? 'Proposal System' : 'Sistem Proposal',
+        description: lang === 'en' 
+          ? 'Submit and vote on platform improvements.'
+          : 'Ajukan dan voting untuk peningkatan platform.',
+        icon: '📋'
+      },
+      {
+        title: lang === 'en' ? 'Voting Power' : 'Kekuatan Voting',
+        description: lang === 'en' 
+          ? 'Token-based voting with transparent results.'
+          : 'Voting berbasis token dengan hasil transparan.',
+        icon: '🗳️'
+      },
+      {
+        title: lang === 'en' ? 'Treasury Management' : 'Manajemen Treasury',
+        description: lang === 'en' 
+          ? 'Community-controlled fund allocation.'
+          : 'Alokasi dana yang dikendalikan komunitas.',
+        icon: '💰'
+      },
+      {
+        title: lang === 'en' ? 'Implementation Tracking' : 'Pelacakan Implementasi',
+        description: lang === 'en' 
+          ? 'Monitor proposal execution and results.'
+          : 'Pantau eksekusi proposal dan hasil.',
+        icon: '📊'
+      }
+    ],
+    howItWorks: {
+      title: lang === 'en' ? 'How DAO Works' : 'Cara DAO Bekerja',
+      subtitle: lang === 'en' 
+        ? 'Simple and transparent governance process.'
+        : 'Proses tata kelola yang sederhana dan transparan.',
+      steps: [
+        lang === 'en' 
+          ? 'Community members submit proposals for platform improvements'
+          : 'Anggota komunitas mengajukan proposal untuk peningkatan platform',
+        lang === 'en' 
+          ? 'Token holders review and discuss proposals'
+          : 'Pemegang token meninjau dan mendiskusikan proposal',
+        lang === 'en' 
+          ? 'Secure voting determines proposal outcomes'
+          : 'Voting aman menentukan hasil proposal'
+      ]
+    },
+    stats: [
+      { label: lang === 'en' ? 'Active Proposals' : 'Proposal Aktif', value: '12' },
+      { label: lang === 'en' ? 'Total Votes Cast' : 'Total Voting', value: '1,247' },
+      { label: lang === 'en' ? 'Success Rate' : 'Tingkat Keberhasilan', value: '87%' }
+    ]
+  };
 
   return (
-    <div className="min-h-dvh bg-bg text-fg">
-      <Container>
-        <Section title="DAO Lite">
+    <PremiumShell>
+      {/* Hero Section */}
+      <Section className="pt-6 pb-12">
+        <Container>
+          <PremiumCard variant="glass" className="text-center p-8 md:p-12">
+            <div className="max-w-4xl mx-auto">
+              <h1 className="text-3xl md:text-5xl font-bold text-fg mb-6 leading-tight">
+                {daoContent.hero.title}
+              </h1>
+              <p className="text-lg text-muted mb-8 max-w-3xl mx-auto leading-relaxed">
+                {daoContent.hero.subtitle}
+              </p>
+              
+              {/* Trust Badges */}
+              <BadgeRow items={daoContent.trustBadges} className="justify-center" />
+            </div>
+          </PremiumCard>
+        </Container>
+      </Section>
+
+      {/* Section Divider */}
+      <div className="border-t border-border/10"></div>
+
+      {/* Features Section */}
+      <Section>
+        <Container>
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-fg mb-4">DAO Lite</h1>
-            <p className="text-muted leading-relaxed">
-              Community participation in platform governance through structured proposals and voting.
-            </p>
+            <h2 className="text-xl md:text-2xl font-bold text-fg mb-4">
+              {lang === 'en' ? 'Key Features' : 'Fitur Utama'}
+            </h2>
           </div>
-        </Section>
-
-        <Section title="How DAO Works">
-          <div className="space-y-6">
-            <PremiumCard>
-              <PremiumCardContent>
-                <h3 className="text-lg font-semibold text-fg mb-3">1. Proposal Submission</h3>
-                <p className="text-muted leading-relaxed">
-                  Community members can submit proposals for platform improvements, new features, or policy changes.
-                </p>
-              </PremiumCardContent>
-            </PremiumCard>
-
-            <PremiumCard>
-              <PremiumCardContent>
-                <h3 className="text-lg font-semibold text-fg mb-3">2. Community Voting</h3>
-                <p className="text-muted leading-relaxed">
-                  Token holders can vote on proposals using secure, transparent voting mechanisms.
-                </p>
-              </PremiumCardContent>
-            </PremiumCard>
-
-            <PremiumCard>
-              <PremiumCardContent>
-                <h3 className="text-lg font-semibold text-fg mb-3">3. Implementation</h3>
-                <p className="text-muted leading-relaxed">
-                  Approved proposals are implemented by the team and results are published in the Transparency section.
-                </p>
-              </PremiumCardContent>
-            </PremiumCard>
-          </div>
-        </Section>
-
-        <Section title="Current Proposals">
-          <div className="space-y-4">
-            <PremiumCard>
-              <PremiumCardContent>
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h4 className="font-semibold text-fg">Platform Enhancement</h4>
-                    <p className="text-sm text-muted">Submitted by: @community_member</p>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {daoContent.features.map((feature: any, index: number) => (
+              <PremiumCard key={index}>
+                <PremiumCardContent>
+                  <div className="text-center">
+                    <div className="text-4xl md:text-5xl mb-4">
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-lg font-semibold text-fg mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm text-muted leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
-                  <Badge tone="gold">Active</Badge>
-                </div>
-                <p className="text-sm text-fg leading-relaxed">
-                  Add advanced charting tools and analytics dashboard for better trading insights.
-                </p>
-                <div className="flex gap-2 mt-4">
-                  <PremiumButton size="sm" variant="secondary">
-                    View Details
-                  </PremiumButton>
-                  <PremiumButton size="sm" variant="primary">
-                    Vote
-                  </PremiumButton>
-                </div>
-              </PremiumCardContent>
-            </PremiumCard>
-
-            <PremiumCard>
-              <PremiumCardContent>
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h4 className="font-semibold text-fg">Educational Resources</h4>
-                    <p className="text-sm text-muted">Submitted by: @trader_pro</p>
-                  </div>
-                  <Badge tone="gold">Voting</Badge>
-                </div>
-                <p className="text-sm text-fg leading-relaxed">
-                  Expand educational content with intermediate and advanced trading courses.
-                </p>
-                <div className="flex gap-2 mt-4">
-                  <PremiumButton size="sm" variant="secondary">
-                    View Details
-                  </PremiumButton>
-                  <PremiumButton size="sm" variant="primary">
-                    Vote
-                  </PremiumButton>
-                </div>
-              </PremiumCardContent>
-            </PremiumCard>
+                </PremiumCardContent>
+              </PremiumCard>
+            ))}
           </div>
-        </Section>
+        </Container>
+      </Section>
 
-        <Section title="Voting Results">
+      {/* Section Divider */}
+      <div className="border-t border-border/10"></div>
+
+      {/* How It Works Section */}
+      <Section>
+        <Container>
           <div className="text-center mb-8">
-            <h2 className="text-xl font-semibold text-fg mb-4">Recent Voting Results</h2>
-            <p className="text-muted leading-relaxed">
-              Transparent record of all DAO Lite voting outcomes.
+            <h2 className="text-xl md:text-2xl font-bold text-fg mb-4">
+              {daoContent.howItWorks.title}
+            </h2>
+            <p className="text-sm text-muted leading-relaxed max-w-2xl mx-auto">
+              {daoContent.howItWorks.subtitle}
             </p>
           </div>
           
           <div className="space-y-4">
-            <StatRow
-              items={[
-                { label: "Platform Enhancement", value: "Approved", hint: "87% voted yes" },
-                { label: "Educational Resources", value: "In Progress", hint: "72% voted yes" },
-                { label: "Treasury Update", value: "Rejected", hint: "45% voted yes" }
-              ]}
-            />
+            {daoContent.howItWorks.steps.map((step: string, index: number) => (
+              <PremiumCard key={index}>
+                <PremiumCardContent>
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-8 h-8 bg-accent rounded-full flex items-center justify-center text-black font-bold text-sm">
+                      {index + 1}
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm text-muted leading-relaxed">
+                        {step}
+                      </p>
+                    </div>
+                  </div>
+                </PremiumCardContent>
+              </PremiumCard>
+            ))}
           </div>
-        </Section>
+        </Container>
+      </Section>
 
-        <Section>
+      {/* Section Divider */}
+      <div className="border-t border-border/10"></div>
+
+      {/* Stats Section */}
+      <Section>
+        <Container>
+          <div className="text-center mb-8">
+            <h2 className="text-xl md:text-2xl font-bold text-fg mb-4">
+              {lang === 'en' ? 'DAO Statistics' : 'Statistik DAO'}
+            </h2>
+          </div>
+          
+          <PremiumCard>
+            <PremiumCardContent>
+              <StatRow items={daoContent.stats} />
+            </PremiumCardContent>
+          </PremiumCard>
+        </Container>
+      </Section>
+
+      {/* Section Divider */}
+      <div className="border-t border-border/10"></div>
+
+      {/* CTA Section */}
+      <Section>
+        <Container>
           <div className="text-center">
-            <PremiumButton variant="primary" size="md" fullWidth>
-              View All Proposals
+            <PremiumButton 
+              href={publicPath(lang, '/member')}
+              size="md"
+              fullWidth
+            >
+              {lang === 'en' ? 'View DAO Dashboard' : 'Lihat Dashboard DAO'}
             </PremiumButton>
           </div>
-        </Section>
-      </Container>
-    </div>
+        </Container>
+      </Section>
+    </PremiumShell>
   );
 }

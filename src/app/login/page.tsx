@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { PremiumShell } from "@/components/ui/PremiumShell";
-import { PremiumCard } from "@/components/ui/PremiumCard";
+import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
+import { PremiumCard, PremiumCardContent } from "@/components/ui/PremiumCard";
 import { PremiumButton } from "@/components/ui/PremiumButton";
 import { Alert } from "@/components/ui/Alert";
 import Link from "next/link";
@@ -39,88 +41,84 @@ export default function LoginPage() {
   return (
     <PremiumShell>
       <div className="min-h-screen flex items-center justify-center px-4">
-        <div className="w-full max-w-md">
-          <PremiumCard variant="gold">
-            <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold text-[#d4af37]">
-                {isSignUp ? "Create Account" : "Member Login"}
-              </h1>
-              <p className="text-sm text-[#a0a0a0] mt-2">
-                {isSignUp 
-                  ? "Register to access TPC presale" 
-                  : "Login to buy TPC and view your invoices"}
-              </p>
-            </div>
-
-            {error && (
-              <Alert variant={error.includes("demo") ? "success" : "error"} className="mb-6">
-                {error}
-              </Alert>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-[#a0a0a0] mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full px-4 py-3 bg-[#0a0a0f] border border-[#2a2a3a] rounded-lg text-white focus:border-[#d4af37] focus:outline-none"
-                  placeholder="your@email.com"
-                />
+        <Container>
+          <PremiumCard variant="glass" className="w-full max-w-md">
+            <PremiumCardContent>
+              <div className="text-center mb-8">
+                <h1 className="text-2xl md:text-3xl font-bold text-fg mb-6">
+                  {isSignUp ? "Create Account" : "Member Login"}
+                </h1>
+                <p className="text-sm text-muted leading-relaxed">
+                  {isSignUp 
+                    ? "Register to access TPC presale and member features" 
+                    : "Login to buy TPC and view your dashboard"}
+                </p>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-[#a0a0a0] mb-2">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  minLength={6}
-                  className="w-full px-4 py-3 bg-[#0a0a0f] border border-[#2a2a3a] rounded-lg text-white focus:border-[#d4af37] focus:outline-none"
-                  placeholder="••••••••"
-                />
+              {error && (
+                <Alert variant={error.includes("demo") ? "success" : "error"} className="mb-6">
+                  {error}
+                </Alert>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-fg mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 bg-surface border border-border rounded-lg text-fg focus:border-accent focus:outline-none"
+                    placeholder="your@email.com"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-fg mb-2">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    minLength={6}
+                    className="w-full px-4 py-3 bg-surface border border-border rounded-lg text-fg focus:border-accent focus:outline-none"
+                    placeholder="••••••••"
+                  />
+                </div>
+
+                <PremiumButton
+                  type="submit"
+                  className="w-full"
+                  isLoading={isLoading}
+                >
+                  {isSignUp ? "Create Account" : "Login"}
+                </PremiumButton>
+              </form>
+
+              <div className="mt-6 text-center">
+                <button
+                  onClick={() => setIsSignUp(!isSignUp)}
+                  className="text-accent hover:text-accent2 text-sm transition-colors duration-300"
+                >
+                  {isSignUp 
+                    ? "Already have an account? Login" 
+                    : "Don't have an account? Register"}
+                </button>
               </div>
 
-              <PremiumButton
-                type="submit"
-                className="w-full"
-                isLoading={isLoading}
-              >
-                {isSignUp ? "Create Account" : "Login"}
-              </PremiumButton>
-            </form>
-
-            <div className="mt-6 text-center">
-              <button
-                onClick={() => setIsSignUp(!isSignUp)}
-                className="text-[#d4af37] hover:underline text-sm"
-              >
-                {isSignUp 
-                  ? "Already have an account? Login" 
-                  : "Don't have an account? Register"}
-              </button>
-            </div>
-
-            <div className="mt-6 pt-6 border-t border-[#2a2a3a] text-center">
-              <Link href="/presale" className="text-[#6b7280] hover:text-[#a0a0a0] text-sm">
-                Back to Presale
-              </Link>
-            </div>
+              <div className="mt-6 pt-6 border-t border-border text-center">
+                <Link href="/presale" className="text-accent hover:text-accent2 text-sm transition-colors duration-300">
+                  Back to Presale
+                </Link>
+              </div>
+            </PremiumCardContent>
           </PremiumCard>
-
-          <p className="text-center text-xs text-[#6b7280] mt-6">
-            By using this service, you agree to our{" "}
-            <Link href="/terms" className="text-[#d4af37] hover:underline">Terms</Link> and{" "}
-            <Link href="/risk-disclosure" className="text-[#d4af37] hover:underline">Risk Disclosure</Link>
-          </p>
-        </div>
+        </Container>
       </div>
     </PremiumShell>
   );

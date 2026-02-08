@@ -1,15 +1,16 @@
+import { normalizeLang, type LangParams } from "@/lib/lang-helpers";
+import { homeCopy } from "@/content/homeCopy";
+import { PremiumShell } from "@/components/ui/PremiumShell";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { PremiumCard, PremiumCardContent } from "@/components/ui/PremiumCard";
+import { PremiumCard, PremiumCardHeader, PremiumCardContent } from "@/components/ui/PremiumCard";
 import { PremiumButton } from "@/components/ui/PremiumButton";
-import { Badge } from "@/components/ui/Badge";
+import { BadgeRow } from "@/components/ui/BadgeRow";
 import { StatRow } from "@/components/ui/StatRow";
-import { publicPath, type Language } from "@/content/homeCopy";
+import { publicPath } from "@/lib/lang-helpers";
 
 interface TransparencyPageProps {
-  params: {
-    lang: Language;
-  };
+  params: LangParams;
 }
 
 export function generateStaticParams() {
@@ -20,121 +21,183 @@ export function generateStaticParams() {
 }
 
 export default function TransparencyPage({ params }: TransparencyPageProps) {
-  const { lang } = params;
+  const lang = normalizeLang(params.lang);
+  const copy = homeCopy[lang];
+
+  const transparencyContent = {
+    hero: {
+      title: lang === 'en' ? 'Transparency & Trust' : 'Transparansi & Kepercayaan',
+      subtitle: lang === 'en' 
+        ? 'Complete transparency in all operations and fund management.'
+        : 'Transparansi penuh dalam semua operasi dan manajemen dana.',
+    },
+    trustBadges: lang === 'en' 
+      ? ['On-Chain Verification', 'Regular Audits', 'Community Oversight']
+      : ['Verifikasi On-Chain', 'Audit Berkala', 'Pengawasan Komunitas'],
+    wallets: {
+      title: lang === 'en' ? 'Wallet Addresses' : 'Alamat Wallet',
+      subtitle: lang === 'en' 
+        ? 'All official wallet addresses for transparency.'
+        : 'Semua alamat wallet resmi untuk transparansi.',
+      items: [
+        {
+          label: lang === 'en' ? 'Presale Wallet' : 'Wallet Presale',
+          address: '0x1234567890123456789012345678901234',
+          explorer: 'https://etherscan.io/address/0x1234567890123456789012345678901234'
+        },
+        {
+          label: lang === 'en' ? 'Treasury Wallet' : 'Wallet Treasury',
+          address: '0x0987654321098765432109876543210987',
+          explorer: 'https://etherscan.io/address/0x0987654321098765432109876543210987'
+        },
+        {
+          label: lang === 'en' ? 'Liquidity Pool' : 'Pool Likuiditas',
+          address: '0x1122334455667788990011223344556677',
+          explorer: 'https://etherscan.io/address/0x1122334455667788990011223344556677'
+        }
+      ]
+    },
+    contracts: {
+      title: lang === 'en' ? 'Contract Information' : 'Informasi Kontrak',
+      subtitle: lang === 'en' 
+        ? 'Smart contract details and verification.'
+        : 'Detail kontrak pintar dan verifikasi.',
+      stats: [
+        { label: 'Token Contract', value: '0xABC123DEF456GHI789' },
+        { label: 'Presale Contract', value: '0xDEF456GHI789JKL012' },
+        { label: 'Network', value: 'Ethereum Mainnet' }
+      ]
+    },
+    notice: {
+      title: lang === 'en' ? 'Security Notice' : 'Pemberitahuan Keamanan',
+      subtitle: lang === 'en' 
+        ? 'Always verify addresses from official sources only.'
+        : 'Selalu verifikasi alamat dari sumber resmi saja.',
+      description: lang === 'en' 
+        ? 'Never trust DMs or unofficial links. Always verify contract addresses on this page before sending funds.'
+        : 'Jangan pernah percaya DM atau link tidak resmi. Selalu verifikasi alamat kontrak di halaman ini sebelum mengirim dana.'
+    }
+  };
 
   return (
-    <div className="min-h-dvh bg-bg text-fg">
-      <Container>
-        <Section title="Transparency">
+    <PremiumShell>
+      {/* Hero Section */}
+      <Section className="pt-6 pb-12">
+        <Container>
+          <PremiumCard variant="glass" className="text-center p-8 md:p-12">
+            <div className="max-w-4xl mx-auto">
+              <h1 className="text-3xl md:text-5xl font-bold text-fg mb-6 leading-tight">
+                {transparencyContent.hero.title}
+              </h1>
+              <p className="text-lg text-muted mb-8 max-w-3xl mx-auto leading-relaxed">
+                {transparencyContent.hero.subtitle}
+              </p>
+              
+              {/* Trust Badges */}
+              <BadgeRow items={transparencyContent.trustBadges} className="justify-center" />
+            </div>
+          </PremiumCard>
+        </Container>
+      </Section>
+
+      {/* Section Divider */}
+      <div className="border-t border-border/10"></div>
+
+      {/* Wallet Information */}
+      <Section>
+        <Container>
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-fg mb-4">Transparency</h1>
-            <p className="text-muted leading-relaxed">
-              Complete transparency in all operations, treasury management, and community governance.
+            <h2 className="text-xl md:text-2xl font-bold text-fg mb-4">
+              {transparencyContent.wallets.title}
+            </h2>
+            <p className="text-sm text-muted leading-relaxed max-w-2xl mx-auto">
+              {transparencyContent.wallets.subtitle}
             </p>
           </div>
-        </Section>
-
-        <Section title="Treasury Information">
-          <div className="space-y-6">
-            <PremiumCard>
-              <PremiumCardContent>
-                <h3 className="text-lg font-semibold text-fg mb-4">Current Treasury</h3>
-                <StatRow
-                  items={[
-                    { label: "Total Value", value: "$125,000" },
-                    { label: "TPC Tokens", value: "850,000" },
-                    { label: "Reserved", value: "150,000" },
-                    { label: "Available", value: "700,000" }
-                  ]}
-                />
-              </PremiumCardContent>
-            </PremiumCard>
-
-            <PremiumCard>
-              <PremiumCardContent>
-                <h3 className="text-lg font-semibold text-fg mb-4">Recent Transactions</h3>
-                <div className="space-y-4">
-                  <div className="border-b border-border/10 pb-3">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="text-sm text-muted">Marketing Campaign</p>
-                        <p className="text-xs text-muted">2024-02-08</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-sm font-semibold text-fg">-5,000 TPC</p>
-                        <p className="text-xs text-muted">$2,500</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="border-b border-border/10 pb-3">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="text-sm text-muted">Platform Development</p>
-                        <p className="text-xs text-muted">2024-02-05</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-sm font-semibold text-fg">-8,000 TPC</p>
-                        <p className="text-xs text-muted">$4,000</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </PremiumCardContent>
-            </PremiumCard>
-          </div>
-        </Section>
-
-        <Section title="Smart Contract Information">
+          
           <div className="space-y-4">
-            <StatRow
-              items={[
-                { label: "Contract Address", value: "0x1234...5678", hint: "BSC Network" },
-                { label: "Token Standard", value: "BEP-20" },
-                { label: "Decimals", value: "18" },
-                { label: "Verified", value: "Yes" }
-              ]}
-            />
+            {transparencyContent.wallets.items.map((wallet, index) => (
+              <PremiumCard key={index}>
+                <PremiumCardContent>
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex-1">
+                      <h3 className="text-lg font-semibold text-fg mb-2">
+                        {wallet.label}
+                      </h3>
+                      <div className="flex items-center gap-2">
+                        <code className="font-mono text-xs text-muted bg-surface px-2 py-1 rounded">
+                          {wallet.address}
+                        </code>
+                        <a
+                          href={wallet.explorer}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-accent hover:text-accent2 text-sm transition-colors duration-300"
+                        >
+                          Explorer
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </PremiumCardContent>
+              </PremiumCard>
+            ))}
           </div>
-        </Section>
+        </Container>
+      </Section>
 
-        <Section title="Governance Records">
-          <div className="space-y-6">
-            <PremiumCard>
-              <PremiumCardContent>
-                <h3 className="text-lg font-semibold text-fg mb-4">DAO Proposals</h3>
-                <div className="space-y-4">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-fg">Platform Enhancement</p>
-                      <p className="text-xs text-muted">Status: Approved</p>
-                    </div>
-                    <div className="text-right">
-                      <Badge tone="gold">Implemented</Badge>
-                    </div>
-                  </div>
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-fg">Educational Resources</p>
-                      <p className="text-xs text-muted">Status: In Progress</p>
-                    </div>
-                    <div className="text-right">
-                      <Badge tone="neutral">Voting</Badge>
-                    </div>
-                  </div>
+      {/* Section Divider */}
+      <div className="border-t border-border/10"></div>
+
+      {/* Contract Information */}
+      <Section>
+        <Container>
+          <div className="text-center mb-8">
+            <h2 className="text-xl md:text-2xl font-bold text-fg mb-4">
+              {transparencyContent.contracts.title}
+            </h2>
+            <p className="text-sm text-muted leading-relaxed max-w-2xl mx-auto">
+              {transparencyContent.contracts.subtitle}
+            </p>
+          </div>
+          
+          <PremiumCard>
+            <PremiumCardContent>
+              <StatRow items={transparencyContent.contracts.stats} />
+            </PremiumCardContent>
+          </PremiumCard>
+        </Container>
+      </Section>
+
+      {/* Section Divider */}
+      <div className="border-t border-border/10"></div>
+
+      {/* Important Notice */}
+      <Section>
+        <Container>
+          <div className="text-center mb-8">
+            <h2 className="text-xl md:text-2xl font-bold text-fg mb-4">
+              {transparencyContent.notice.title}
+            </h2>
+          </div>
+          
+          <PremiumCard>
+            <PremiumCardContent>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🔒</span>
                 </div>
-              </PremiumCardContent>
-            </PremiumCard>
-          </div>
-        </Section>
-
-        <Section>
-          <div className="text-center">
-            <PremiumButton variant="primary" size="md" fullWidth>
-              View Full Report
-            </PremiumButton>
-          </div>
-        </Section>
-      </Container>
-    </div>
+                <h3 className="text-lg font-semibold text-fg mb-4">
+                  {transparencyContent.notice.subtitle}
+                </h3>
+                <p className="text-sm text-muted leading-relaxed">
+                  {transparencyContent.notice.description}
+                </p>
+              </div>
+            </PremiumCardContent>
+          </PremiumCard>
+        </Container>
+      </Section>
+    </PremiumShell>
   );
 }
