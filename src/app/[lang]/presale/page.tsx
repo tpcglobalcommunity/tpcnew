@@ -28,8 +28,8 @@ export default function PresalePage({ params }: PresalePageProps) {
   return (
     <PremiumShell>
       {/* SECTION 1 — HERO */}
-      <Section className="pt-12 pb-8 bg-gradient-to-b from-[#0B0E11] via-[#1A1F2E] to-[#0B0E11] relative overflow-hidden">
-        {/* Background Effects */}
+      <Section className="pt-12 pb-8 bg-gradient-to-b from-[#0B0E11] via-[#1A1F2E] to-[#0B0E11] relative w-full max-w-full overflow-hidden">
+        {/* Background Effects - Constrained within overflow-hidden */}
         <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-transparent to-amber-500/5"></div>
         <div className="absolute top-0 left-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
@@ -89,7 +89,7 @@ export default function PresalePage({ params }: PresalePageProps) {
       </Section>
 
       {/* SECTION 2 — PRESALE STAGES */}
-      <Section className="py-12 bg-[#0B0E11] relative">
+      <Section className="py-12 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-20" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239CA3AF' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
@@ -162,7 +162,7 @@ export default function PresalePage({ params }: PresalePageProps) {
       </Section>
 
       {/* SECTION 3 — TOKEN UTILITY */}
-      <Section className="py-12 bg-gradient-to-b from-[#0B0E11] to-[#1A1F2E] relative">
+      <Section className="py-12 bg-gradient-to-b from-[#0B0E11] to-[#1A1F2E] relative w-full max-w-full overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-amber-500/5"></div>
         
@@ -194,7 +194,7 @@ export default function PresalePage({ params }: PresalePageProps) {
       </Section>
 
       {/* SECTION 4 — TRANSPARENCY & TRUST */}
-      <Section className="py-12 bg-[#0B0E11] relative">
+      <Section className="py-12 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M20 20l-4-4m4 4l4-4m-4 4l4 4' stroke='%239CA3AF' stroke-width='1' stroke-opacity='0.2'/%3E%3C/g%3E%3C/svg%3E")`
@@ -238,7 +238,7 @@ export default function PresalePage({ params }: PresalePageProps) {
       </Section>
 
       {/* SECTION 5 — FINAL CTA */}
-      <Section className="py-12 bg-gradient-to-b from-[#0B0E11] via-[#1A1F2E] to-[#0B0E11] relative">
+      <Section className="py-12 bg-gradient-to-b from-[#0B0E11] via-[#1A1F2E] to-[#0B0E11] relative w-full max-w-full overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-transparent to-blue-500/5"></div>
         <div className="absolute top-0 left-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>

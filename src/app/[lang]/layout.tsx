@@ -8,7 +8,7 @@ export default function LangLayout({ children, params }: { children: React.React
   const lang = normalizeLang(params.lang);
   
   return (
-    <div className="min-h-dvh bg-bg text-fg">
+    <div className="min-h-dvh bg-bg text-fg overflow-x-hidden">
       {/* Language Switch - Fixed Top Right */}
       <div className="fixed top-4 right-4 z-50">
         <LanguageSwitch />
