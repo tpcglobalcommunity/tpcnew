@@ -24,46 +24,48 @@ export const homeCopy = {
   en: {
     hero: {
       title: "Trader Professional Community (TPC Global)",
-      subtitle: "Education-first, transparency-first community. Access tools, learning, and governance — without profit promises.",
+      subtitle: "A professional trading community focused on education for Gold (XAUUSD) and Bitcoin (BTC) — done the right way. Process, discipline, and transparency. No profit promises.",
       ctaPrimary: "View Presale",
       ctaSecondary: "Explore Transparency"
     },
     trustBadges: [
       "No Profit Promises",
+      "Education Over Hype",
       "On-Chain Wallet Transparency", 
       "No DM First — Official Channels Only",
       "Never Share Private Keys"
     ],
     whatIsTPC: {
       title: "What is TPC?",
+      description: "TPC Global is a professional trading community focused on structured, responsible education for Gold and Bitcoin trading.",
       points: [
-        "Education-first community for traders",
-        "Transparent on-chain operations",
-        "Community-driven governance"
+        "Focused on Gold (XAUUSD) and Bitcoin (BTC) trading education",
+        "Professional approach: risk management, discipline, and process",
+        "Community learning without profit guarantees"
       ]
     },
     features: [
       {
         title: "Presale",
-        description: "Buy TPC with clear invoice status and transparent treasury display.",
+        description: "Access TPC through a presale system with clear invoice status and transparent treasury.",
         icon: "🚀",
         href: "/presale"
       },
       {
         title: "DAO Lite", 
-        description: "Community proposals & voting for roadmap decisions.",
+        description: "Community participation in decision-making through DAO Lite voting.",
         icon: "🏛️",
         href: "/dao"
       },
       {
         title: "Academy",
-        description: "Structured learning for traders: beginner to advanced.",
+        description: "Educational resources for Gold and Bitcoin trading from beginner to advanced.",
         icon: "📚",
         href: "/academy"
       },
       {
         title: "Transparency",
-        description: "Public wallets, supply stages, and verifiable records.",
+        description: "Public wallets, supply stages, and verifiable data.",
         icon: "🔍",
         href: "/transparency"
       }
@@ -71,73 +73,71 @@ export const homeCopy = {
     howItWorks: {
       title: "How it works",
       steps: [
-        "Explore public pages",
-        "Join via secure login", 
-        "Use features with clear status & audit trail"
+        "Explore TPC public information",
+        "Join through secure login", 
+        "Participate in education and community activities responsibly"
       ]
     },
     faq: [
       {
         question: "Is TPC an investment?",
-        answer: "TPC is community access & utility. No profit promises."
+        answer: "No. TPC provides education and community access, with no profit promises."
+      },
+      {
+        question: "What markets are covered?",
+        answer: "Primary focus on Gold (XAUUSD) and Bitcoin (BTC)."
       },
       {
         question: "How do I stay safe?",
-        answer: "Use official channels, never share private keys."
-      },
-      {
-        question: "How does DAO work?",
-        answer: "DAO Lite via voting, published results in Transparency."
-      },
-      {
-        question: "Where can I verify wallets?",
-        answer: "Transparency page shows official addresses."
+        answer: "Use official channels and never share private keys."
       }
     ]
   },
   id: {
     hero: {
       title: "Trader Professional Community (TPC Global)",
-      subtitle: "Komunitas edukasi dan transparansi. Akses tools, pembelajaran, dan tata kelola — tanpa janji keuntungan.",
+      subtitle: "Tempat para trader profesional untuk melakukan edukasi trading Gold (XAUUSD) dan Bitcoin (BTC) dengan baik dan benar. Fokus pada proses, disiplin, dan transparansi — tanpa janji keuntungan.",
       ctaPrimary: "Lihat Presale",
       ctaSecondary: "Lihat Transparansi"
     },
     trustBadges: [
       "Tanpa Janji Profit",
+      "Edukasi, Bukan Euforia",
       "Transparansi Wallet On-Chain",
-      "Tidak DM Duluan — Hanya Kanal Resmi", 
+      "Tidak DM Duluan — Kanal Resmi Saja", 
       "Jangan Pernah Bagikan Private Key"
     ],
     whatIsTPC: {
       title: "Apa itu TPC?",
+      description: "Trader Professional Community (TPC) adalah komunitas trader profesional yang berfokus pada edukasi trading Gold dan Bitcoin secara terstruktur, bertanggung jawab, dan transparan.",
       points: [
-        "Komunitas edukasi untuk trader",
-        "Operasi on-chain yang transparan",
-        "Tata kelola yang digerakkan komunitas"
+        "Fokus pada edukasi trading Gold (XAUUSD) dan Bitcoin (BTC)",
+        "Pendekatan profesional: risk management, disiplin, dan proses",
+        "Komunitas belajar & berbagi tanpa klaim hasil"
       ]
     },
     features: [
       {
         title: "Presale",
-        description: "Beli TPC dengan status invoice yang jelas dan treasury transparan.",
+        description: "Akses TPC melalui sistem presale dengan status invoice yang jelas dan treasury yang transparan.",
         icon: "🚀",
         href: "/presale"
       },
       {
         title: "DAO Lite",
-        description: "Proposal & voting komunitas untuk keputusan roadmap.",
+        description: "Partisipasi komunitas dalam pengambilan keputusan melalui voting DAO Lite.",
         icon: "🏛️", 
         href: "/dao"
       },
       {
         title: "Academy",
-        description: "Pembelajaran terstruktur untuk trader: pemula sampai mahir.",
+        description: "Materi edukasi trading Gold dan Bitcoin dari level dasar hingga lanjutan.",
         icon: "📚",
         href: "/academy"
       },
       {
         title: "Transparency",
-        description: "Wallet publik, tahapan suplai, dan catatan yang bisa diverifikasi.",
+        description: "Wallet publik, tahapan suplai, dan data yang dapat diverifikasi.",
         icon: "🔍",
         href: "/transparency"
       }
@@ -145,27 +145,23 @@ export const homeCopy = {
     howItWorks: {
       title: "Cara kerja",
       steps: [
-        "Jelajahi halaman publik",
-        "Gabung lewat login aman",
-        "Gunakan fitur dengan status jelas & audit trail"
+        "Pelajari informasi publik TPC",
+        "Gabung melalui login yang aman",
+        "Ikuti edukasi dan aktivitas komunitas secara bertanggung jawab"
       ]
     },
     faq: [
       {
-        question: "Apakah TPC investasi?",
-        answer: "TPC adalah akses komunitas & utilitas. Tanpa janji keuntungan."
+        question: "Apakah TPC adalah investasi?",
+        answer: "Bukan. TPC adalah komunitas edukasi dan akses utilitas, tanpa janji keuntungan."
       },
       {
-        question: "Bagaimana cara tetap aman?",
-        answer: "Gunakan kanal resmi, jangan bagikan private key."
+        question: "Instrumen apa yang dipelajari?",
+        answer: "Fokus utama pada Gold (XAUUSD) dan Bitcoin (BTC)."
       },
       {
-        question: "Bagaimana DAO bekerja?",
-        answer: "DAO Lite via voting, hasil dipublikasikan di Transparency."
-      },
-      {
-        question: "Di mana verifikasi wallet?",
-        answer: "Halaman Transparency menampilkan alamat resmi."
+        question: "Bagaimana menjaga keamanan?",
+        answer: "Gunakan kanal resmi dan jangan pernah membagikan private key."
       }
     ]
   }
