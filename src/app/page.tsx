@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
-export default function Home() {
-  redirect("/presale");
+export default function RootPage() {
+  // Default to Indonesian as primary market
+  redirect("/id/presale");
 }
