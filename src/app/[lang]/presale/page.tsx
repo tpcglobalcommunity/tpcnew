@@ -99,18 +99,18 @@ export default function PresalePage({ params }: PresalePageProps) {
       </Section>
 
       {/* SECTION 2 — PRESALE STAGES */}
-      <Section className="py-8 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
+      <Section className="py-10 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-20" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239CA3AF' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
         }}></div>
         
         <Container className="relative z-10 px-4">
-          <div className="text-center mb-6 w-full">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
+          <div className="text-center mb-8 w-full">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
               {copy.stages.title}
             </h2>
-            <p className="text-gray-300 text-base leading-relaxed">
+            <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto">
               {copy.stages.subtitle}
             </p>
           </div>
@@ -125,34 +125,34 @@ export default function PresalePage({ params }: PresalePageProps) {
                 <PremiumCardContent className="p-6 relative z-10">
                   {/* Stage Header */}
                   <div className="text-center mb-4">
-                    <div className={`inline-block px-2 py-1 rounded-full text-xs font-medium mb-2 ${
+                    <div className={`inline-block px-3 py-1 rounded-full text-xs font-medium mb-2 ${
                       stage.status === 'Active' || stage.status === 'Aktif' 
                         ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
                         : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
                     }`}>
                       {stage.status}
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
                       {stage.title}
                     </h3>
-                    <p className="text-gray-400 text-xs">
+                    <p className="text-gray-400 text-sm leading-relaxed">
                       {stage.description}
                     </p>
                   </div>
                   
                   {/* Stage Details */}
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     <div className="flex justify-between items-center py-3 border-b border-gray-700/50">
-                      <span className="text-gray-400 text-xs">{copy.cardLabels.price}</span>
-                      <span className="text-white font-medium">{stage.price}</span>
+                      <span className="text-gray-400 text-sm">{copy.cardLabels.price}</span>
+                      <span className="text-white font-semibold text-lg">{stage.price}</span>
                     </div>
                     <div className="flex justify-between items-center py-3 border-b border-gray-700/50">
-                      <span className="text-gray-400 text-xs">{copy.cardLabels.supply}</span>
-                      <span className="text-white font-medium text-sm">{stage.supply}</span>
+                      <span className="text-gray-400 text-sm">{copy.cardLabels.supply}</span>
+                      <span className="text-white font-medium">{stage.supply}</span>
                     </div>
                     <div className="flex justify-between items-center py-3">
-                      <span className="text-gray-400 text-xs">{copy.cardLabels.status}</span>
-                      <span className={`font-medium text-xs ${
+                      <span className="text-gray-400 text-sm">{copy.cardLabels.status}</span>
+                      <span className={`font-semibold text-sm ${
                         stage.status === 'Active' || stage.status === 'Aktif' 
                           ? 'text-green-400' 
                           : 'text-amber-400'
@@ -169,13 +169,13 @@ export default function PresalePage({ params }: PresalePageProps) {
       </Section>
 
       {/* SECTION 3 — TOKEN UTILITY */}
-      <Section className="py-8 bg-gradient-to-b from-[#0B0E11] to-[#1A1F2E] relative w-full max-w-full overflow-hidden">
+      <Section className="py-10 bg-gradient-to-b from-[#0B0E11] to-[#1A1F2E] relative w-full max-w-full overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-amber-500/5"></div>
         
         <Container className="relative z-10 px-4">
-          <div className="text-center mb-6 w-full">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
+          <div className="text-center mb-8 w-full">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
               {copy.tokenUtility.title}
             </h2>
           </div>
@@ -198,18 +198,18 @@ export default function PresalePage({ params }: PresalePageProps) {
       </Section>
 
       {/* SECTION 4 — TRANSPARENSI & TRUST */}
-      <Section className="py-8 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
+      <Section className="py-10 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M20 20l-4-4m4 4l4-4m-4 4l4 4' stroke='%239CA3AF' stroke-width='1' stroke-opacity='0.2'/%3E%3C/g%3E%3C/svg%3E")`
         }}></div>
         
         <Container className="relative z-10 px-4">
-          <div className="text-center mb-6 w-full">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
+          <div className="text-center mb-8 w-full">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
               {copy.transparency.title}
             </h2>
-            <p className="text-gray-300 text-base leading-relaxed max-w-2xl mx-auto">
+            <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto">
               {copy.transparency.subtitle}
             </p>
           </div>
@@ -239,7 +239,7 @@ export default function PresalePage({ params }: PresalePageProps) {
       </Section>
 
       {/* SECTION 5 — FINAL CTA */}
-      <Section className="py-8 bg-gradient-to-b from-[#0B0E11] via-[#1A1F2E] to-[#0B0E11] relative w-full max-w-full overflow-hidden">
+      <Section className="py-10 bg-gradient-to-b from-[#0B0E11] via-[#1A1F2E] to-[#0B0E11] relative w-full max-w-full overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-transparent to-blue-500/5"></div>
         <div className="absolute top-0 left-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
@@ -248,7 +248,7 @@ export default function PresalePage({ params }: PresalePageProps) {
         <Container className="relative z-10 px-4">
           <div className="text-center w-full">
             {/* Status Badge */}
-            <div className="inline-flex items-center px-3 py-1.5 bg-amber-500/20 border border-amber-500/30 rounded-full mb-4">
+            <div className="inline-flex items-center px-3 py-1.5 bg-amber-500/20 border border-amber-500/30 rounded-full mb-6">
               <span className="text-amber-400 text-xs font-medium uppercase tracking-wider">
                 {lang === 'en' ? 'Final Step' : 'Langkah Terakhir'}
               </span>
