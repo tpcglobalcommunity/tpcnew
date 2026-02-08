@@ -54,9 +54,17 @@ export default function BottomNavigation() {
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-around items-center py-3">
           {navItems.map((item) => {
-            const fullHref = publicPath(currentLang, item.href);
+            let fullHref;
+            
+            // Login route - NO language prefix
+            if (item.href === "/login") {
+              fullHref = "/login";
+            } else {
+              fullHref = publicPath(currentLang, item.href);
+            }
+            
             const isActive = pathname === fullHref || 
-                           (item.href !== "/" && pathname.startsWith(fullHref));
+                           (item.href !== "/" && item.href !== "/login" && pathname.startsWith(fullHref));
             
             return (
               <Link
