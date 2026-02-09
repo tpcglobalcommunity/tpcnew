@@ -1,5 +1,6 @@
 export type Language = 'en' | 'id';
 
+// Presale content dictionary for bilingual support
 export const presaleCopy: Record<Language, {
   hero: {
     title: string;
