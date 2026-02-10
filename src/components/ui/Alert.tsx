@@ -1,41 +1,23 @@
-import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface AlertProps {
   children: ReactNode;
-  variant?: "info" | "success" | "warning" | "error";
+  variant?: 'default' | 'success' | 'warning' | 'error';
   className?: string;
 }
 
-export function Alert({ children, variant = "info", className }: AlertProps) {
-  const variants = {
-    info: "bg-blue-500/10 border border-blue-500/20 text-blue-400",
-    success: "bg-green-500/10 border border-green-500/20 text-green-400",
-    warning: "bg-yellow-500/10 border border-yellow-500/20 text-yellow-400",
-    error: "bg-red-500/10 border border-red-500/20 text-red-400",
+export function Alert({ children, variant = 'default', className = "" }: AlertProps) {
+  const baseClasses = "p-4 rounded-lg border";
+  const variantClasses = {
+    default: "bg-gray-500/10 border-gray-500/30 text-gray-300",
+    success: "bg-green-500/10 border-green-500/30 text-green-300",
+    warning: "bg-amber-500/10 border-amber-500/30 text-amber-300",
+    error: "bg-red-500/10 border-red-500/30 text-red-300"
   };
 
   return (
-    <div className={cn("rounded-lg p-4", variants[variant], className)}>
+    <div className={`${baseClasses} ${variantClasses[variant]} ${className}`}>
       {children}
     </div>
   );
-}
-
-interface AlertTitleProps {
-  children: ReactNode;
-  className?: string;
-}
-
-export function AlertTitle({ children, className }: AlertTitleProps) {
-  return <h5 className={cn("font-medium mb-1", className)}>{children}</h5>;
-}
-
-interface AlertDescriptionProps {
-  children: ReactNode;
-  className?: string;
-}
-
-export function AlertDescription({ children, className }: AlertDescriptionProps) {
-  return <div className={cn("text-sm opacity-90", className)}>{children}</div>;
 }

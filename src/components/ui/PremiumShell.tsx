@@ -1,25 +1,13 @@
-import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
-import LanguageSwitch from "./LanguageSwitch";
+import { ReactNode } from 'react';
 
 interface PremiumShellProps {
   children: ReactNode;
-  className?: string;
 }
 
-export default function PremiumShell({ children, className }: PremiumShellProps) {
+export function PremiumShell({ children }: PremiumShellProps) {
   return (
-    <div className={cn("min-h-screen bg-bg text-fg", className)}>
-      {/* Language Switch - Fixed Top Right */}
-      <div className="fixed top-4 right-4 z-50">
-        <LanguageSwitch />
-      </div>
-      
-      <div className="pb-28">
-        {children}
-      </div>
+    <div className="min-h-screen bg-[#0B0E11] flex flex-col">
+      {children}
     </div>
   );
 }
-
-export { PremiumShell };

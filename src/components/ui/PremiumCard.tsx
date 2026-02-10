@@ -1,63 +1,21 @@
-import { cn } from "@/lib/cn";
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface PremiumCardProps {
   children: ReactNode;
   className?: string;
-  variant?: "glass" | "solid";
 }
 
-export function PremiumCard({ children, className, variant = "glass" }: PremiumCardProps) {
-  const variants = {
-    glass: "bg-white/5 backdrop-blur-sm",
-    solid: "bg-surface"
-  };
-
+export function PremiumCard({ children, className = "" }: PremiumCardProps) {
   return (
-    <div className={cn(
-      "rounded-2xl border border-border/10 shadow-soft",
-      variants[variant],
-      className
-    )}>
+    <div className={`border border-gold-soft bg-card shadow-soft hover:border-gold hover:shadow-hover transition-all duration-300 relative overflow-hidden rounded-2xl ${className}`}>
       {children}
     </div>
   );
 }
 
-interface PremiumCardHeaderProps {
-  children: ReactNode;
-  className?: string;
-}
-
-export function PremiumCardHeader({ children, className }: PremiumCardHeaderProps) {
+export function PremiumCardContent({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn("p-4 pb-3", className)}>
-      {children}
-    </div>
-  );
-}
-
-interface PremiumCardContentProps {
-  children: ReactNode;
-  className?: string;
-}
-
-export function PremiumCardContent({ children, className }: PremiumCardContentProps) {
-  return (
-    <div className={cn("p-4 pt-0", className)}>
-      {children}
-    </div>
-  );
-}
-
-interface PremiumCardFooterProps {
-  children: ReactNode;
-  className?: string;
-}
-
-export function PremiumCardFooter({ children, className }: PremiumCardFooterProps) {
-  return (
-    <div className={cn("p-4 pt-3 border-t border-border/10", className)}>
+    <div className={`p-6 relative z-10 ${className}`}>
       {children}
     </div>
   );

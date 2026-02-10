@@ -1,0 +1,21 @@
+{
+  "name": "TPC Global - Trader Professional Community",
+  "short_name": "TPC Global",
+  "description": "Education-first trading community focused on transparency and governance",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0E11",
+  "theme_color": "#F59E0B",
+  "icons": [
+    {
+      "src": "/tpc.webp",
+      "sizes": "192x192",
+      "type": "image/webp"
+    },
+    {
+      "src": "/tpc.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    }
+  ]
+}

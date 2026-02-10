@@ -28,9 +28,18 @@ const config: Config = {
         "3xl": "1.5rem", // 24px
       },
       boxShadow: {
-        "soft": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+        "soft": "0 8px 24px rgba(0, 0, 0, 0.35)",
+        "hover": "0 12px 32px rgba(0, 0, 0, 0.45)",
+        "gold": "0 0 0 1px rgba(240, 185, 11, 0.14), 0 10px 24px rgba(240, 185, 11, 0.18)",
         "medium": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
         "large": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      },
+      borderColor: {
+        "soft": "rgba(255, 255, 255, 0.08)",
+        "gold-soft": "rgba(240, 185, 11, 0.16)",
+        "gold": "rgba(240, 185, 11, 0.28)",
+        "gold-hover": "rgba(240, 185, 11, 0.42)",
+        "divider": "rgba(255, 255, 255, 0.06)",
       },
       keyframes: {
         "fade-in": {

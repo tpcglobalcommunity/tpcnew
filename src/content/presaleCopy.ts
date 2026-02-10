@@ -1,14 +1,13 @@
 export type Language = 'en' | 'id';
 
-// Presale content dictionary for bilingual support
 export const presaleCopy: Record<Language, {
   hero: {
+    badge: string;
     title: string;
     subtitle: string;
-    ctaPrimary: string;
-    ctaSecondary: string;
+    disclaimer: string;
+    cta: string;
   };
-  trustBadges: string[];
   stages: {
     title: string;
     subtitle: string;
@@ -16,8 +15,6 @@ export const presaleCopy: Record<Language, {
       stage: string;
       title: string;
       description: string;
-      price: string;
-      supply: string;
       status: string;
     }>;
   };
@@ -43,206 +40,222 @@ export const presaleCopy: Record<Language, {
     subtitle: string;
     buttonText: string;
   };
-  countdown: {
+  meta: {
     title: string;
-    endDate: string;
-  };
-  cardLabels: {
-    price: string;
-    supply: string;
-    status: string;
+    description: string;
+    keywords: string;
   };
 }> = {
   en: {
     hero: {
-      title: 'TPC Presale — Early Community Access',
-      subtitle: 'Utility token for education & DAO-based trader community',
-      ctaPrimary: 'Access Presale via Member Area',
-      ctaSecondary: 'Learn More'
+      badge: "Community Access",
+      title: "TPC COMMUNITY ACCESS",
+      subtitle: "Education-first community with transparent access mechanism. TPC is built on Ethereum-based blockchain infrastructure through Polygon to ensure transparency, efficiency, and community sustainability.",
+      disclaimer: "TPC is not an investment instrument and does not promise financial returns.",
+      cta: "Learn Community Access"
     },
-    trustBadges: ['Education First', 'No Guaranteed Returns', 'Public Transparency', 'DAO-Based Decisions'],
     stages: {
-      title: 'Presale Stages',
-      subtitle: 'Structured access with clear pricing and supply allocation.',
+      title: "Community Access Structure",
+      subtitle: "Transparent community access with phased participation for ecosystem development.",
       items: [
         {
-          stage: 'Stage 1',
-          title: 'Presale Stage 1',
-          description: 'Early community access with utility token allocation.',
-          price: '$0.001',
-          supply: '200,000,000 TPC',
-          status: 'Active'
+          stage: "Phase 1",
+          title: "Community Access Phase 1",
+          description: "Initial community access with educational participation focus.",
+          status: "Active"
         },
         {
-          stage: 'Stage 2',
-          title: 'Presale Stage 2',
-          description: 'Extended access with adjusted pricing structure.',
-          price: '$0.002',
-          supply: '100,000,000 TPC',
-          status: 'Upcoming'
+          stage: "Phase 2",
+          title: "Community Access Phase 2",
+          description: "Expanded access with educational ecosystem focus.",
+          status: "Upcoming"
+        },
+        {
+          stage: "Phase 3",
+          title: "Community Access Phase 3",
+          description: "Continued educational ecosystem development.",
+          status: "Upcoming"
+        },
+        {
+          stage: "Phase 4",
+          title: "Community Access Phase 4",
+          description: "Educational ecosystem growth phase.",
+          status: "Upcoming"
+        },
+        {
+          stage: "Phase 5",
+          title: "Community Access Phase 5",
+          description: "Mid-ecosystem expansion phase.",
+          status: "Upcoming"
         }
       ]
     },
     tokenUtility: {
-      title: 'Token Utility',
+      title: "TPC Token Utility",
       items: [
         {
-          icon: '🎓',
-          title: 'Education Access',
-          description: 'Premium trading education resources and tools'
+          icon: "🎓",
+          title: "Premium Education Access",
+          description: "Access to premium trading education materials and resources"
         },
         {
-          icon: '🏛️',
-          title: 'DAO Governance',
-          description: 'Participate in community decision making'
+          icon: "🏛️",
+          title: "Community & Forum Access",
+          description: "Join exclusive community forums and discussion groups"
         },
         {
-          icon: '👥',
-          title: 'Community Privileges',
-          description: 'Exclusive member benefits and features'
+          icon: "👥",
+          title: "DAO Lite Participation",
+          description: "Non-financial participation in platform governance"
         },
         {
-          icon: '🌐',
-          title: 'Ecosystem Utility',
-          description: 'Access to platform services and applications'
+          icon: "🌐",
+          title: "Ecosystem Discounts",
+          description: "Discounts on ecosystem products and services"
         }
       ]
     },
     transparency: {
-      title: 'Transparency & Trust',
-      subtitle: 'Our commitment to clarity and compliance.',
+      title: "Transparency & Trust",
+      subtitle: "Our commitment to clarity and compliance.",
       items: [
         {
-          icon: '🎓',
-          title: 'Education-First Community',
-          description: 'Professional trading education without financial promises'
+          icon: "🔍",
+          title: "Verifiable Public Wallet",
+          description: "All wallet addresses are publicly verifiable on blockchain"
         },
         {
-          icon: '📊',
-          title: 'No Guaranteed Returns',
-          description: 'Token utility for platform access, not investment vehicle'
+          icon: "📊",
+          title: "No Profit Guarantee",
+          description: "Token utility for platform access, not investment returns"
         },
         {
-          icon: '🔍',
-          title: 'Public On-Chain Transparency',
-          description: 'All transactions and allocations visible on blockchain'
+          icon: "🎓",
+          title: "Education Focus",
+          description: "Primary focus on trading education and community building"
         },
         {
-          icon: '🗳️',
-          title: 'DAO-Based Decision Making',
-          description: 'Community governance through structured voting'
+          icon: "🛡️",
+          title: "Anti-Scam Policy",
+          description: "Strict policies against fraudulent activities and promises"
         }
       ]
     },
     finalCta: {
-      title: 'Final Step',
-      subtitle: 'Registration required for compliance & transparency',
-      buttonText: 'Access Presale via Member Area'
+      title: "Ready to Join Community?",
+      subtitle: "Registration required for compliance & transparency",
+      buttonText: "Enter Community Access"
     },
-    countdown: {
-      title: 'Time Remaining',
-      endDate: 'August 9, 2026 (WIB / UTC+7)'
-    },
-    cardLabels: {
-      price: 'Price',
-      supply: 'Supply',
-      status: 'Status'
+    meta: {
+      title: "TPC Community Access",
+      description: "Community access mechanism for professional trader education",
+      keywords: "TPC, community access, trading education, trader community, utility token"
     }
   },
   id: {
     hero: {
-      title: 'TPC Presale — Akses Komunitas Awal',
-      subtitle: 'Token utilitas untuk pendidikan & komunitas trader berbasis DAO',
-      ctaPrimary: 'Akses Presale via Member Area',
-      ctaSecondary: 'Pelajari Lebih Lanjut'
+      badge: "Akses Komunitas",
+      title: "AKSES KOMUNITAS TPC",
+      subtitle: "Komunitas education-first dengan mekanisme akses transparan. TPC dibangun di atas infrastruktur blockchain berbasis Ethereum melalui Polygon untuk menjamin transparansi, efisiensi, dan keberlanjutan komunitas.",
+      disclaimer: "TPC bukan instrumen investasi dan tidak menjanjikan keuntungan finansial.",
+      cta: "Pelajari Akses Komunitas"
     },
-    trustBadges: ['Pendidikan Prioritas', 'Tidak Ada Jaminan Pengembalian', 'Transparansi Publik', 'Keputusan Berbasis DAO'],
     stages: {
-      title: 'Tahapan Presale',
-      subtitle: 'Akses terstruktur dengan harga dan alokasi suplai yang jelas.',
+      title: "Struktur Akses Komunitas",
+      subtitle: "Akses komunitas bertahap dengan transparansi penuh untuk pembangunan ekosistem edukasi.",
       items: [
         {
-          stage: 'Stage 1',
-          title: 'Tahapan Presale 1',
-          description: 'Akses komunitas awal dengan alokasi token utilitas.',
-          price: '$0.001',
-          supply: '200,000,000 TPC',
-          status: 'Aktif'
+          stage: "Tahap 1",
+          title: "Tahap Akses 1",
+          description: "Akses komunitas awal dengan partisipasi edukasi.",
+          status: "Aktif"
         },
         {
-          stage: 'Stage 2',
-          title: 'Tahapan Presale 2',
-          description: 'Akses diperluas dengan struktur harga yang disesuaikan.',
-          price: '$0.002',
-          supply: '100,000,000 TPC',
-          status: 'Akan Datang'
+          stage: "Tahap 2",
+          title: "Tahap Akses 2",
+          description: "Perluasan akses dengan fokus edukasi.",
+          status: "Akan Datang"
+        },
+        {
+          stage: "Tahap 3",
+          title: "Tahap Akses 3",
+          description: "Pengembangan ekosistem edukasi berkelanjutan.",
+          status: "Akan Datang"
+        },
+        {
+          stage: "Tahap 4",
+          title: "Tahap Akses 4",
+          description: "Fase pertumbuhan komunitas edukatif.",
+          status: "Akan Datang"
+        },
+        {
+          stage: "Tahap 5",
+          title: "Tahap Akses 5",
+          description: "Fase ekspansi komunitas pertengahan.",
+          status: "Akan Datang"
         }
       ]
     },
     tokenUtility: {
-      title: 'Utilitas Token',
+      title: "Utilitas Token TPC",
       items: [
         {
-          icon: '🎓',
-          title: 'Akses Pendidikan',
-          description: 'Sumber daya dan alat trading edukasi premium'
+          icon: "🎓",
+          title: "Akses Edukasi Premium",
+          description: "Akses ke materi edukasi trading premium dan sumber daya"
         },
         {
-          icon: '🏛️',
-          title: 'Tata Kelola DAO',
-          description: 'Partisipasi dalam pengambilan keputusan komunitas'
+          icon: "🏛️",
+          title: "Akses Komunitas & Forum",
+          description: "Gabung forum komunitas dan grup diskusi eksklusif"
         },
         {
-          icon: '👥',
-          title: 'Privilegi Komunitas',
-          description: 'Benefit dan fitur eksklusif untuk anggota'
+          icon: "👥",
+          title: "Partisipasi DAO Lite",
+          description: "Partisipasi non-finansial dalam tata kelola platform"
         },
         {
-          icon: '🌐',
-          title: 'Utilitas Ekosistem',
-          description: 'Akses ke layanan dan aplikasi platform'
+          icon: "🌐",
+          title: "Diskon Ekosistem",
+          description: "Diskon untuk produk dan layanan ekosistem"
         }
       ]
     },
     transparency: {
-      title: 'Transparansi & Kepercayaan',
-      subtitle: 'Komitmen kami pada kejelasan dan kepatuhan.',
+      title: "Transparansi & Kepercayaan",
+      subtitle: "Komitmen kami pada kejelasan dan kepatutan.",
       items: [
         {
-          icon: '🎓',
-          title: 'Komunitas Pendidikan Prioritas',
-          description: 'Pendidikan trading profesional tanpa janji finansial'
+          icon: "🔍",
+          title: "Wallet Publik Dapat Diverifikasi",
+          description: "Semua alamat wallet dapat diverifikasi di blockchain"
         },
         {
-          icon: '📊',
-          title: 'Tidak Ada Jaminan Pengembalian',
-          description: 'Token utilitas untuk akses platform, bukan kendara investasi'
+          icon: "📊",
+          title: "Tidak Ada Jaminan Keuntungan",
+          description: "Token utilitas untuk akses platform, bukan return investasi"
         },
         {
-          icon: '🔍',
-          title: 'Transparansi On-Chain Publik',
-          description: 'Semua transaksi dan alokasi terlihat di blockchain'
+          icon: "🎓",
+          title: "Fokus Edukasi",
+          description: "Prioritas utama adalah edukasi trading dan pembangunan komunitas"
         },
         {
-          icon: '🗳️',
-          title: 'Keputusan Berbasis DAO',
-          description: 'Tata kelola komunitas melalui voting terstruktur'
+          icon: "🛡️",
+          title: "Kebijakan Anti-Scam",
+          description: "Kebijakan ketat terhadap aktivitas penipuan dan janji palsu"
         }
       ]
     },
     finalCta: {
-      title: 'Langkah Terakhir',
-      subtitle: 'Registrasi diperlukan untuk kepatuhan dan transparansi',
-      buttonText: 'Akses Presale via Member Area'
+      title: "Siap Bergabung dengan Komunitas?",
+      subtitle: "Registrasi diperlukan untuk kepatuhan dan transparansi.",
+      buttonText: "Masuk Akses Komunitas"
     },
-    countdown: {
-      title: 'Waktu Tersisa',
-      endDate: '9 Agustus 2026 (WIB / UTC+7)'
-    },
-    cardLabels: {
-      price: 'Harga',
-      supply: 'Supply',
-      status: 'Status'
+    meta: {
+      title: "Akses Komunitas TPC",
+      description: "Mekanisme akses komunitas untuk edukasi trader profesional",
+      keywords: "TPC, akses komunitas, edukasi trading, komunitas trader, token utilitas"
     }
   }
 };
