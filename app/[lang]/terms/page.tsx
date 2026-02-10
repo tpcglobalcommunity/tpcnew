@@ -9,7 +9,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 interface TermsPageProps {
-  params: LangParams;
+  params: Promise<LangParams>;
 }
 
 export function generateStaticParams() {
@@ -19,10 +19,11 @@ export function generateStaticParams() {
   ];
 }
 
-export async function generateMetadata({ params }: { params: LangParams }): Promise<Metadata> {
-  const lang = normalizeLang(params.lang);
+export async function generateMetadata({ params }: { params: Promise<LangParams> }): Promise<Metadata> {
+  const { lang } = await params;
+  const normalizedLang = normalizeLang(lang);
   
-  const copy = termsCopy[lang];
+  const copy = termsCopy[normalizedLang];
   
   return {
     title: copy.meta.title,
@@ -201,9 +202,10 @@ const termsCopy = {
   }
 };
 
-export default function TermsPage({ params }: TermsPageProps) {
-  const lang = normalizeLang(params.lang);
-  const copy = termsCopy[lang];
+export default async function TermsPage({ params }: TermsPageProps) {
+  const { lang } = await params;
+  const normalizedLang = normalizeLang(lang);
+  const copy = termsCopy[normalizedLang as keyof typeof termsCopy];
 
   return (
     <PremiumShell>

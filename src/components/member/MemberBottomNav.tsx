@@ -75,6 +75,10 @@ export function MemberBottomNav({ currentPath }: MemberBottomNavProps) {
       icon: LogOut,
       label: 'Logout',
       onClick: async () => {
+        if (!supabase) {
+          throw new Error('Supabase client not initialized')
+        }
+        
         await supabase.auth.signOut();
         window.location.href = '/login';
       }

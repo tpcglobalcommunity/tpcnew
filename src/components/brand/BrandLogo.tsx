@@ -2,6 +2,7 @@ interface BrandLogoProps {
   size?: number;
   className?: string;
   alt?: string;
+  priority?: boolean;
 }
 
 export function BrandLogo({ 

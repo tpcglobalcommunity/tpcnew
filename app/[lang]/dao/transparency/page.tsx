@@ -11,13 +11,13 @@ export async function generateStaticParams() {
   return [
     { lang: 'en' },
     { lang: 'id' }
-  ] as const;
+  ];
 }
 
 export async function generateMetadata({ params }: { params: Promise<LangParams> }): Promise<Metadata> {
   const { lang } = await params;
   const normalizedLang = normalizeLang(lang);
-  const copy = daoTransparencyCopy[normalizedLang];
+  const copy = daoTransparencyCopy[normalizedLang as keyof typeof daoTransparencyCopy];
   
   return {
     title: copy.meta.title,
@@ -159,16 +159,16 @@ export default async function TransparencyPage({ params }: { params: Promise<Lan
                       <thead>
                         <tr className="border-b border-gold-soft">
                           <th className="text-left py-4 px-6 text-sm font-medium text-gray-400">
-                            {copy.proposals.columns.id}
+                            {copy.proposals.columns.find(col => col.id === 'id')?.key}
                           </th>
                           <th className="text-left py-4 px-6 text-sm font-medium text-gray-400">
-                            {copy.proposals.columns.status}
+                            {copy.proposals.columns.find(col => col.id === 'status')?.key}
                           </th>
                           <th className="text-left py-4 px-6 text-sm font-medium text-gray-400">
-                            {copy.proposals.columns.date}
+                            {copy.proposals.columns.find(col => col.id === 'date')?.key}
                           </th>
                           <th className="text-left py-4 px-6 text-sm font-medium text-gray-400">
-                            {copy.proposals.columns.title}
+                            {copy.proposals.columns.find(col => col.id === 'title')?.key}
                           </th>
                         </tr>
                       </thead>

@@ -11,7 +11,7 @@ import {
 import { type Language } from '@/lib/lang-helpers';
 
 interface PublicPageNavProps {
-  currentLang: Language;
+  currentLang: string | Language;
 }
 
 export function PublicPageNav({ currentLang }: PublicPageNavProps) {

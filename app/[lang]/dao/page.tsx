@@ -11,7 +11,7 @@ export async function generateStaticParams() {
   return [
     { lang: 'en' },
     { lang: 'id' }
-  ] as const;
+  ];
 }
 
 export async function generateMetadata({ params }: { params: Promise<LangParams> }): Promise<Metadata> {

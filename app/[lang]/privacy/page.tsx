@@ -9,7 +9,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 interface PrivacyPageProps {
-  params: LangParams;
+  params: Promise<LangParams>;
 }
 
 export function generateStaticParams() {
@@ -19,10 +19,11 @@ export function generateStaticParams() {
   ];
 }
 
-export async function generateMetadata({ params }: { params: LangParams }): Promise<Metadata> {
-  const lang = normalizeLang(params.lang);
+export async function generateMetadata({ params }: { params: Promise<LangParams> }): Promise<Metadata> {
+  const { lang } = await params;
+  const normalizedLang = normalizeLang(lang);
   
-  const copy = privacyCopy[lang];
+  const copy = privacyCopy[normalizedLang];
   
   return {
     title: copy.meta.title,
@@ -193,9 +194,10 @@ const privacyCopy = {
   }
 };
 
-export default function PrivacyPage({ params }: PrivacyPageProps) {
-  const lang = normalizeLang(params.lang);
-  const copy = privacyCopy[lang];
+export default async function PrivacyPage({ params }: PrivacyPageProps) {
+  const { lang } = await params;
+  const normalizedLang = normalizeLang(lang);
+  const copy = privacyCopy[normalizedLang as keyof typeof privacyCopy];
 
   return (
     <PremiumShell>

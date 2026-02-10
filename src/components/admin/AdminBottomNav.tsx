@@ -11,6 +11,10 @@ export default function AdminBottomNav() {
   const router = useRouter()
 
   const handleLogout = async () => {
+    if (!supabase) {
+      throw new Error('Supabase client not initialized')
+    }
+    
     await supabase.auth.signOut()
     router.push('/login')
   }

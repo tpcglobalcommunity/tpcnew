@@ -27,6 +27,10 @@ function LoginForm() {
     setError('')
 
     try {
+      if (!supabase) {
+        throw new Error('Supabase client not initialized')
+      }
+      
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,

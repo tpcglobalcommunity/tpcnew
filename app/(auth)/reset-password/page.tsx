@@ -19,6 +19,10 @@ function ResetPasswordForm() {
   useEffect(() => {
     // Check if we have a valid recovery session
     const checkSession = async () => {
+      if (!supabase) {
+        return
+      }
+      
       const { data: { session } } = await supabase.auth.getSession()
       if (session) {
         setValidSession(true)
@@ -54,6 +58,10 @@ function ResetPasswordForm() {
     }
 
     try {
+      if (!supabase) {
+        throw new Error('Supabase client not initialized')
+      }
+      
       const { error } = await supabase.auth.updateUser({
         password: password
       })

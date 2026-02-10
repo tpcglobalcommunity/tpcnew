@@ -14,16 +14,16 @@ export async function generateStaticParams() {
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { ticketId: string } }
+  { params }: { params: Promise<{ ticketId: string }> }
 ) {
   try {
+    const { ticketId } = await params;
     const user = await getUser()
     
     if (!user || !isAdminUser(user.id)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { ticketId } = params
     const body = await request.json()
     const { status, admin_note } = body
 

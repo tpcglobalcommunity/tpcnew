@@ -22,7 +22,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<LangParams> }): Promise<Metadata> {
   const { lang } = await params;
   const normalizedLang = normalizeLang(lang);
-  const copy = transparencyCopy[normalizedLang];
+  const copy = transparencyCopy[normalizedLang as keyof typeof transparencyCopy];
   
   return {
     title: copy.title,

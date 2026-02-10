@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { PremiumCard, PremiumCardContent } from "@/components/ui/PremiumCard";
 import { PremiumButton } from "@/components/ui/PremiumButton";
-import { presaleCopy } from "@/src/content/presaleCopy";
+import { presaleCopy } from "@/content/presaleCopy";
 import { getPresaleStages, PRESALE_CONFIG } from "@/lib/presale/stages";
 import { getPresaleProgress } from "@/lib/presale/progress";
 import { Metadata } from "next";
@@ -12,7 +12,7 @@ export async function generateStaticParams() {
   return [
     { lang: 'en' },
     { lang: 'id' }
-  ] as const;
+  ];
 }
 
 export async function generateMetadata({ params }: { params: Promise<LangParams> }): Promise<Metadata> {
@@ -233,7 +233,7 @@ export default async function PresalePage({ params }: { params: Promise<LangPara
                       {/* Current Stage Progress Bar */}
                       <div>
                         <div className="flex justify-between text-sm text-gray-300 mb-2">
-                          <span>{normalizedLang === 'id' ? `${progress.soldInCurrentStage.toLocaleString(normalizedLang === 'id' ? 'id-ID' : 'en-US')} dari ${progress.supplyPerStage.toLocaleString(normalizedLang === 'id' ? 'id-ID' : 'en-US')} terjual` : `${progress.soldInCurrentStage.toLocaleString(normalizedLang === 'id' ? 'id-ID' : 'en-US')} of ${progress.supplyPerStage.toLocaleString(normalizedLang === 'id' ? 'id-ID' : 'en-US')} allocated`}</span>
+                          <span>{normalizedLang === 'id' ? `${progress.soldInCurrentStage.toLocaleString('id-ID')} dari ${progress.supplyPerStage.toLocaleString('id-ID')} terjual` : `${progress.soldInCurrentStage.toLocaleString('en-US')} of ${progress.supplyPerStage.toLocaleString('en-US')} allocated`}</span>
                         </div>
                         <div className="bg-white/10 rounded-full h-2 overflow-hidden">
                           <div 

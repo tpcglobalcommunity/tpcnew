@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { invoiceId: string } }
+  { params }: { params: Promise<{ invoiceId: string }> }
 ) {
   try {
     // Apply admin guard
@@ -22,7 +22,7 @@ export async function POST(
       return guardResult
     }
 
-    const { invoiceId } = params
+    const { invoiceId } = await params;
     const supabase = await createClient()
 
     const { error } = await supabase

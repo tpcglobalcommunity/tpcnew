@@ -1,46 +1,52 @@
 export type Language = 'en' | 'id';
 
-export const daoTransparencyCopy: Record<Language, {
-  hero: {
-    title: string;
-    subtitle: string;
-    disclaimer: string;
-  };
-  proposals: {
-    title: string;
-    empty: string;
-    columns: {
-      id: string;
-      status: string;
-      date: string;
+interface ColumnConfig {
+  key: string;
+  id: string;
+}
+
+interface Phase {
+  title: string;
+  description: string;
+  status: 'current' | 'completed' | 'upcoming';
+}
+
+interface DaoTransparencyCopy {
+  [language: string]: {
+    hero: {
       title: string;
-    }[];
-  };
-  roadmap: {
-    title: string;
-    subtitle: string;
-    phases: {
+      subtitle: string;
+      disclaimer: string;
+    };
+    proposals: {
+      title: string;
+      empty: string;
+      columns: ColumnConfig[];
+    };
+    roadmap: {
+      title: string;
+      subtitle: string;
+      phases: Phase[];
+    };
+    disclaimer: {
+      title: string;
+      items: string[];
+    };
+    finalCta: {
+      title: string;
+      subtitle: string;
+      primaryButton: string;
+      secondaryButton: string;
+    };
+    meta: {
       title: string;
       description: string;
-      status: 'current' | 'completed' | 'upcoming';
-    }[];
+      keywords: string;
+    };
   };
-  disclaimer: {
-    title: string;
-    items: string[];
-  };
-  finalCta: {
-    title: string;
-    subtitle: string;
-    primaryButton: string;
-    secondaryButton: string;
-  };
-  meta: {
-    title: string;
-    description: string;
-    keywords: string;
-  };
-}> = {
+}
+
+export const daoTransparencyCopy: DaoTransparencyCopy = {
   en: {
     hero: {
       title: "TPC Global DAO Transparency",
@@ -50,12 +56,12 @@ export const daoTransparencyCopy: Record<Language, {
     proposals: {
       title: "Proposal Log",
       empty: "No DAO proposals have been published yet.",
-      columns: {
-        id: "Proposal ID",
-        status: "Status",
-        date: "Date",
-        title: "Proposal Title",
-      },
+      columns: [
+        { key: "Proposal ID", id: "id" },
+        { key: "Status", id: "status" },
+        { key: "Date", id: "date" },
+        { key: "Proposal Title", id: "title" },
+      ],
     },
     roadmap: {
       title: "DAO Development Roadmap",
@@ -101,23 +107,23 @@ export const daoTransparencyCopy: Record<Language, {
   },
   id: {
     hero: {
-      title: "Transparansi DAO TPC Global",
-      subtitle: "Komitmen untuk keterbukaan dalam proses tata kelola dan pengambilan keputusan komunitas.",
-      disclaimer: "Halaman ini bersifat informatif dan tidak menjanjikan hasil atau keuntungan finansial.",
+      title: "TPC Global DAO Transparency",
+      subtitle: "A commitment to openness in community governance and decision-making.",
+      disclaimer: "Halaman ini bersifat informasi dan tidak menjanjikan hasil finansial.",
     },
     proposals: {
       title: "Log Proposal",
       empty: "Belum ada proposal DAO yang dipublikasikan.",
-      columns: {
-        id: "ID Proposal",
-        status: "Status",
-        date: "Tanggal",
-        title: "Judul Proposal",
-      },
+      columns: [
+        { key: "Proposal ID", id: "id" },
+        { key: "Status", id: "status" },
+        { key: "Date", id: "date" },
+        { key: "Proposal Title", id: "title" },
+      ],
     },
     roadmap: {
-      title: "Roadmap Pengembangan DAO",
-      subtitle: "Pendekatan bertahap kami untuk membangun sistem tata kelola yang aman dan efektif.",
+      title: "Peta Pengembangan DAO",
+      subtitle: "Pendekatan berfasa kami dalam membangun sistem tata kelola yang aman dan efektif.",
       phases: [
         {
           title: "DAO Lite (Saat Ini)",
@@ -130,7 +136,7 @@ export const daoTransparencyCopy: Record<Language, {
           status: "upcoming",
         },
         {
-          title: "DAO Governance Mature",
+          title: "DAO Tata Kelola Matang",
           description: "Alat tata kelola terintegrasi, transparansi penuh, dan sistem berkelanjutan.",
           status: "upcoming",
         },
@@ -139,22 +145,22 @@ export const daoTransparencyCopy: Record<Language, {
     disclaimer: {
       title: "Pertimbangan Penting",
       items: [
-        "Tidak ada jaminan hasil dari proposal",
+        "Tidak ada hasil yang dijamin dari proposal",
         "Tidak semua proposal disetujui",
-        "DAO tidak mengelola keuntungan finansial",
-        "Partisipasi sukarela",
+        "DAO tidak mengelola hasil finansial",
+        "Partisipasi bersifat sukarela",
       ],
     },
     finalCta: {
-      title: "Pelajari Tentang DAO TPC Global",
+      title: "Pelajari Tentang TPC Global DAO",
       subtitle: "Temukan mekanisme tata kelola komunitas dan partisipasi kami.",
-      primaryButton: "Pelajari Tentang DAO TPC Global",
+      primaryButton: "Pelajari Tentang TPC Global DAO",
       secondaryButton: "Kembali ke DAO",
     },
     meta: {
-      title: "Transparansi DAO TPC Global - Log Proposal & Roadmap",
-      description: "Lihat proposal DAO TPC Global, histori voting, dan roadmap pengembangan dengan transparansi penuh.",
-      keywords: "TPC Global, DAO transparansi, log proposal, histori voting, roadmap, tata kelola",
+      title: "TPC Global DAO Transparency - Log Proposal & Peta Pengembangan",
+      description: "Lihat proposal TPC Global DAO, riwayat voting, dan peta pengembangan dengan transparansi penuh.",
+      keywords: "TPC Global, transparansi DAO, log proposal, riwayat voting, peta pengembangan, tata kelola",
     },
   },
 };

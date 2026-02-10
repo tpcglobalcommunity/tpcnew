@@ -35,6 +35,11 @@ function RegisterForm() {
 
     try {
       console.log('Attempting signup with email:', email)
+      
+      if (!supabase) {
+        throw new Error('Supabase client not initialized')
+      }
+      
       const { error } = await supabase.auth.signUp({
         email,
         password,

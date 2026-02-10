@@ -9,9 +9,9 @@ export async function generateStaticParams() {
   ];
 }
 
-export async function GET(request: NextRequest, { params }: { params: { lang: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ lang: string }> }) {
   // Redirect permanen ke academy page
-  const { lang } = params;
+  const { lang } = await params;
   const url = new URL(`/${lang}/academy`, request.url);
   return NextResponse.redirect(url, 308);
 }
