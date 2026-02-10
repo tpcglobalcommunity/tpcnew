@@ -2,7 +2,7 @@ import { normalizeLang, type LangParams } from "@/lib/lang-helpers";
 import { PublicTopBar } from "@/components/navigation/PublicTopBar";
 import { PublicBottomNav } from "@/components/navigation/PublicBottomNav";
 import { Metadata } from "next";
-import "@/app/globals.css";
+import "../globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://tpcglobal.io"),
