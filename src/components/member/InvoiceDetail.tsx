@@ -159,6 +159,14 @@ export default function InvoiceDetail() {
     return formatDate(deadline)
   }
 
+  // Safe quantity display
+  const displayQuantity = (quantity: number | null) => {
+    if (quantity === null || quantity === undefined) {
+      return null
+    }
+    return quantity
+  }
+
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Header */}
@@ -221,7 +229,11 @@ export default function InvoiceDetail() {
           </div>
           <div className="flex justify-between">
             <span className="text-gray-400">Jumlah TPC:</span>
-            <span className="text-white">{formatUSDC(invoice.quantity_tpc)} TPC</span>
+            {displayQuantity(invoice.quantity_tpc) !== null ? (
+              <span className="text-white">{formatUSDC(displayQuantity(invoice.quantity_tpc)!)} TPC</span>
+            ) : (
+              <span className="text-red-400">Quantity tidak tersedia</span>
+            )}
           </div>
           {invoice.wallet_address && (
             <div className="flex justify-between">
