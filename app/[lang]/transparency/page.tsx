@@ -4,7 +4,6 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { PremiumCard, PremiumCardContent } from "@/components/ui/PremiumCard";
 import { PremiumButton } from "@/components/ui/PremiumButton";
-import { PublicPageNav } from "@/components/navigation/PublicPageNav";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -278,8 +277,6 @@ export default async function TransparencyPage({ params }: TransparencyPageProps
 
   return (
     <PremiumShell>
-      <PublicPageNav currentLang={lang} />
-
       {/* HERO SECTION */}
       <Section className="pt-16 pb-20 bg-gradient-to-br from-[#0B0E11] via-[#1A1F2E] to-[#2A1F3A] relative w-full max-w-full overflow-hidden">
         {/* Background Effects */}

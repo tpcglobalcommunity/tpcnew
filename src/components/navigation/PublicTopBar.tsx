@@ -2,15 +2,16 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Globe } from 'lucide-react';
+import { Globe, Menu } from 'lucide-react';
 import { normalizeLang, type Language } from '@/lib/lang-helpers';
 import { BrandLogo } from '@/components/brand/BrandLogo';
 
 interface PublicTopBarProps {
   currentLang: Language;
+  onMenuToggle?: () => void;
 }
 
-export function PublicTopBar({ currentLang }: PublicTopBarProps) {
+export function PublicTopBar({ currentLang, onMenuToggle }: PublicTopBarProps) {
   const pathname = usePathname();
   
   // Extract the path after the language prefix
@@ -40,20 +41,31 @@ export function PublicTopBar({ currentLang }: PublicTopBarProps) {
             <span className="text-white font-semibold hidden sm:block">TPC Global</span>
           </Link>
 
-          {/* Language Switch */}
-          <Link
-            href={switchUrl}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 hover:text-white transition-colors border border-gray-700 hover:border-gray-600"
-          >
-            <Globe className="w-4 h-4" />
-            <span className="text-sm font-medium uppercase">
-              {currentLang === 'en' ? 'EN' : 'ID'}
-            </span>
-            <span className="text-xs text-gray-400">→</span>
-            <span className="text-sm font-medium uppercase text-amber-400">
-              {currentLang === 'en' ? 'ID' : 'EN'}
-            </span>
-          </Link>
+          {/* Right Side */}
+          <div className="flex items-center gap-3">
+            {/* Language Switch */}
+            <Link
+              href={switchUrl}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 hover:text-white transition-colors border border-gray-700 hover:border-gray-600"
+            >
+              <Globe className="w-4 h-4" />
+              <span className="text-sm font-medium uppercase">
+                {currentLang === 'en' ? 'EN' : 'ID'}
+              </span>
+              <span className="text-xs text-gray-400">→</span>
+              <span className="text-sm font-medium uppercase text-amber-400">
+                {currentLang === 'en' ? 'ID' : 'EN'}
+              </span>
+            </Link>
+
+            {/* Menu Button */}
+            <button
+              onClick={onMenuToggle}
+              className="lg:hidden p-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 hover:text-white transition-colors border border-gray-700 hover:border-gray-600"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
