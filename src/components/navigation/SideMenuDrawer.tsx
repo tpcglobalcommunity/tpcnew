@@ -54,49 +54,47 @@ export function SideMenuDrawer({ isOpen, onClose, currentLang }: SideMenuDrawerP
 
           {/* Navigation */}
           <div className="flex-1 overflow-y-auto px-5 py-6 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
-            {Object.entries(navigationConfig).map(([sectionKey, section], index) => (
-              <div key={sectionKey} className={`${index > 0 ? 'mt-8' : ''}`}>
-                <h3 className="text-[10px] tracking-[0.15em] uppercase text-gray-500 mb-4">
-                  {section.title}
-                </h3>
-                <div className="space-y-2">
-                  {section.items.map((item: NavigationItem) => {
-                    const Icon = item.icon;
-                    const active = isActive(item.href);
-                    
-                    return (
-                      <button
-                        key={item.key}
-                        onClick={() => handleNavigation(item.href)}
-                        disabled={item.disabled}
-                        className={`
-                          group w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-200 border border-transparent
-                          ${active 
-                            ? 'bg-amber-500/10 text-amber-400 border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.08)]' 
-                            : 'text-gray-400 hover:bg-white/[0.04] hover:text-white hover:border-white/5'
-                          }
-                          ${item.disabled 
-                            ? 'opacity-50 cursor-not-allowed' 
-                            : ''
-                          }
-                        `}
-                      >
-                        <Icon className={`w-5 h-5 flex-shrink-0 text-gray-500 group-hover:text-white ${
-                          active ? 'text-amber-400' : ''
-                        }`} />
-                        <span className="truncate text-sm">{item.label}</span>
-                        <ChevronRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-40 transition-opacity" />
-                        {item.badge && (
-                          <span className="ml-auto px-2 py-1 text-xs bg-red-500 text-white rounded-full">
-                            {item.badge}
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })}
+            {Object.entries(navigationConfig).map(([sectionKey, section], index) => {
+              // Filter out disabled items (primary navigation moved to BottomNav)
+              const enabledItems = section.items.filter((item: NavigationItem) => !item.disabled);
+              
+              // Skip sections that have no enabled items
+              if (enabledItems.length === 0) return null;
+              
+              return (
+                <div key={sectionKey} className={`${index > 0 ? 'mt-8' : ''}`}>
+                  <h3 className="text-[10px] tracking-[0.15em] uppercase text-gray-500 mb-4">
+                    {section.title}
+                  </h3>
+                  <div className="space-y-2">
+                    {enabledItems.map((item: NavigationItem) => {
+                      const Icon = item.icon;
+                      const active = isActive(item.href);
+                      
+                      return (
+                        <button
+                          key={item.key}
+                          onClick={() => handleNavigation(item.href)}
+                          className={`
+                            group w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-200 border border-transparent
+                            ${active 
+                              ? 'bg-amber-500/10 text-amber-400 border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.08)]' 
+                              : 'text-gray-400 hover:bg-white/[0.04] hover:text-white hover:border-white/5'
+                            }
+                          `}
+                        >
+                          <Icon className={`w-5 h-5 flex-shrink-0 text-gray-500 group-hover:text-white ${
+                            active ? 'text-amber-400' : ''
+                          }`} />
+                          <span className="truncate text-sm">{item.label}</span>
+                          <ChevronRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-40 transition-opacity" />
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

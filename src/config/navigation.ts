@@ -29,28 +29,10 @@ export const navigationConfig: NavigationConfig = {
     title: 'INFORMASI',
     items: [
       {
-        key: 'home',
-        label: 'Beranda',
-        href: '/[lang]/',
-        icon: Home
-      },
-      {
         key: 'why-tpc',
         label: 'Why TPC',
         href: '/[lang]/why-tpc',
         icon: HelpCircle
-      },
-      {
-        key: 'academy',
-        label: 'Akademi',
-        href: '/[lang]/academy',
-        icon: BookOpen
-      },
-      {
-        key: 'transparency',
-        label: 'Transparansi',
-        href: '/[lang]/transparency',
-        icon: Eye
       }
     ]
   },
@@ -74,6 +56,12 @@ export const navigationConfig: NavigationConfig = {
         label: 'Risk Disclosure',
         href: '/[lang]/risk-disclosure',
         icon: TrendingUp
+      },
+      {
+        key: 'transparency',
+        label: 'Transparency',
+        href: '/[lang]/transparency',
+        icon: Eye
       }
     ]
   },
@@ -98,20 +86,26 @@ export const navigationConfig: NavigationConfig = {
     title: 'AKUN',
     items: [
       {
+        key: 'login',
+        label: 'Login',
+        href: '/login',
+        icon: Lock
+      },
+      {
         key: 'profile',
-        label: 'Profil',
+        label: 'Dashboard',
         href: '/member',
-        icon: User
+        icon: BarChart3
       },
       {
         key: 'settings',
-        label: 'Pengaturan',
+        label: 'Settings',
         href: '/member/settings',
         icon: Settings
       },
       {
         key: 'logout',
-        label: 'Keluar',
+        label: 'Logout',
         href: '/login',
         icon: LogOut
       }
@@ -120,29 +114,34 @@ export const navigationConfig: NavigationConfig = {
   NAVIGASI_UTAMA: {
     title: 'NAVIGASI UTAMA',
     items: [
+      // Primary navigation moved to BottomNav - disabled here to prevent duplication
       {
-        key: 'presale',
-        label: 'Presale',
-        href: '/[lang]/presale',
-        icon: Wallet
+        key: 'home',
+        label: 'Home',
+        href: '/[lang]/',
+        icon: Home,
+        disabled: true
       },
       {
         key: 'dao',
         label: 'DAO',
         href: '/[lang]/dao',
-        icon: Users
+        icon: Users,
+        disabled: true
       },
       {
-        key: 'dashboard',
-        label: 'Dashboard',
-        href: '/member',
-        icon: BarChart3
+        key: 'presale',
+        label: 'Presale',
+        href: '/[lang]/presale',
+        icon: Wallet,
+        disabled: true
       },
       {
-        key: 'invoices',
-        label: 'Invoices',
-        href: '/member/invoices',
-        icon: FileText
+        key: 'academy',
+        label: 'Academy',
+        href: '/[lang]/academy',
+        icon: BookOpen,
+        disabled: true
       }
     ]
   }

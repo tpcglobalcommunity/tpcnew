@@ -2,6 +2,7 @@
 
 import { normalizeLang, type LangParams, type Lang } from "@/lib/lang-helpers";
 import { PublicTopBar } from "@/components/navigation/PublicTopBar";
+import { PublicBottomNav } from "@/components/navigation/PublicBottomNav";
 import { SideMenuDrawer } from "@/components/navigation/SideMenuDrawer";
 import { LegalFooter } from "@/components/navigation/LegalFooter";
 import { useState, useEffect } from "react";
@@ -37,7 +38,10 @@ export default function LangLayout({
         <LegalFooter currentLang={currentLang} />
       </div>
       
-      {/* Mobile Menu Drawer */}
+      {/* Bottom Navigation - Primary */}
+      <PublicBottomNav currentLang={currentLang} onMenuToggle={() => setIsMenuOpen(!isMenuOpen)} />
+      
+      {/* Mobile Menu Drawer - Secondary */}
       <SideMenuDrawer 
         isOpen={isMenuOpen} 
         onClose={() => setIsMenuOpen(false)} 
