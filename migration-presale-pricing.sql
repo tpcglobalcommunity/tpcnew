@@ -72,31 +72,43 @@ ON CONFLICT (stage_number) DO UPDATE SET
 -- This attempts to fix historical data where price/total were 0
 DO $$
 BEGIN
-    -- Get current active stage
-    DECLARE active_stage INTEGER;
-    DECLARE active_price NUMERIC(20,8);
+    -- Get current active stage (only if table exists)
+    DECLARE active_stage INTEGER := 1; -- Default fallback
+    DECLARE active_price NUMERIC(20,8) := 0.0010; -- Default fallback
     
-    SELECT stage_number, price_usdc INTO active_stage, active_price
-    FROM tpc_presale_stages 
-    WHERE is_active = true 
-    LIMIT 1;
+    BEGIN
+        -- Try to get active stage, but handle case where table doesn't exist yet
+        SELECT stage_number, price_usdc INTO active_stage, active_price
+        FROM tpc_presale_stages 
+        WHERE is_active = true 
+        LIMIT 1;
+    EXCEPTION WHEN OTHERS THEN
+        -- Table doesn't exist or other error, use defaults
+        active_stage := 1;
+        active_price := 0.0010;
+    END;
     
-    -- Update invoices with 0 values
-    UPDATE tpc_invoices 
-    SET 
-        stage_number = COALESCE(stage_number, active_stage),
-        price_per_tpc = CASE 
-            WHEN price_per_tpc = 0 OR price_per_tpc IS NULL THEN active_price 
-            ELSE price_per_tpc 
-        END,
-        total_usdc = CASE 
-            WHEN total_usdc = 0 OR total_usdc IS NULL THEN quantity_tpc * active_price 
-            ELSE total_usdc 
-        END
-    WHERE 
-        (price_per_tpc = 0 OR price_per_tpc IS NULL) 
-        OR (total_usdc = 0 OR total_usdc IS NULL)
-        AND quantity_tpc > 0;
+    -- Update invoices with 0 values (only if table exists)
+    BEGIN
+        UPDATE tpc_invoices 
+        SET 
+            stage_number = COALESCE(stage_number, active_stage),
+            price_per_tpc = CASE 
+                WHEN price_per_tpc = 0 OR price_per_tpc IS NULL THEN active_price 
+                ELSE price_per_tpc 
+            END,
+            total_usdc = CASE 
+                WHEN total_usdc = 0 OR total_usdc IS NULL THEN quantity_tpc * active_price 
+                ELSE total_usdc 
+            END
+        WHERE 
+            (price_per_tpc = 0 OR price_per_tpc IS NULL) 
+            OR (total_usdc = 0 OR total_usdc IS NULL)
+            AND quantity_tpc > 0;
+    EXCEPTION WHEN OTHERS THEN
+        -- Table doesn't exist or other error, skip data repair
+        NULL;
+    END;
 END $$;
 
 -- 5. Create RPC function for server-side invoice creation
