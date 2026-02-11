@@ -14,10 +14,10 @@ export async function generateStaticParams() {
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ invoiceId: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { invoiceId } = await params;
+    const { id } = await params;
     const user = await getUser()
     
     if (!user || !isAdminUser(user.id)) {
@@ -36,7 +36,7 @@ export async function POST(
         admin_note: admin_note || 'Invoice rejected by admin',
         updated_at: new Date().toISOString()
       })
-      .eq('id', invoiceId)
+      .eq('id', id)
 
     if (error) {
       console.error('Error rejecting invoice:', error)

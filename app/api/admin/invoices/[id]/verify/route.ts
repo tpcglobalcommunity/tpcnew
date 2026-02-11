@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: Promise<{ invoiceId: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Apply admin guard
@@ -22,7 +22,7 @@ export async function POST(
       return guardResult
     }
 
-    const { invoiceId } = await params;
+    const { id } = await params;
     const supabase = await createClient()
 
     const { error } = await supabase
@@ -32,7 +32,7 @@ export async function POST(
         admin_note: 'Invoice verified by admin',
         updated_at: new Date().toISOString()
       })
-      .eq('id', invoiceId)
+      .eq('id', id)
 
     if (error) {
       console.error('Error verifying invoice:', error)
