@@ -70,12 +70,12 @@ export async function generateMetadata({ params }: { params: Promise<LangParams>
 // Transparency Content Dictionary
 const transparencyCopy = {
   id: {
-    title: 'Transparansi & Kepercayaan Publik — TPC Global',
-    subtitle: 'Transparansi adalah fondasi TPC Global. Kami membangun komunitas berdasarkan kepercayaan, pendidikan, dan tata kelola yang terbuka.',
+    title: 'Transparansi & Kepercayaan Publik — TPC',
+    subtitle: 'Transparansi adalah fondasi TPC. Kami membangun komunitas berdasarkan kepercayaan, pendidikan, dan tata kelola yang terbuka.',
     hero: {
       badge: 'Transparency & Trust',
       title: 'Transparansi & Kepercayaan Publik',
-      subtitle: 'TPC Global memposisikan diri sebagai komunitas education-first yang mengutamakan transparansi penuh dalam setiap aspek operasional.',
+      subtitle: 'TPC memposisikan diri sebagai komunitas education-first yang mengutamakan transparansi penuh dalam setiap aspek operasional.',
       disclaimer: 'TPC bukan instrumen investasi dan tidak menjanjikan keuntungan finansial.'
     },
     principles: {
@@ -95,7 +95,7 @@ const transparencyCopy = {
     },
     infrastructure: {
       title: 'Infrastruktur Blockchain',
-      description: 'TPC dibangun di atas infrastruktur blockchain berbasis Ethereum melalui Polygon untuk menjamin transparansi, efisiensi, dan keberlanjutan komunitas.'
+      description: 'TPC memanfaatkan teknologi blockchain untuk transparansi pencatatan dan verifikasi, dengan tetap menekankan bahwa platform ini berfokus pada edukasi dan komunitas.'
     },
     funds: {
       title: 'Struktur Dana & Pengelolaan',
@@ -170,12 +170,12 @@ const transparencyCopy = {
     }
   },
   en: {
-    title: 'Transparency & Trust — TPC Global',
-    subtitle: 'Transparency is the foundation of TPC Global. We build a community based on trust, education, and open governance.',
+    title: 'Transparency & Trust — TPC',
+    subtitle: 'Transparency is the foundation of TPC. We build a community based on trust, education, and open governance.',
     hero: {
       badge: 'Transparency & Trust',
       title: 'Transparency & Public Trust',
-      subtitle: 'TPC Global positions itself as an education-first community that prioritizes full transparency in all operational aspects.',
+      subtitle: 'TPC positions itself as an education-first community that prioritizes full transparency in all operational aspects.',
       disclaimer: 'TPC is not an investment instrument and does not guarantee financial returns.'
     },
     principles: {
@@ -195,7 +195,7 @@ const transparencyCopy = {
     },
     infrastructure: {
       title: 'Blockchain Infrastructure',
-      description: 'TPC is built on Ethereum-based blockchain infrastructure through Polygon to ensure transparency, efficiency, and community sustainability.'
+      description: 'TPC utilizes blockchain technology for transparent recording and verification, while emphasizing that this platform focuses on education and community.'
     },
     funds: {
       title: 'Fund Structure & Management',

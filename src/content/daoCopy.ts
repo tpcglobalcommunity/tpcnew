@@ -61,15 +61,15 @@ export const daoCopy: Record<Language, {
 }> = {
   en: {
     hero: {
-      title: "TPC Global DAO",
+      title: "TPC DAO",
       subtitle: "A community governance mechanism for participation, transparency, and collective decision-making.",
-      disclaimer: "TPC Global DAO is not an investment instrument and does not promise financial returns.",
+      disclaimer: "TPC DAO is not an investment instrument and does not promise financial returns.",
       cta: "Learn DAO Mechanism",
     },
     sections: {
       governance: {
         title: "Community Governance",
-        description: "DAO enables community members to participate in TPC Global's strategic direction through transparent voting and proposal systems.",
+        description: "DAO enables community members to participate in TPC's strategic direction through transparent voting and proposal systems.",
       },
       participation: {
         title: "Participation-Based Voting Rights",
@@ -146,22 +146,22 @@ export const daoCopy: Record<Language, {
       secondaryButton: "Learn More",
     },
     meta: {
-      title: "TPC Global DAO - Community Governance",
-      description: "Join the TPC Global DAO for transparent community governance and participation in educational platform development.",
-      keywords: "TPC Global, DAO, community governance, participation, transparency, voting, TPC token",
+      title: "TPC DAO - Community Governance",
+      description: "Join the TPC DAO for transparent community governance and participation in educational platform development.",
+      keywords: "TPC, DAO, community governance, participation, transparency, voting, TPC token",
     },
   },
   id: {
     hero: {
-      title: "DAO TPC Global",
+      title: "DAO TPC",
       subtitle: "Mekanisme tata kelola komunitas untuk partisipasi, transparansi, dan pengambilan keputusan bersama.",
-      disclaimer: "DAO TPC Global bukan instrumen investasi dan tidak menjanjikan keuntungan finansial.",
+      disclaimer: "DAO TPC bukan instrumen investasi dan tidak menjanjikan keuntungan finansial.",
       cta: "Pelajari Mekanisme DAO",
     },
     sections: {
       governance: {
         title: "Tata Kelola Komunitas",
-        description: "DAO memungkinkan anggota komunitas berpartisipasi dalam pengambilan keputusan strategis TPC Global secara transparan.",
+        description: "DAO memungkinkan anggota komunitas berpartisipasi dalam pengambilan keputusan strategis TPC secara transparan.",
       },
       participation: {
         title: "Hak Suara Berbasis Partisipasi",

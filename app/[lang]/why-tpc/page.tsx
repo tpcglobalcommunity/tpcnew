@@ -127,7 +127,7 @@ const whyTpcCopy = {
         }
       ]
     },
-    infrastructure: 'TPC dibangun di atas infrastruktur blockchain berbasis Ethereum melalui Polygon untuk menjamin transparansi, efisiensi, dan keberlanjutan komunitas.',
+    infrastructure: 'TPC memanfaatkan teknologi blockchain untuk transparansi pencatatan dan verifikasi, dengan tetap menekankan bahwa platform ini berfokus pada edukasi dan komunitas.',
     identity: {
       title: 'Identitas Trader Profesional Community',
       description: 'Trader Profesional Community (TPC) adalah komunitas edukasi, bukan produk investasi. Fokus pada pemahaman, disiplin, dan kesadaran risiko. Tidak menjual mimpi, tidak menjanjikan hasil. Transparansi sebagai fondasi kepercayaan komunitas.',
@@ -236,7 +236,7 @@ const whyTpcCopy = {
         }
       ]
     },
-    infrastructure: 'TPC is built on Ethereum-based blockchain infrastructure through Polygon to ensure transparency, efficiency, and community sustainability.',
+    infrastructure: 'TPC utilizes blockchain technology for transparent recording and verification, while emphasizing that this platform focuses on education and community.',
     identity: {
       title: 'Trader Profesional Community Identity',
       description: 'Trader Profesional Community (TPC) is an education community, not an investment product. Focus on understanding, discipline, and risk awareness. No dream selling, no profit promises. Transparency as the foundation of community trust.',
