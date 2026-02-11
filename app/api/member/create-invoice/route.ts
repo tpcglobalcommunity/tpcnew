@@ -95,6 +95,8 @@ export async function POST(request: NextRequest) {
     // Server-side price calculation
     const priceUsdc = getStagePrice(stage)
     const qtyTpc = calculateQty(amount, priceUsdc)
+    const RATE_IDR = 17000
+    const total_idr = amount * RATE_IDR
 
     // Create invoice
     const expiresAt = new Date()
@@ -108,6 +110,7 @@ export async function POST(request: NextRequest) {
         price_usdc: priceUsdc,
         amount_usdc: amount,
         total_usdc: amount,
+        total_idr: total_idr,
         qty_tpc: qtyTpc,
         method,
         status: 'pending',
