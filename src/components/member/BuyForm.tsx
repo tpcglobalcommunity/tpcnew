@@ -36,6 +36,9 @@ export default function BuyForm() {
     }
 
     try {
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 25000) // 25 detik timeout
+
       const response = await fetch('/api/member/create-invoice', {
         method: 'POST',
         headers: {
@@ -46,9 +49,11 @@ export default function BuyForm() {
           amountUsdc: amount,
           method,
           walletAddress
-        })
+        }),
+        signal: controller.signal
       })
 
+      clearTimeout(timeoutId)
       const data = await response.json()
 
       if (!response.ok || !data.ok) {
@@ -59,7 +64,11 @@ export default function BuyForm() {
 
       router.push(`/member/invoices/${data.invoiceId}`)
     } catch (err: any) {
-      setError(err.message)
+      if (err.name === 'AbortError') {
+        setError('Request timeout. Silakan coba lagi.')
+      } else {
+        setError(err.message)
+      }
     } finally {
       setIsLoading(false)
     }
