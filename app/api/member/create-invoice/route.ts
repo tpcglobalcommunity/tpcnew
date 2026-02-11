@@ -107,10 +107,12 @@ export async function POST(request: NextRequest) {
         stage,
         price_usdc: priceUsdc,
         amount_usdc: amount,
+        total_usdc: amount,
         qty_tpc: qtyTpc,
         method,
         status: 'pending',
-        expires_at: expiresAt.toISOString()
+        expires_at: expiresAt.toISOString(),
+        created_at: new Date().toISOString()
       })
       .select('id')
       .single()
