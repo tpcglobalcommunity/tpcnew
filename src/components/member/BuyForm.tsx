@@ -15,11 +15,28 @@ export default function BuyForm() {
   const [invoice, setInvoice] = useState<any>(null)
   const { connected, publicKey, connect } = usePhantomWallet()
 
-  const quantity = parseFloat(quantityTpc) || 0
+  // Parse and validate quantity
+  const getValidQuantity = (raw: string): number | null => {
+    const qty = Math.floor(Number(raw))
+    if (!Number.isFinite(qty) || qty < 1) {
+      return null
+    }
+    return qty
+  }
+
+  const quantity = getValidQuantity(quantityTpc) || 0
 
   const handleSubmit = async () => {
     setError('')
     setIsLoading(true)
+
+    // Client-side validation
+    const validQuantity = getValidQuantity(quantityTpc)
+    if (!validQuantity) {
+      setError('Jumlah TPC minimal 1')
+      setIsLoading(false)
+      return
+    }
 
     // Get wallet address for USDC payments
     let walletAddress = null
@@ -41,7 +58,7 @@ export default function BuyForm() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          qty_tpc: quantity,
+          qty_tpc: validQuantity,
           walletAddress
         }),
         signal: controller.signal

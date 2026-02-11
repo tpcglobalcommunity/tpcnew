@@ -29,17 +29,18 @@ interface Invoice {
   deadline_at: string | null
 }
 
-export default function InvoiceDetail({ treasuryAddress: propTreasuryAddress }: { treasuryAddress?: string | null }) {
+export default function InvoiceDetail() {
   const params = useParams()
   const invoiceId = params.id as string
   const [invoice, setInvoice] = useState<Invoice | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState('')
-  const [treasuryAddr, setTreasuryAddr] = useState<string | null>(propTreasuryAddress || null)
+  const [treasuryAddr, setTreasuryAddr] = useState<string | null>(null)
 
   useEffect(() => {
     fetchInvoice()
+    fetchTreasuryAddress()
   }, [invoiceId])
 
   const fetchInvoice = async () => {
@@ -56,6 +57,19 @@ export default function InvoiceDetail({ treasuryAddress: propTreasuryAddress }: 
       setError('Gagal mengambil invoice')
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const fetchTreasuryAddress = async () => {
+    try {
+      const response = await fetch('/api/public/settings/treasury')
+      const data = await response.json()
+      
+      if (response.ok && data.ok) {
+        setTreasuryAddr(data.usdc_treasury_address)
+      }
+    } catch (error) {
+      console.error('Failed to fetch treasury address:', error)
     }
   }
 
