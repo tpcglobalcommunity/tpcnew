@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Suspense } from 'react'
-import { supabase } from '@/lib/supabase/client'
-import { getAuthRedirectUrl, validateProductionRedirect } from '@/lib/siteUrl'
+import { supabase } from '@/lib/supabase'
+import { getSiteUrl } from '@/lib/getSiteUrl'
 
 function RegisterForm() {
   const [email, setEmail] = useState('')
@@ -50,13 +50,19 @@ function RegisterForm() {
       }
       
       // Get secure redirect URL
-      const redirectTo = validateProductionRedirect(getAuthRedirectUrl("/login"))
+      const redirectTo = `${getSiteUrl()}/auth/callback`
       
       const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: redirectTo
+          emailRedirectTo: redirectTo,
+          data: {
+            display_name: email.split('@')[0], // Extract name from email
+            company_name: 'TPC Global',
+            template_type: 'welcome',
+            user_email: email
+          }
         }
       })
 

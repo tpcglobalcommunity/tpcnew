@@ -43,18 +43,31 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    console.log("CREATE INVOICE BODY:", body)
-    const { qty_tpc, walletAddress } = body
+    if (process.env.NODE_ENV !== 'production') {
+      console.log("CREATE INVOICE BODY:", body)
+    }
+    
+    // Support multiple field names for quantity
+    const { 
+      qty_tpc, 
+      qty, 
+      amount_tpc, 
+      quantity_tpc,
+      walletAddress 
+    } = body
+
+    // Determine the quantity value from available fields
+    const rawQuantity = qty_tpc || qty || amount_tpc || quantity_tpc
 
     // Input validation
-    if (!qty_tpc) {
+    if (!rawQuantity) {
       return NextResponse.json({ 
         ok: false, 
         message: 'Jumlah TPC wajib diisi' 
       }, { status: 400 })
     }
 
-    const quantity = parseFloat(qty_tpc)
+    const quantity = parseFloat(rawQuantity)
     if (isNaN(quantity) || quantity <= 0) {
       return NextResponse.json({ 
         ok: false, 

@@ -4,14 +4,15 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Suspense } from 'react'
-import { supabase } from '@/lib/supabase/client'
-import { sanitizeReturnTo } from '@/lib/security/returnTo'
-import { getAuthRedirectUrl, validateProductionRedirect } from '@/lib/siteUrl'
+import { sendCustomEmail } from '../../../lib/email-service'
+import { supabase } from '@/lib/supabase'
+import { getSiteUrl } from '@/lib/getSiteUrl'
 
 function ForgotPasswordForm() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState('')
   
   const router = useRouter()
 
@@ -21,22 +22,19 @@ function ForgotPasswordForm() {
     setSubmitted(true)
 
     try {
-      if (!supabase) {
-        throw new Error('Supabase client not initialized')
-      }
-      
-      // Get secure redirect URL
-      const redirectTo = validateProductionRedirect(getAuthRedirectUrl("/reset-password"))
-      
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: redirectTo
+        redirectTo: `${getSiteUrl()}/auth/reset`
       })
 
-      // Always show success message for anti-enumeration
-      setSubmitted(true)
+      if (error) {
+        console.error('Reset password error:', error)
+        setError(error.message || 'Terjadi kesalahan. Silakan coba lagi.')
+      } else {
+        setSubmitted(true)
+      }
     } catch (err) {
-      // Always show success message for anti-enumeration
-      setSubmitted(true)
+      console.error('Unexpected error:', err)
+      setError('Terjadi kesalahan. Silakan coba lagi.')
     } finally {
       setLoading(false)
     }

@@ -62,11 +62,11 @@ export default function InvoiceDetail() {
 
   const fetchTreasuryAddress = async () => {
     try {
-      const response = await fetch('/api/public/settings/treasury')
+      const response = await fetch('/api/settings/treasury')
       const data = await response.json()
       
-      if (response.ok && data.ok) {
-        setTreasuryAddr(data.usdc_treasury_address)
+      if (response.ok) {
+        setTreasuryAddr(data.treasury_address)
       }
     } catch (error) {
       console.error('Failed to fetch treasury address:', error)
