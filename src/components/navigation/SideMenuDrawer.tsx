@@ -29,7 +29,7 @@ export function SideMenuDrawer({ isOpen, onClose, currentLang }: SideMenuDrawerP
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 lg:hidden">
+    <div className="fixed inset-0 z-50">
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-black/50 backdrop-blur-sm"
@@ -37,10 +37,10 @@ export function SideMenuDrawer({ isOpen, onClose, currentLang }: SideMenuDrawerP
       />
 
       {/* Drawer */}
-      <div className="fixed right-0 top-0 h-full w-full max-w-sm bg-gradient-to-b from-[#0B0E11] to-[#0F141A] border-l border-amber-500/10 shadow-2xl transform transition-transform duration-300 ease-out">
+      <div className="fixed right-0 top-0 h-full w-full max-w-[480px] bg-[#0B0E11] border-l border-white/5 transform transition-transform duration-300 ease-out">
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-gray-800/60">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
             <h2 className="text-xl font-semibold text-white tracking-wide">
               Menu<span className="ml-2 text-[10px] text-amber-400/80">v2</span>
             </h2>

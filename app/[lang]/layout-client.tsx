@@ -27,11 +27,11 @@ export default function LangLayout({
   }, [params]);
 
   return (
-    <div className="min-h-screen bg-[#0B0E11]">
+    <div className="max-w-[480px] mx-auto min-h-screen bg-[#0B0E11]">
       <div className="min-h-screen flex flex-col">
         <PublicTopBar currentLang={currentLang} onMenuToggle={() => setIsMenuOpen(!isMenuOpen)} />
         
-        <main className="pt-14 pb-20 flex-1">
+        <main className="pt-14 pb-20 flex-1 px-5">
           {children}
         </main>
         

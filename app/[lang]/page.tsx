@@ -77,41 +77,41 @@ export default async function HomePage({ params }: HomePageProps) {
   return (
     <PremiumShell>
       {/* HERO SECTION */}
-      <Section className="py-28 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
+      <Section className="px-5 py-16 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
         <Container className="relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="text-center">
             {/* Badge */}
-            <div className="inline-flex items-center px-4 py-2 bg-amber-500/20 border border-amber-500/30 rounded-full mb-8">
-              <span className="text-amber-400 text-sm font-semibold">KOMUNITAS EDUKASI</span>
+            <div className="inline-flex items-center px-3 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full mb-6">
+              <span className="text-amber-400 text-xs font-semibold">KOMUNITAS EDUKASI</span>
             </div>
             
             {/* Title */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight tracking-tight">
+            <h1 className="text-3xl font-bold text-white mb-6 leading-tight tracking-tight">
               TPC
-              <span className="block text-2xl md:text-3xl font-normal text-gray-300 mt-2">
+              <span className="block text-lg font-normal text-gray-300 mt-2">
                 (Trader Professional Community)
               </span>
             </h1>
             
             {/* Main Description - EXACT TEXT AS REQUIRED */}
-            <p className="text-xl md:text-2xl text-gray-300 mb-6 leading-relaxed">
+            <p className="text-base text-gray-300 mb-4 leading-relaxed">
               TPC merupakan komunitas trader profesional yang berfokus pada berbagi pengalaman serta memberikan edukasi kepada pemula mengenai trading emas dan Bitcoin secara terstruktur dan bertanggung jawab.
             </p>
             
             {/* Secondary Description - EXACT TEXT AS REQUIRED */}
-            <p className="text-lg text-gray-400 mb-12 leading-relaxed">
+            <p className="text-sm text-gray-400 mb-8 leading-relaxed">
               Dengan hadirnya TPC, praktik edukasi yang tidak bertanggung jawab serta skema investasi yang merugikan masyarakat dapat dicegah melalui peningkatan literasi dan kesadaran risiko sejak dini.
             </p>
             
             {/* CTA Buttons - SOFT STYLE */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href={`/${lang}/why-tpc`} className="inline-flex items-center justify-center px-6 py-3 bg-amber-500/90 text-black font-semibold rounded-xl hover:bg-amber-400 transition-colors duration-300">
+            <div className="flex flex-col gap-3 justify-center">
+              <Link href={`/${lang}/why-tpc`} className="w-full inline-flex items-center justify-center px-6 py-3 bg-amber-500/90 text-black font-semibold rounded-xl hover:bg-amber-400 transition-colors duration-300">
                 Pelajari TPC
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </Link>
-              <Link href={`/${lang}/transparency`} className="inline-flex items-center justify-center px-6 py-3 border border-white/10 bg-white/5 text-gray-300 font-semibold rounded-xl hover:bg-white/10 transition-colors duration-300">
+              <Link href={`/${lang}/transparency`} className="w-full inline-flex items-center justify-center px-6 py-3 border border-white/10 bg-white/5 text-gray-300 font-semibold rounded-xl hover:bg-white/10 transition-colors duration-300">
                 Lihat Transparansi
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -123,21 +123,21 @@ export default async function HomePage({ params }: HomePageProps) {
       </Section>
 
       {/* PILAR TPC SECTION */}
-      <Section className="py-20 bg-[#0F141A] relative w-full max-w-full overflow-hidden">
+      <Section className="px-5 py-16 bg-[#0F141A] relative w-full max-w-full overflow-hidden">
         <Container className="relative z-10">
-          <div className="max-w-6xl mx-auto">
+          <div className="text-center">
             {/* Section Header */}
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl font-bold text-white mb-4">
                 Pilar TPC
               </h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              <p className="text-gray-400 text-sm max-w-2xl mx-auto">
                 Fondasi yang membangun komunitas trading profesional yang bertanggung jawab
               </p>
             </div>
             
             {/* 4 Premium Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="space-y-6">
               {/* Card 1: Edukasi Terstruktur */}
               <div className="bg-[#11161c] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-colors">
                 <div className="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center mb-4">
@@ -196,21 +196,21 @@ export default async function HomePage({ params }: HomePageProps) {
       </Section>
 
       {/* CARA KERJA TPC SECTION */}
-      <Section className="py-20 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
+      <Section className="px-5 py-16 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
         <Container className="relative z-10">
-          <div className="max-w-6xl mx-auto">
+          <div className="text-center">
             {/* Section Header */}
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl font-bold text-white mb-4">
                 Cara Kerja TPC
               </h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              <p className="text-gray-400 text-sm max-w-2xl mx-auto">
                 Proses pembelajaran yang terstruktur untuk mengembangkan trader profesional
               </p>
             </div>
             
             {/* 3 Steps */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="space-y-6">
               {/* Step 1 */}
               <div className="text-center">
                 <div className="w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -249,11 +249,11 @@ export default async function HomePage({ params }: HomePageProps) {
       </Section>
 
       {/* KOMITMEN TRANSPARANSI SECTION */}
-      <Section className="py-20 bg-[#1A1F2E] relative w-full max-w-full overflow-hidden">
+      <Section className="px-5 py-16 bg-[#1A1F2E] relative w-full max-w-full overflow-hidden">
         <Container className="relative z-10">
-          <div className="max-w-2xl mx-auto text-center">
+          <div className="text-center">
             {/* Main Statement - EXACT TEXT AS REQUIRED */}
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-xl font-semibold text-gray-300 mb-8 leading-relaxed">
               TPC menggunakan teknologi blockchain untuk mendukung transparansi dan pencatatan yang dapat diverifikasi.
             </p>
             

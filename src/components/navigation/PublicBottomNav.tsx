@@ -55,8 +55,8 @@ export function PublicBottomNav({ currentLang, onMenuToggle }: PublicBottomNavPr
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#0B0E11]/95 backdrop-blur-sm border-t border-gray-800">
-      <div className="max-w-7xl mx-auto px-4">
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#0B0E11]/95 backdrop-blur-sm border-t border-white/5">
+      <div className="max-w-[480px] mx-auto px-4">
         <div className="flex justify-around items-center h-16">
           {bottomNavItems.map((item) => {
             const active = isActive(item.href);
@@ -81,7 +81,7 @@ export function PublicBottomNav({ currentLang, onMenuToggle }: PublicBottomNavPr
                 href={item.href}
                 className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-colors ${
                   active 
-                    ? 'text-amber-400' 
+                    ? 'text-amber-400 bg-amber-500/10' 
                     : 'text-gray-400 hover:text-white'
                 }`}
               >
