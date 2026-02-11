@@ -22,6 +22,14 @@ function RegisterForm() {
     setLoading(true)
     setError('')
 
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      setError('Format email tidak valid')
+      setLoading(false)
+      return
+    }
+
     if (password.length < 8) {
       setError('Password minimal 8 karakter')
       setLoading(false)
@@ -56,7 +64,17 @@ function RegisterForm() {
 
       if (error) {
         console.error('Signup error:', error)
-        setError(error.message || 'Email sudah terdaftar atau terjadi kesalahan')
+        
+        // Specific error handling
+        if (error.message?.includes('duplicate') || error.message?.includes('already registered') || error.message?.includes('User already registered')) {
+          setError('Email sudah terdaftar. Silakan gunakan email lain atau login.')
+        } else if (error.message?.includes('rate limit') || error.message?.includes('too many requests')) {
+          setError('Terlalu banyak percobaan. Silakan coba lagi dalam 1 jam.')
+        } else if (error.message?.includes('Invalid email')) {
+          setError('Format email tidak valid.')
+        } else {
+          setError(error.message || 'Email sudah terdaftar atau terjadi kesalahan')
+        }
       } else {
         console.log('Signup successful')
         setSuccess(true)
@@ -79,9 +97,12 @@ function RegisterForm() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
               </svg>
             </div>
-            <h1 className="text-2xl font-bold text-white mb-2">Pendaftaran Berhasil</h1>
-            <p className="text-gray-400 mb-6">
-              Kami sudah mengirim email verifikasi. Silakan cek inbox atau folder spam.
+            <h1 className="text-2xl font-bold text-white mb-2">Pendaftaran Berhasil!</h1>
+            <p className="text-gray-400 mb-4">
+              Email verifikasi telah dikirim ke <strong>{email}</strong>.
+            </p>
+            <p className="text-gray-300 text-sm mb-6">
+              Silakan cek inbox Anda (termasuk folder spam) dan klik link verifikasi dalam 24 jam.
             </p>
           </div>
           
