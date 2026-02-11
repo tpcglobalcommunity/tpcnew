@@ -6,6 +6,7 @@ import { PremiumCard, PremiumCardContent } from "@/components/ui/PremiumCard";
 import { PremiumButton } from "@/components/ui/PremiumButton";
 import { Metadata } from "next";
 import Link from "next/link";
+import { whyCopy } from "@/content/whyCopy";
 
 interface WhyTpcPageProps {
   params: Promise<LangParams>;

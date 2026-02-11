@@ -63,13 +63,13 @@ export const daoCopy: Record<Language, {
     hero: {
       title: "TPC DAO",
       subtitle: "A community governance mechanism for participation, transparency, and collective decision-making.",
-      disclaimer: "TPC DAO is not an investment instrument and does not promise financial returns.",
+      disclaimer: "TPC is a komunitas trader profesional yang berfokus pada edukasi, transparansi, dan etika.",
       cta: "Learn DAO Mechanism",
     },
     sections: {
       governance: {
         title: "Community Governance",
-        description: "DAO enables community members to participate in TPC's strategic direction through transparent voting and proposal systems.",
+        description: "TPC adalah komunitas trader profesional yang berfokus pada edukasi, transparansi, dan etika.",
       },
       participation: {
         title: "Participation-Based Voting Rights",

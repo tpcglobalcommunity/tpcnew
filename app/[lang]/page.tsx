@@ -76,13 +76,14 @@ export async function generateMetadata({ params }: { params: Promise<LangParams>
 // Home Content Dictionary
 const homeCopy = {
   id: {
-    title: 'Trader Profesional Community — Komunitas Edukasi Trader Profesional Berbasis Transparansi',
-    subtitle: 'Trader Profesional Community adalah komunitas trader yang berfokus pada edukasi Gold dan Bitcoin, transparansi on-chain, serta perlindungan publik dari praktik trading menyesatkan.',
+    title: 'TPC — Komunitas Trader Profesional',
+    subtitle: 'Komunitas edukasi trading yang berfokus pada transparansi dan etika.',
     hero: {
-      badge: 'Komunitas Edukasi',
-      title: 'Trader Profesional Community',
-      subtitle: 'Komunitas Edukasi Trader Profesional Berbasis Transparansi',
-      disclaimer: 'Trader Profesional Community bukan instrumen investasi dan tidak menjanjikan keuntungan finansial.'
+      badge: 'KOMUNITAS EDUKASI',
+      title: 'TPC',
+      subtitle: 'Komunitas Trader Profesional',
+      description: 'TPC adalah komunitas trader profesional yang berfokus pada edukasi, transparansi, dan etika.',
+      disclaimer: 'Materi bersifat edukatif dan bukan nasihat investasi atau keuangan.'
     },
     trust: {
       education: '🎓 Education-first',
@@ -90,9 +91,9 @@ const homeCopy = {
       governance: '🧭 Komunitas, bukan instrumen investasi',
       protection: '🛡️ Anti-scam sejak desain awal'
     },
-    whatIs: 'Trader Profesional Community dibentuk untuk merangkul trader berpengalaman dan membangun ruang edukasi yang sehat bagi masyarakat. Kami menolak janji hasil, skema ponzi, dan mentor abal-abal. Fokus Trader Profesional Community adalah literasi trading, manajemen risiko, dan transparansi berbasis teknologi.',
-    infrastructure: 'Trader Profesional Community dibangun di atas infrastruktur blockchain berbasis Ethereum melalui Polygon untuk memastikan transparansi, efisiensi, dan keberlanjutan komunitas.',
-    presale: 'Presale Trader Profesional Community dirancang secara bertahap dan terbatas sebagai mekanisme akses komunitas. Presale bukan skema spekulasi dan tidak disertai janji hasil finansial apa pun.',
+    whatIs: 'TPC adalah komunitas trader profesional yang berfokus pada edukasi, transparansi, dan etika. Kami tidak menjanjikan hasil, tidak menawarkan skema cepat kaya, dan mendorong literasi risiko.',
+    infrastructure: 'TPC menggunakan teknologi blockchain untuk mendukung transparansi dan pencatatan yang dapat diverifikasi.',
+    presale: 'Presale dirancang sebagai mekanisme akses komunitas, bukan skema spekulasi.',
     academy: {
       title: 'Edukasi Trading',
       items: [
@@ -102,7 +103,7 @@ const homeCopy = {
         'Etika & literasi finansial'
       ]
     },
-    dao: 'Trader Profesional Community mengadopsi model DAO Lite untuk mendorong partisipasi komunitas dalam arah kebijakan dan transparansi, bukan untuk pembagian keuntungan finansial.',
+    dao: 'TPC mengadopsi model DAO untuk mendorong partisipasi komunitas dalam transparansi.',
     quickAccess: {
       dao: 'Lihat DAO',
       presale: 'Pelajari Presale',
@@ -110,8 +111,8 @@ const homeCopy = {
       transparency: 'Transparansi'
     },
     safety: [
-      'Trader Profesional Community tidak pernah DM lebih dulu',
-      'Trader Profesional Community tidak pernah meminta private key',
+      'TPC tidak pernah DM lebih dulu',
+      'TPC tidak pernah meminta private key',
       'Informasi resmi hanya melalui website'
     ],
     cta: {
@@ -120,13 +121,14 @@ const homeCopy = {
     }
   },
   en: {
-    title: 'Trader Profesional Community — Professional Trader Education Community Based on Transparency',
-    subtitle: 'Trader Profesional Community is a trader community focused on Gold and Bitcoin education, on-chain transparency, and public protection from misleading trading practices.',
+    title: 'TPC — Professional Trader Community',
+    subtitle: 'Trading education community focused on transparency and ethics.',
     hero: {
-      badge: 'Education Community',
-      title: 'Trader Profesional Community',
-      subtitle: 'Professional Trader Education Community Based on Transparency',
-      disclaimer: 'Trader Profesional Community is not an investment instrument and does not promise financial profit.'
+      badge: 'EDUCATION COMMUNITY',
+      title: 'TPC',
+      subtitle: 'Professional Trader Community',
+      description: 'TPC is a professional trader community focused on education, transparency, and ethics.',
+      disclaimer: 'Materials are for educational purposes and not investment or financial advice.'
     },
     trust: {
       education: '🎓 Education-first',
@@ -134,9 +136,9 @@ const homeCopy = {
       governance: '🧭 Community, not investment instrument',
       protection: '🛡️ Anti-scam by design'
     },
-    whatIs: 'Trader Profesional Community was formed to embrace experienced traders and build a healthy educational space for the public. We reject profit promises, ponzi schemes, and fake mentors. Trader Profesional Community focuses on trading literacy, risk management, and technology-based transparency.',
-    infrastructure: 'Trader Profesional Community is built on Ethereum-based blockchain infrastructure through Polygon to ensure transparency, efficiency, and community sustainability.',
-    presale: 'Trader Profesional Community presale is designed gradually and limited as a community access mechanism. Presale is not a speculative scheme and is not accompanied by any financial result promises.',
+    whatIs: 'TPC is a professional trader community focused on education, transparency, and ethics. We do not promise results, do not offer get-rich-quick schemes, and promote risk literacy.',
+    infrastructure: 'TPC uses blockchain technology to support transparency and verifiable record-keeping.',
+    presale: 'Presale is designed as a community access mechanism, not a speculative scheme.',
     academy: {
       title: 'Trading Education',
       items: [
@@ -146,7 +148,7 @@ const homeCopy = {
         'Ethics & financial literacy'
       ]
     },
-    dao: 'Trader Profesional Community adopts a DAO Lite model to encourage community participation in policy direction and transparency, not for financial profit sharing.',
+    dao: 'TPC adopts a DAO model to encourage community participation in transparency.',
     quickAccess: {
       dao: 'View DAO',
       presale: 'Learn Presale',
@@ -154,8 +156,8 @@ const homeCopy = {
       transparency: 'Transparency'
     },
     safety: [
-      'Trader Profesional Community never DMs first',
-      'Trader Profesional Community never asks for private keys',
+      'TPC never DMs first',
+      'TPC never asks for private keys',
       'Official information only through website'
     ],
     cta: {
