@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { PremiumButton } from '@/components/ui/PremiumButton'
-import { supabase } from '@/lib/supabase/client'
+import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 import { LogOut, User } from 'lucide-react'
 
 interface MemberTopBarProps {
@@ -15,14 +15,13 @@ interface MemberTopBarProps {
 
 export default function MemberTopBar({ title, user }: MemberTopBarProps) {
   const pathname = usePathname()
+  const supabase = getSupabaseBrowserClient()
   const [isSigningOut, setIsSigningOut] = useState(false)
 
   const handleSignOut = async () => {
     setIsSigningOut(true)
     try {
-      if (supabase) {
-        await supabase.auth.signOut()
-      }
+      await supabase.auth.signOut()
       window.location.href = '/login'
     } catch (error) {
       console.error('Sign out error:', error)

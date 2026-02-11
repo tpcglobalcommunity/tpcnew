@@ -1,9 +1,7 @@
-import { supabase } from '../supabase/client'
+import { getSupabaseBrowserClient } from '../supabase/browser'
 
 export async function requireAuth() {
-  if (!supabase) {
-    throw new Error('Supabase client not initialized')
-  }
+  const supabase = getSupabaseBrowserClient()
   
   const { data: { session } } = await supabase.auth.getSession()
   

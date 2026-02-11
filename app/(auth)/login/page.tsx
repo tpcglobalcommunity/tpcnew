@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Suspense } from 'react'
-import { supabase } from '@/lib/supabase/client'
+import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 import { sanitizeReturnTo } from '@/lib/security/returnTo'
 
 function LoginForm() {
@@ -16,6 +16,7 @@ function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const returnTo = sanitizeReturnTo(searchParams.get('returnTo'))
+  const supabase = getSupabaseBrowserClient()
 
   // DEBUG: Verify environment variables
   console.log("SUPABASE_URL?", !!process.env.NEXT_PUBLIC_SUPABASE_URL)
@@ -27,10 +28,6 @@ function LoginForm() {
     setError('')
 
     try {
-      if (!supabase) {
-        throw new Error('Supabase client not initialized')
-      }
-      
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,

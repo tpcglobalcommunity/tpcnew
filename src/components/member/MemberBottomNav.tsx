@@ -13,7 +13,7 @@ import {
   User,
   LogOut
 } from 'lucide-react'
-import { supabase } from '@/lib/supabase/client'
+import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 
 interface MemberBottomNavProps {
   currentPath?: string;
@@ -30,6 +30,7 @@ interface NavItem {
 export function MemberBottomNav({ currentPath }: MemberBottomNavProps) {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const supabase = getSupabaseBrowserClient();
 
   const navItems: NavItem[] = [
     {
@@ -75,10 +76,6 @@ export function MemberBottomNav({ currentPath }: MemberBottomNavProps) {
       icon: LogOut,
       label: 'Logout',
       onClick: async () => {
-        if (!supabase) {
-          throw new Error('Supabase client not initialized')
-        }
-        
         await supabase.auth.signOut();
         window.location.href = '/login';
       }

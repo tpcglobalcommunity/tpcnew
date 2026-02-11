@@ -4,8 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Suspense } from 'react'
-import { sendCustomEmail } from '../../../lib/email-service'
-import { supabase } from '@/lib/supabase'
+import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 import { getSiteUrl } from '@/lib/getSiteUrl'
 
 function ForgotPasswordForm() {
@@ -15,6 +14,7 @@ function ForgotPasswordForm() {
   const [error, setError] = useState('')
   
   const router = useRouter()
+  const supabase = getSupabaseBrowserClient()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

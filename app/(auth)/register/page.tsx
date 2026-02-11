@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Suspense } from 'react'
-import { supabase } from '@/lib/supabase'
+import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 import { getSiteUrl } from '@/lib/getSiteUrl'
 
 function RegisterForm() {
@@ -16,6 +16,7 @@ function RegisterForm() {
   const [success, setSuccess] = useState(false)
   
   const router = useRouter()
+  const supabase = getSupabaseBrowserClient()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -45,11 +46,6 @@ function RegisterForm() {
     try {
       console.log('Attempting signup with email:', email)
       
-      if (!supabase) {
-        throw new Error('Supabase client not initialized')
-      }
-      
-      // Get secure redirect URL
       const redirectTo = `${getSiteUrl()}/auth/callback`
       
       const { error } = await supabase.auth.signUp({

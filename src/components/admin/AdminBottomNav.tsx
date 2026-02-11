@@ -4,16 +4,14 @@ import { useState } from 'react'
 import { Shield, Menu, X, User, LogOut, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase/client'
+import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 
 export default function AdminBottomNav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const router = useRouter()
+  const supabase = getSupabaseBrowserClient()
 
   const handleLogout = async () => {
-    if (!supabase) {
-      throw new Error('Supabase client not initialized')
-    }
     
     await supabase.auth.signOut()
     router.push('/login')

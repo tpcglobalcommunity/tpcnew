@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 
 function ResetPasswordForm() {
   const [password, setPassword] = useState('')
@@ -13,6 +13,7 @@ function ResetPasswordForm() {
   
   const router = useRouter()
   const searchParams = useSearchParams()
+  const supabase = getSupabaseBrowserClient()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

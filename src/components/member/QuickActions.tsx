@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { PremiumButton } from '@/components/ui/PremiumButton'
 import { ShoppingCart, FileText, Users, Settings, LogOut } from 'lucide-react'
-import { supabase } from '@/lib/supabase/client'
+import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 
 interface QuickActionsProps {
   user: {
@@ -14,13 +14,12 @@ interface QuickActionsProps {
 
 export default function QuickActions({ user }: QuickActionsProps) {
   const [isSigningOut, setIsSigningOut] = useState(false)
+  const supabase = getSupabaseBrowserClient()
 
   const handleSignOut = async () => {
     setIsSigningOut(true)
     try {
-      if (supabase) {
-        await supabase.auth.signOut()
-      }
+      await supabase.auth.signOut()
       window.location.href = '/login'
     } catch (error) {
       console.error('Sign out error:', error)

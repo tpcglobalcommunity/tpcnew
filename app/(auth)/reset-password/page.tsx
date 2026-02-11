@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Suspense } from 'react'
-import { supabase } from '@/lib/supabase/client'
+import { getSupabaseBrowserClient } from '@/lib/supabase/browser'
 
 function ResetPasswordForm() {
   const [password, setPassword] = useState('')
@@ -15,14 +15,11 @@ function ResetPasswordForm() {
   const [validSession, setValidSession] = useState(false)
   
   const router = useRouter()
+  const supabase = getSupabaseBrowserClient()
 
   useEffect(() => {
     // Check if we have a valid recovery session
     const checkSession = async () => {
-      if (!supabase) {
-        return
-      }
-      
       const { data: { session } } = await supabase.auth.getSession()
       if (session) {
         setValidSession(true)
@@ -58,10 +55,6 @@ function ResetPasswordForm() {
     }
 
     try {
-      if (!supabase) {
-        throw new Error('Supabase client not initialized')
-      }
-      
       const { error } = await supabase.auth.updateUser({
         password: password
       })
