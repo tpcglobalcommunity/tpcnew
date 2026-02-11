@@ -5,10 +5,31 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createServerClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
 
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    if (authError || !user) {
+      console.error('[create-invoice] Auth error:', authError?.message)
+      return NextResponse.json({ 
+        ok: false, 
+        message: 'Unauthorized' 
+      }, { status: 401 })
+    }
+
+    // Schema check - cheap test
+    const { error: schemaError } = await supabase
+      .from('tpc_invoices')
+      .select('id')
+      .limit(1)
+
+    if (schemaError) {
+      console.error('[create-invoice] Schema error:', { 
+        code: schemaError.code, 
+        message: schemaError.message 
+      })
+      return NextResponse.json({ 
+        ok: false, 
+        message: 'Database belum siap' 
+      }, { status: 500 })
     }
 
     // Rate limiting check
@@ -21,13 +42,20 @@ export async function POST(request: NextRequest) {
       })
 
     if (rateLimitError) {
-      console.error('Rate limit error:', rateLimitError)
-      return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+      console.error('[create-invoice] Rate limit error:', { 
+        code: rateLimitError.code, 
+        message: rateLimitError.message 
+      })
+      return NextResponse.json({ 
+        ok: false, 
+        message: 'Rate limit service error' 
+      }, { status: 500 })
     }
 
     if (!rateLimitResult) {
       return NextResponse.json({ 
-        error: 'Terlalu banyak permintaan. Coba lagi beberapa menit.' 
+        ok: false, 
+        message: 'Terlalu banyak permintaan. Coba lagi beberapa menit.' 
       }, { status: 429 })
     }
 
@@ -36,20 +64,32 @@ export async function POST(request: NextRequest) {
 
     // Input validation
     if (!stage || !amountUsdc || !method) {
-      return NextResponse.json({ error: 'Data tidak lengkap' }, { status: 400 })
+      return NextResponse.json({ 
+        ok: false, 
+        message: 'Data tidak lengkap' 
+      }, { status: 400 })
     }
 
     if (stage < 1 || stage > 20) {
-      return NextResponse.json({ error: 'Stage tidak valid (1-20)' }, { status: 400 })
+      return NextResponse.json({ 
+        ok: false, 
+        message: 'Stage tidak valid (1-20)' 
+      }, { status: 400 })
     }
 
     const amount = parseFloat(amountUsdc)
-    if (isNaN(amount) || amount < 10 || amount > 100000) {
-      return NextResponse.json({ error: 'Jumlah USDC tidak valid (min 10, max 100000)' }, { status: 400 })
+    if (isNaN(amount) || amount < 10) {
+      return NextResponse.json({ 
+        ok: false, 
+        message: 'Jumlah USDC tidak valid (min 10)' 
+      }, { status: 400 })
     }
 
     if (!['USDC', 'IDR'].includes(method)) {
-      return NextResponse.json({ error: 'Metode pembayaran tidak valid' }, { status: 400 })
+      return NextResponse.json({ 
+        ok: false, 
+        message: 'Metode pembayaran tidak valid' 
+      }, { status: 400 })
     }
 
     // Server-side price calculation
@@ -60,7 +100,7 @@ export async function POST(request: NextRequest) {
     const expiresAt = new Date()
     expiresAt.setHours(expiresAt.getHours() + 24) // 24 hours expiry
 
-    const { data: invoice, error } = await supabase
+    const { data: invoice, error: insertError } = await supabase
       .from('tpc_invoices')
       .insert({
         user_id: user.id,
@@ -72,34 +112,60 @@ export async function POST(request: NextRequest) {
         status: 'pending',
         expires_at: expiresAt.toISOString()
       })
-      .select()
+      .select('id')
       .single()
 
-    if (error) {
-      console.error('Invoice creation error:', error)
-      return NextResponse.json({ error: 'Gagal membuat invoice' }, { status: 500 })
+    if (insertError) {
+      console.error('[create-invoice] Insert error:', { 
+        code: insertError.code, 
+        message: insertError.message 
+      })
+      
+      let safeMessage = 'Gagal membuat invoice'
+      if (insertError.code === '42501') {
+        safeMessage = 'Permission denied'
+      } else if (insertError.code === '23505') {
+        safeMessage = 'Invoice sudah ada'
+      }
+
+      return NextResponse.json({ 
+        ok: false, 
+        message: safeMessage,
+        detail: insertError.message 
+      }, { status: 400 })
     }
 
-    // Create audit log
-    await supabase
-      .from('tpc_audit_logs')
-      .insert({
-        invoice_id: invoice.id,
-        action: 'create_invoice',
-        old_status: null,
-        new_status: 'pending',
-        actor_id: user.id,
-        meta: {
-          stage,
-          amount_usdc: amount,
-          method
-        }
-      })
+    // Create audit log (best effort)
+    try {
+      await supabase
+        .from('tpc_audit_logs')
+        .insert({
+          invoice_id: invoice.id,
+          action: 'create_invoice',
+          old_status: null,
+          new_status: 'pending',
+          actor_id: user.id,
+          meta: {
+            stage,
+            amount_usdc: amount,
+            method
+          }
+        })
+    } catch (auditError) {
+      console.error('[create-invoice] Audit log error:', auditError)
+      // Don't fail the request if audit log fails
+    }
 
-    return NextResponse.json({ invoiceId: invoice.id })
+    return NextResponse.json({ 
+      ok: true, 
+      invoiceId: invoice.id 
+    })
 
   } catch (error) {
-    console.error('Create invoice error:', error)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    console.error('[create-invoice] Unexpected error:', error)
+    return NextResponse.json({ 
+      ok: false, 
+      message: 'Internal server error' 
+    }, { status: 500 })
   }
 }

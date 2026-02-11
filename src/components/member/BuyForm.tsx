@@ -38,8 +38,10 @@ export default function BuyForm() {
 
       const data = await response.json()
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Gagal membuat invoice')
+      if (!response.ok || !data.ok) {
+        const errorMessage = data.message || 'Gagal membuat invoice'
+        const detailMessage = data.detail ? ` (${data.detail})` : ''
+        throw new Error(`${errorMessage}${detailMessage}`)
       }
 
       router.push(`/member/invoices/${data.invoiceId}`)
