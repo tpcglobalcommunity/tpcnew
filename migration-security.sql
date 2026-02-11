@@ -65,22 +65,24 @@ CREATE INDEX IF NOT EXISTS idx_tpc_rate_limits_window ON tpc_rate_limits(window_
 CREATE INDEX IF NOT EXISTS idx_tpc_audit_logs_meta ON tpc_audit_logs USING GIN(meta);
 CREATE INDEX IF NOT EXISTS idx_tpc_invoices_tx_signature ON tpc_invoices(tx_signature) WHERE tx_signature IS NOT NULL;
 
--- 6) Update RLS policies for rate limits (admin only)
-ALTER TABLE tpc_rate_limits ENABLE ROW LEVEL SECURITY;
-
-DROP POLICY IF EXISTS "Admins can manage rate limits" ON tpc_rate_limits;
-CREATE POLICY "Admins can manage rate limits" ON tpc_rate_limits
-  FOR ALL USING (
-    EXISTS (
-      SELECT 1 FROM auth.users 
-      WHERE id = auth.uid() 
-      AND id::text IN (
-        SELECT unnest(string_to_array(current_setting('app.admin_user_ids', true), ',')) 
-        WHERE string_to_array(current_setting('app.admin_user_ids', true), ',') IS NOT NULL
-      )
-    )
-  );
+-- 6) Update RLS policies untuk rate limits (disable - system internal)
+-- Rate limits adalah system table, tidak perlu RLS
+-- Admin operations menggunakan service role yang bypass RLS
 
 -- 7) Grant permissions
 GRANT ALL ON tpc_rate_limits TO authenticated;
 GRANT ALL ON tpc_rate_limits TO service_role;
+
+-- 8) Update RLS policies for referral ledger (admin only)
+ALTER TABLE tpc_referral_ledger ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Admins can manage referral ledger" ON tpc_referral_ledger;
+CREATE POLICY "Admins can manage referral ledger" ON tpc_referral_ledger
+  FOR ALL USING (false); -- No direct access, use service role
+
+-- 9) Update RLS policies for audit logs (admin only)
+ALTER TABLE tpc_audit_logs ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Admins can view audit logs" ON tpc_audit_logs;
+CREATE POLICY "Admins can view audit logs" ON tpc_audit_logs
+  FOR SELECT USING (false); -- No direct access, use service role
