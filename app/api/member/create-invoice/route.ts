@@ -43,21 +43,22 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { quantityTpc, walletAddress } = body
+    console.log("CREATE INVOICE BODY:", body)
+    const { qty_tpc, walletAddress } = body
 
     // Input validation
-    if (!quantityTpc) {
+    if (!qty_tpc) {
       return NextResponse.json({ 
         ok: false, 
-        message: 'Quantity TPC wajib diisi' 
+        message: 'Jumlah TPC wajib diisi' 
       }, { status: 400 })
     }
 
-    const quantity = parseFloat(quantityTpc)
+    const quantity = parseFloat(qty_tpc)
     if (isNaN(quantity) || quantity <= 0) {
       return NextResponse.json({ 
         ok: false, 
-        message: 'Quantity TPC tidak valid (harus > 0)' 
+        message: 'Jumlah TPC tidak valid (harus > 0)' 
       }, { status: 400 })
     }
 

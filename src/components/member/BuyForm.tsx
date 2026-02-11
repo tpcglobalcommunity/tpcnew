@@ -41,7 +41,7 @@ export default function BuyForm() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          quantityTpc: quantity,
+          qty_tpc: quantity,
           walletAddress
         }),
         signal: controller.signal
