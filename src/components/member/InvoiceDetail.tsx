@@ -3,8 +3,16 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { PremiumButton } from '@/components/ui/PremiumButton'
-import { formatInvoiceId, formatUSDC, formatDate, isExpired } from '@/lib/presale'
+import { formatInvoiceId, formatDate, isExpired } from '@/lib/presale'
 import { Copy, Upload, CheckCircle, Clock, XCircle } from 'lucide-react'
+
+// Safe number formatter to prevent zero-ghost
+function formatNumberSafe(value: number | null | undefined, options?: Intl.NumberFormatOptions) {
+  if (value === null || value === undefined) return "—"
+  const n = typeof value === "number" ? value : Number(value)
+  if (!Number.isFinite(n)) return "—"
+  return new Intl.NumberFormat("id-ID", options).format(n)
+}
 
 interface Invoice {
   id: string
@@ -18,7 +26,7 @@ interface Invoice {
   proof_url?: string
   tx_signature?: string
   created_at: string
-  deadline_at: string
+  deadline_at: string | null
 }
 
 export default function InvoiceDetail() {
@@ -159,14 +167,6 @@ export default function InvoiceDetail() {
     return formatDate(deadline)
   }
 
-  // Safe quantity display
-  const displayQuantity = (quantity: number | null) => {
-    if (quantity === null || quantity === undefined) {
-      return null
-    }
-    return quantity
-  }
-
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Header */}
@@ -221,19 +221,15 @@ export default function InvoiceDetail() {
           </div>
           <div className="flex justify-between">
             <span className="text-gray-400">Harga per TPC:</span>
-            <span className="text-yellow-400">{formatUSDC(invoice.price_per_tpc)} USDC</span>
+            <span className="text-yellow-400">{formatNumberSafe(invoice.price_per_tpc, { minimumFractionDigits: 4, maximumFractionDigits: 8 })} USDC</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-400">Total USDC:</span>
-            <span className="text-yellow-400">{formatUSDC(invoice.total_usdc)} USDC</span>
+            <span className="text-yellow-400">{formatNumberSafe(invoice.total_usdc, { minimumFractionDigits: 2, maximumFractionDigits: 4 })} USDC</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-400">Jumlah TPC:</span>
-            {displayQuantity(invoice.quantity_tpc) !== null ? (
-              <span className="text-white">{formatUSDC(displayQuantity(invoice.quantity_tpc)!)} TPC</span>
-            ) : (
-              <span className="text-red-400">Quantity tidak tersedia</span>
-            )}
+            <span className="text-white">{formatNumberSafe(invoice.quantity_tpc, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TPC</span>
           </div>
           {invoice.wallet_address && (
             <div className="flex justify-between">

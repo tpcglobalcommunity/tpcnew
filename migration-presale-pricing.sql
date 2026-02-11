@@ -37,7 +37,7 @@ BEGIN
         ADD COLUMN IF NOT EXISTS total_usdc NUMERIC(20,8) NOT NULL DEFAULT 0 CHECK (total_usdc >= 0);
         
         ALTER TABLE tpc_invoices 
-        ADD COLUMN IF NOT EXISTS quantity_tpc NUMERIC(20,2) NOT NULL DEFAULT 0 CHECK (quantity_tpc >= 0);
+        ADD COLUMN IF NOT EXISTS quantity_tpc NUMERIC(20,2);
         
         ALTER TABLE tpc_invoices 
         ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'DRAFT';
@@ -58,6 +58,21 @@ BEGIN
         ADD COLUMN IF NOT EXISTS referral_code TEXT;
     END IF;
 END $$;
+
+-- 2.1. Repair data before setting constraints
+UPDATE tpc_invoices
+SET quantity_tpc = round(total_usdc / nullif(price_per_tpc, 0), 2)
+WHERE (quantity_tpc IS NULL OR quantity_tpc = 0)
+  AND total_usdc > 0
+  AND price_per_tpc > 0;
+
+-- 2.2. Set NOT NULL constraint after repair
+ALTER TABLE tpc_invoices
+  ALTER COLUMN quantity_tpc SET NOT NULL;
+
+-- 2.3. Add positive constraint
+ALTER TABLE tpc_invoices
+  ADD CONSTRAINT tpc_invoices_quantity_positive CHECK (quantity_tpc > 0);
 
 -- 3. Seed presale stages data
 INSERT INTO tpc_presale_stages (stage_number, price_usdc, is_active) VALUES
@@ -185,7 +200,8 @@ BEGIN
         'price_per_tpc', v_price_usdc,
         'quantity_tpc', p_quantity_tpc,
         'total_usdc', v_total_usdc,
-        'status', 'DRAFT'
+        'status', 'DRAFT',
+        'deadline_at', NOW() + INTERVAL '24 hours'
     );
 END;
 $$;
