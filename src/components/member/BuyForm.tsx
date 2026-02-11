@@ -23,6 +23,18 @@ export default function BuyForm() {
     setError('')
     setIsLoading(true)
 
+    // Get wallet address for USDC payments
+    let walletAddress = null
+    
+    if (method === 'USDC') {
+      if (!(window as any).solana?.publicKey) {
+        alert('Silakan connect Phantom wallet terlebih dahulu')
+        setIsLoading(false)
+        return
+      }
+      walletAddress = (window as any).solana.publicKey.toString()
+    }
+
     try {
       const response = await fetch('/api/member/create-invoice', {
         method: 'POST',
@@ -32,7 +44,8 @@ export default function BuyForm() {
         body: JSON.stringify({
           stage,
           amountUsdc: amount,
-          method
+          method,
+          walletAddress
         })
       })
 
