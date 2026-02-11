@@ -1,9 +1,6 @@
 import { normalizeLang, type LangParams, publicPath } from "@/lib/lang-helpers";
 import { PremiumShell } from "@/components/ui/PremiumShell";
 import { Container } from "@/components/ui/Container";
-import { Section } from "@/components/ui/Section";
-import { PremiumCard, PremiumCardContent } from "@/components/ui/PremiumCard";
-import { PremiumButton } from "@/components/ui/PremiumButton";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -18,19 +15,27 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<LangParams> }): Promise<Metadata> {
   const { lang } = await params;
   const normalizedLang = normalizeLang(lang);
-  const copy = riskDisclosureCopy[normalizedLang as keyof typeof riskDisclosureCopy];
+
+  const titles = {
+    id: "Pengungkapan Risiko - TPC Global",
+    en: "Risk Disclosure - TPC Global"
+  };
+
+  const descriptions = {
+    id: "Dokumen pengungkapan risiko komprehensif untuk ekosistem TPC Global",
+    en: "Comprehensive risk disclosure document for TPC Global ecosystem"
+  };
 
   return {
-    title: copy.meta.title,
-    description: copy.meta.description,
-    keywords:
-      "TPC Global, risk disclosure, pengungkapan risiko, digital assets, presale risk",
+    title: titles[normalizedLang as keyof typeof titles],
+    description: descriptions[normalizedLang as keyof typeof descriptions],
+    keywords: "TPC Global, risk disclosure, pengungkapan risiko, digital assets, legal compliance",
     authors: [{ name: "TPC Global" }],
     creator: "TPC Global",
     publisher: "TPC Global",
     openGraph: {
-      title: copy.meta.title,
-      description: copy.meta.description,
+      title: titles[normalizedLang as keyof typeof titles],
+      description: descriptions[normalizedLang as keyof typeof descriptions],
       type: "website",
       locale: normalizedLang === "id" ? "id_ID" : "en_US",
       siteName: "TPC Global",
@@ -39,623 +44,167 @@ export async function generateMetadata({ params }: { params: Promise<LangParams>
           url: "https://tpcglobal.io/og-risk-disclosure.jpg",
           width: 1200,
           height: 630,
-          alt: copy.title,
+          alt: titles[normalizedLang as keyof typeof titles],
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: copy.meta.title,
-      description: copy.meta.description,
+      title: titles[normalizedLang as keyof typeof titles],
+      description: descriptions[normalizedLang as keyof typeof descriptions],
       images: ["https://tpcglobal.io/og-risk-disclosure.jpg"],
-      creator: "@TPCGlobal",
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
     },
   };
 }
 
-// Risk Disclosure Content Dictionary
-const riskDisclosureCopy = {
+const legalContent = {
   id: {
-    title: "Pengungkapan Risiko (Risk Disclosure)",
-    subtitle:
-      "Dokumen ini menjelaskan risiko umum terkait aset digital, presale, dan penggunaan platform TPC Global.",
-    note: "Harap membaca dokumen ini dengan saksama sebelum mengambil keputusan apa pun.",
-    meta: {
-      title: "Pengungkapan Risiko | TPC Global",
-      description:
-        "Informasi risiko umum terkait aset digital dan partisipasi presale TPC Global.",
-    },
-    sections: {
-      purpose: {
-        title: "Tujuan Dokumen",
-        content:
-          "Dokumen ini disusun untuk memberikan pemahaman risiko secara umum. Informasi tidak dimaksudkan sebagai nasihat finansial, investasi, hukum, atau pajak.",
+    title: "Pengungkapan Risiko",
+    lastUpdated: "Terakhir diperbarui: 12 Februari 2026",
+    introduction: "Dokumen ini menjelaskan berbagai risiko yang mungkin timbul sehubungan dengan partisipasi dalam ekosistem TPC, termasuk namun tidak terbatas pada aktivitas edukasi, kepemilikan token, dan penggunaan layanan berbasis teknologi blockchain.\n\nDengan mengakses dan menggunakan platform ini, Anda dianggap telah membaca, memahami, dan menyetujui seluruh risiko yang dijelaskan di bawah ini.",
+    sections: [
+      {
+        title: "Risiko Pasar",
+        content: "Aset digital dan instrumen berbasis blockchain memiliki volatilitas tinggi. Nilai token dapat mengalami kenaikan maupun penurunan secara signifikan dalam waktu singkat akibat kondisi pasar, sentimen global, kebijakan ekonomi, atau faktor eksternal lainnya.\n\nTPC tidak menjamin stabilitas harga atau nilai ekonomi dari token atau aset terkait."
       },
-      digitalAssetRisks: {
-        title: "Risiko Umum Aset Digital",
-        items: [
-          "Volatilitas harga yang tinggi.",
-          "Risiko teknologi (bug, gangguan sistem, kesalahan pengguna).",
-          "Risiko keamanan (phishing, scam, social engineering).",
-          "Risiko perubahan regulasi.",
-          "Risiko likuiditas dan akses pasar.",
-        ],
+      {
+        title: "Risiko Likuiditas",
+        content: "Tidak ada jaminan bahwa token dapat diperdagangkan secara aktif di pasar sekunder atau memiliki likuiditas yang memadai. Pemegang token mungkin mengalami kesulitan menjual atau mengonversi token menjadi aset lain."
       },
-      presaleRisks: {
-        title: "Risiko Partisipasi Presale",
-        items: [
-          "Tidak ada jaminan nilai atau hasil di masa depan.",
-          "Jadwal, mekanisme, atau parameter presale dapat berubah.",
-          "Risiko keterlambatan atau kegagalan proses non-teknis (misalnya verifikasi manual).",
-          "Partisipasi bersifat sukarela dan berdasarkan pemahaman pribadi.",
-        ],
+      {
+        title: "Risiko Regulasi",
+        content: "Regulasi terkait aset digital dapat berubah sewaktu-waktu di berbagai yurisdiksi. Perubahan kebijakan pemerintah, otoritas keuangan, atau regulator dapat berdampak pada legalitas, operasional, atau keberlanjutan proyek.\n\nPengguna bertanggung jawab memahami regulasi yang berlaku di wilayah masing-masing."
       },
-      operationalRisks: {
-        title: "Risiko Operasional & Komunitas",
-        items: [
-          "Risiko kesalahan komunikasi.",
-          "Risiko penyalahgunaan oleh pihak ketiga.",
-          "Risiko keputusan komunitas dalam tata kelola (DAO).",
-        ],
+      {
+        title: "Risiko Teknologi",
+        content: "Platform berbasis blockchain memiliki potensi risiko teknis, termasuk namun tidak terbatas pada:\n\n• Gangguan jaringan\n• Kerentanan smart contract\n• Serangan siber\n• Kesalahan perangkat lunak\n\nMeskipun langkah keamanan diterapkan, tidak ada sistem yang sepenuhnya bebas risiko."
       },
-      userResponsibility: {
-        title: "Tanggung Jawab Pengguna",
-        items: [
-          "Menjaga keamanan akun, perangkat, dan data pribadi.",
-          "Tidak membagikan private key atau seed phrase.",
-          "Memverifikasi informasi hanya dari kanal resmi.",
-          "Menggunakan dana yang siap ditanggung risikonya.",
-        ],
+      {
+        title: "Risiko Operasional",
+        content: "Operasional proyek dapat terdampak oleh faktor internal maupun eksternal seperti:\n\n• Keterbatasan sumber daya\n• Perubahan struktur organisasi\n• Kegagalan pihak ketiga\n• Force majeure"
       },
-      liabilityLimitation: {
-        title: "Batasan Tanggung Jawab",
-        content:
-          "TPC Global tidak bertanggung jawab atas keputusan individu pengguna. Kerugian akibat pihak ketiga, kesalahan pengguna, atau kejadian di luar kendali platform bukan tanggung jawab TPC Global.",
+      {
+        title: "Tidak Ada Jaminan Keuntungan",
+        content: "TPC adalah komunitas edukasi dan pengembangan ekosistem.\nTPC bukan lembaga investasi, bukan manajer dana, dan tidak memberikan jaminan keuntungan, imbal hasil tetap, atau proyeksi ROI.\n\nSetiap keputusan finansial merupakan tanggung jawab pribadi pengguna."
       },
-      noGuarantees: {
-        title: "Tanpa Jaminan",
-        content:
-          "Tidak ada jaminan keuntungan finansial. Tidak ada pernyataan atau janji terkait hasil di masa depan.",
-      },
-      documentChanges: {
-        title: "Perubahan Dokumen",
-        content:
-          "Dokumen ini dapat diperbarui dari waktu ke waktu. Versi terbaru selalu tersedia di situs resmi TPC Global.",
-      },
-    },
-    cta: {
-      primary: "Kembali ke Presale",
-      secondary: "Lihat Transparansi",
-      tertiary: "Syarat & Ketentuan",
-    },
+      {
+        title: "Tanggung Jawab Pribadi",
+        content: "Setiap partisipan bertanggung jawab penuh atas keputusan yang diambil, termasuk risiko finansial, hukum, dan teknis yang mungkin timbul.\n\nDisarankan untuk berkonsultasi dengan penasihat hukum atau keuangan independen sebelum membuat keputusan terkait aset digital."
+      }
+    ],
+    conclusion: "Dengan melanjutkan penggunaan platform TPC, Anda menyatakan telah membaca dan memahami seluruh risiko yang dijelaskan dalam dokumen ini.\n\nDokumen ini dapat diperbarui sewaktu-waktu tanpa pemberitahuan sebelumnya."
   },
   en: {
     title: "Risk Disclosure",
-    subtitle:
-      "This document explains general risks related to digital assets, presale, and use of the TPC Global platform.",
-    note: "Please read this document carefully before making any decisions.",
-    meta: {
-      title: "Risk Disclosure | TPC Global",
-      description:
-        "General risk disclosure regarding digital assets and presale participation.",
-    },
-    sections: {
-      purpose: {
-        title: "Document Purpose",
-        content:
-          "This document is prepared to provide general risk understanding. Information is not intended as financial, investment, legal, or tax advice.",
+    lastUpdated: "Last Updated: 12 February 2026",
+    introduction: "This document explains various risks that may arise in connection with participation in TPC ecosystem, including but not limited to educational activities, token ownership, and use of blockchain technology-based services.\n\nBy accessing and using this platform, you are deemed to have read, understood, and agreed to all risks described below.",
+    sections: [
+      {
+        title: "Market Risk",
+        content: "Digital assets and blockchain-based instruments have high volatility. Token values may experience significant increases or decreases in a short period due to market conditions, global sentiment, economic policies, or other external factors.\n\nTPC does not guarantee price stability or economic value of tokens or related assets."
       },
-      digitalAssetRisks: {
-        title: "General Digital Asset Risks",
-        items: [
-          "High price volatility.",
-          "Technology risks (bugs, system disruptions, user errors).",
-          "Security risks (phishing, scams, social engineering).",
-          "Regulatory change risks.",
-          "Liquidity and market access risks.",
-        ],
+      {
+        title: "Liquidity Risk",
+        content: "There is no guarantee that tokens can be actively traded in secondary markets or have adequate liquidity. Token holders may experience difficulty selling or converting tokens into other assets."
       },
-      presaleRisks: {
-        title: "Presale Participation Risks",
-        items: [
-          "No guarantee of future value or results.",
-          "Presale schedule, mechanism, or parameters may change.",
-          "Risk of delays or failures in non-technical processes (e.g., manual verification).",
-          "Participation is voluntary and based on personal understanding.",
-        ],
+      {
+        title: "Regulatory Risk",
+        content: "Regulations related to digital assets may change at any time in various jurisdictions. Changes in government policies, financial authorities, or regulators may impact the legality, operations, or sustainability of the project.\n\nUsers are responsible for understanding applicable regulations in their respective regions."
       },
-      operationalRisks: {
-        title: "Operational & Community Risks",
-        items: [
-          "Communication error risks.",
-          "Third-party misuse risks.",
-          "Community decision risks in governance (DAO).",
-        ],
+      {
+        title: "Technology Risk",
+        content: "Blockchain-based platforms have potential technical risks, including but not limited to:\n\n• Network disruptions\n• Smart contract vulnerabilities\n• Cyber attacks\n• Software errors\n\nAlthough security measures are implemented, no system is entirely risk-free."
       },
-      userResponsibility: {
-        title: "User Responsibility",
-        items: [
-          "Maintain account, device, and personal data security.",
-          "Do not share private keys or seed phrases.",
-          "Verify information only from official channels.",
-          "Use funds you are prepared to risk.",
-        ],
+      {
+        title: "Operational Risk",
+        content: "Project operations may be affected by internal and external factors such as:\n\n• Resource limitations\n• Organizational structure changes\n• Third-party failures\n• Force majeure"
       },
-      liabilityLimitation: {
-        title: "Limitation of Liability",
-        content:
-          "TPC Global is not liable for individual user decisions. Losses resulting from third parties, user errors, or events beyond platform control are not TPC Global's responsibility.",
+      {
+        title: "No Profit Guarantee",
+        content: "TPC is an education and ecosystem development community.\nTPC is not an investment institution, not a fund manager, and does not provide profit guarantees, fixed returns, or ROI projections.\n\nAll financial decisions are the personal responsibility of users."
       },
-      noGuarantees: {
-        title: "No Guarantees",
-        content:
-          "No financial profit guarantees. No statements or promises regarding future results.",
-      },
-      documentChanges: {
-        title: "Document Changes",
-        content:
-          "This document may be updated from time to time. The latest version is always available on the official TPC Global site.",
-      },
-    },
-    cta: {
-      primary: "Back to Presale",
-      secondary: "View Transparency",
-      tertiary: "Terms & Conditions",
-    },
-  },
-} as const;
+      {
+        title: "Personal Responsibility",
+        content: "Each participant is fully responsible for decisions made, including financial, legal, and technical risks that may arise.\n\nIt is recommended to consult with independent legal or financial advisors before making decisions related to digital assets."
+      }
+    ],
+    conclusion: "By continuing to use the TPC platform, you state that you have read and understood all risks described in this document.\n\nThis document may be updated at any time without prior notice."
+  }
+};
 
 export default async function RiskDisclosurePage({ params }: RiskDisclosurePageProps) {
   const { lang } = await params;
   const normalizedLang = normalizeLang(lang);
-  const copy = riskDisclosureCopy[normalizedLang as keyof typeof riskDisclosureCopy];
+  const content = legalContent[normalizedLang as keyof typeof legalContent];
 
   return (
     <PremiumShell>
-      {/* HERO SECTION */}
-      <Section className="pt-16 pb-20 bg-gradient-to-br from-[#0B0E11] via-[#1A1F2E] to-[#2A1F3A] relative w-full max-w-full overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 via-transparent to-orange-500/10" />
-        <div className="absolute top-0 left-0 w-24 h-24 bg-red-500/10 rounded-full blur-xl -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-24 h-24 bg-orange-500/10 rounded-full blur-xl translate-x-1/2 translate-y-1/2" />
-        <div className="absolute top-1/2 left-1/2 w-16 h-16 bg-amber-500/5 rounded-full blur-lg -translate-x-1/2 -translate-y-1/2" />
+      <Container className="py-12">
+        <div className="max-w-4xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-white mb-2">
+              {content.title}
+            </h1>
+            <p className="text-gray-400 text-sm">
+              {content.lastUpdated}
+            </p>
+          </div>
 
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage:
-              'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ef4444\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M20 20h1v1h-1v-1z M10 10h1v1h-1v-1z M30 30h1v1h-1v-1z\'/%3E%3C/g%3E%3C/svg%3E")',
-          }}
-        />
-
-        <Container className="relative z-10">
-          <PremiumCard
-            variant="glass"
-            className="text-center p-16 md:p-20 lg:p-24 border-2 border-red-500/20 shadow-2xl"
-          >
-            <div className="relative w-32 h-32 mx-auto mb-8">
-              <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-full blur-xl animate-pulse" />
-              <div className="relative w-full h-full bg-gradient-to-br from-red-500/30 to-orange-500/30 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-16 h-16 text-red-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 15.5c-.77.833.192 2.5 1.732 2.5z"
-                  />
-                </svg>
-              </div>
-            </div>
-
-            <div className="max-w-5xl mx-auto">
-              <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold text-fg mb-8 md:mb-12 leading-tight tracking-tight">
-                {copy.title}
-              </h1>
-              <p className="text-xl md:text-2xl lg:text-3xl text-gray-300 mb-12 md:mb-16 max-w-4xl mx-auto leading-relaxed">
-                {copy.subtitle}
+          {/* Introduction */}
+          <div className="bg-[#1A1F2E] border border-amber-500/25 rounded-lg p-8 mb-8">
+            <div className="prose prose-invert max-w-none">
+              <p className="text-gray-300 leading-relaxed whitespace-pre-line">
+                {content.introduction}
               </p>
+            </div>
+          </div>
 
-              <div className="relative inline-block">
-                <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-lg blur-lg" />
-                <div className="relative px-6 py-3 bg-red-500/10 border border-red-500/30 rounded-lg">
-                  <p className="text-sm text-red-300 font-medium">{copy.note}</p>
+          {/* Sections */}
+          <div className="space-y-6">
+            {content.sections.map((section, index) => (
+              <div key={index} className="bg-[#1A1F2E] border border-amber-500/25 rounded-lg p-8">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-amber-500/20 rounded-full flex items-center justify-center">
+                    <span className="text-amber-400 font-semibold text-sm">
+                      {index + 1}
+                    </span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold text-white mb-4">
+                      {section.title}
+                    </h3>
+                    <div className="prose prose-invert max-w-none">
+                      <p className="text-gray-300 leading-relaxed whitespace-pre-line">
+                        {section.content}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </PremiumCard>
-        </Container>
-      </Section>
-
-      <div className="border-t border-border/10" />
-
-      {/* PURPOSE */}
-      <Section className="py-16 bg-gradient-to-b from-[#0B0E11] to-[#1A1F2E] relative w-full max-w-full overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5" />
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%239CA3AF\' fill-opacity=\'0.05\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'2\'/%3E%3C/g%3E%3C/svg%3E")',
-          }}
-        />
-
-        <Container className="relative z-10 px-4">
-          <div className="text-center mb-12 w-full">
-            <div className="relative inline-block mb-6">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-xl" />
-              <div className="relative w-16 h-16 bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-8 h-8 text-blue-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              {copy.sections.purpose.title}
-            </h2>
-          </div>
-
-          <PremiumCard className="border-2 border-blue-500/30 bg-blue-500/5 hover:border-blue-500/50 transition-all duration-300 relative overflow-hidden group max-w-4xl mx-auto">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <PremiumCardContent className="p-10 relative z-10">
-              <div className="flex items-start gap-6">
-                <div className="flex-shrink-0 w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-2xl font-bold text-blue-400">1</span>
-                </div>
-                <div className="flex-1">
-                  <p className="text-base text-gray-300 leading-relaxed">
-                    {copy.sections.purpose.content}
-                  </p>
-                </div>
-              </div>
-            </PremiumCardContent>
-          </PremiumCard>
-        </Container>
-      </Section>
-
-      <div className="border-t border-border/10" />
-
-      {/* DIGITAL ASSET RISKS */}
-      <Section className="py-16 bg-gradient-to-b from-[#1A1F2E] to-[#0B0E11] relative w-full max-w-full overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 via-transparent to-orange-500/10" />
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ef4444\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M30 30h1v1h-1v-1z M10 10h1v1h-1v-1z M50 50h1v1h-1v-1z\'/%3E%3C/g%3E%3C/svg%3E")',
-          }}
-        />
-
-        <Container className="relative z-10 px-4">
-          <div className="text-center mb-12 w-full">
-            <div className="relative inline-block mb-6">
-              <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-full blur-xl" />
-              <div className="relative w-16 h-16 bg-gradient-to-br from-red-500/30 to-orange-500/30 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-8 h-8 text-red-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              {copy.sections.digitalAssetRisks.title}
-            </h2>
-          </div>
-
-          <div className="space-y-6 max-w-4xl mx-auto">
-            {copy.sections.digitalAssetRisks.items.map((item, index) => (
-              <PremiumCard
-                key={index}
-                className="border-2 border-red-500/30 bg-red-500/5 hover:border-red-500/50 transition-all duration-300 relative overflow-hidden group"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <PremiumCardContent className="p-8 relative z-10">
-                  <div className="flex items-start gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-full flex items-center justify-center">
-                      <span className="text-xl font-bold text-red-400">
-                        {index + 1}
-                      </span>
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-base text-gray-300 leading-relaxed">
-                        {item}
-                      </p>
-                    </div>
-                  </div>
-                </PremiumCardContent>
-              </PremiumCard>
             ))}
           </div>
-        </Container>
-      </Section>
 
-      <div className="border-t border-border/10" />
-
-      {/* PRESALE RISKS */}
-      <Section className="py-12 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%239CA3AF\' fill-opacity=\'0.05\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'2\'/%3E%3C/g%3E%3C/svg%3E")',
-          }}
-        />
-
-        <Container className="relative z-10 px-4">
-          <div className="text-center mb-10 w-full">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-              {copy.sections.presaleRisks.title}
-            </h2>
-          </div>
-
-          <div className="space-y-4 max-w-3xl mx-auto">
-            {copy.sections.presaleRisks.items.map((item, index) => (
-              <PremiumCard
-                key={index}
-                className="border border-gray-700 bg-[#1A1F2E] hover:border-orange-500/50 transition-all duration-300 relative overflow-hidden group"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <PremiumCardContent className="p-6 relative z-10">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-full flex items-center justify-center">
-                      <span className="text-xl font-bold text-orange-400">
-                        {index + 1}
-                      </span>
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-300 leading-relaxed">
-                        {item}
-                      </p>
-                    </div>
-                  </div>
-                </PremiumCardContent>
-              </PremiumCard>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      <div className="border-t border-border/10" />
-
-      {/* OPERATIONAL RISKS */}
-      <Section className="py-12 bg-gradient-to-b from-[#0B0E11] to-[#1A1F2E] relative w-full max-w-full overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-transparent to-orange-500/5" />
-
-        <Container className="relative z-10 px-4">
-          <div className="text-center mb-10 w-full">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-              {copy.sections.operationalRisks.title}
-            </h2>
-          </div>
-
-          <div className="space-y-4 max-w-3xl mx-auto">
-            {copy.sections.operationalRisks.items.map((item, index) => (
-              <PremiumCard
-                key={index}
-                className="border border-gray-700 bg-[#1A1F2E] hover:border-purple-500/50 transition-all duration-300 relative overflow-hidden group"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <PremiumCardContent className="p-6 relative z-10">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-full flex items-center justify-center">
-                      <span className="text-xl font-bold text-purple-400">
-                        {index + 1}
-                      </span>
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-300 leading-relaxed">
-                        {item}
-                      </p>
-                    </div>
-                  </div>
-                </PremiumCardContent>
-              </PremiumCard>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      <div className="border-t border-border/10" />
-
-      {/* USER RESPONSIBILITY */}
-      <Section className="py-12 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%239CA3AF\' fill-opacity=\'0.05\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'2\'/%3E%3C/g%3E%3C/svg%3E")',
-          }}
-        />
-
-        <Container className="relative z-10 px-4">
-          <div className="text-center mb-10 w-full">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-              {copy.sections.userResponsibility.title}
-            </h2>
-          </div>
-
-          <div className="space-y-4 max-w-3xl mx-auto">
-            {copy.sections.userResponsibility.items.map((item, index) => (
-              <PremiumCard
-                key={index}
-                className="border border-gray-700 bg-[#1A1F2E] hover:border-green-500/50 transition-all duration-300 relative overflow-hidden group"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <PremiumCardContent className="p-6 relative z-10">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-full flex items-center justify-center">
-                      <span className="text-xl font-bold text-green-400">
-                        {index + 1}
-                      </span>
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-300 leading-relaxed">
-                        {item}
-                      </p>
-                    </div>
-                  </div>
-                </PremiumCardContent>
-              </PremiumCard>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      <div className="border-t border-border/10" />
-
-      {/* LIABILITY */}
-      <Section className="py-12 bg-gradient-to-b from-[#0B0E11] to-[#1A1F2E] relative w-full max-w-full overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-transparent to-orange-500/5" />
-
-        <Container className="relative z-10 px-4">
-          <div className="text-center mb-10 w-full">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-              {copy.sections.liabilityLimitation.title}
-            </h2>
-          </div>
-
-          <PremiumCard className="border-2 border-red-500/30 bg-red-500/5 hover:border-red-500/50 transition-all duration-300 relative overflow-hidden max-w-3xl mx-auto">
-            <PremiumCardContent className="p-8 relative z-10">
-              <p className="text-sm text-gray-300 leading-relaxed">
-                {copy.sections.liabilityLimitation.content}
+          {/* Conclusion */}
+          <div className="bg-[#1A1F2E] border border-amber-500/25 rounded-lg p-8 mt-8">
+            <div className="prose prose-invert max-w-none">
+              <p className="text-gray-300 leading-relaxed whitespace-pre-line">
+                {content.conclusion}
               </p>
-            </PremiumCardContent>
-          </PremiumCard>
-        </Container>
-      </Section>
-
-      <div className="border-t border-border/10" />
-
-      {/* NO GUARANTEES */}
-      <Section className="py-12 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%239CA3AF\' fill-opacity=\'0.05\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'2\'/%3E%3C/g%3E%3C/svg%3E")',
-          }}
-        />
-
-        <Container className="relative z-10 px-4">
-          <div className="text-center mb-10 w-full">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-              {copy.sections.noGuarantees.title}
-            </h2>
-          </div>
-
-          <PremiumCard className="border-2 border-orange-500/30 bg-orange-500/5 hover:border-orange-500/50 transition-all duration-300 relative overflow-hidden max-w-3xl mx-auto">
-            <PremiumCardContent className="p-8 relative z-10">
-              <p className="text-sm text-gray-300 leading-relaxed">
-                {copy.sections.noGuarantees.content}
-              </p>
-            </PremiumCardContent>
-          </PremiumCard>
-        </Container>
-      </Section>
-
-      <div className="border-t border-border/10" />
-
-      {/* DOCUMENT CHANGES */}
-      <Section className="py-12 bg-gradient-to-b from-[#0B0E11] to-[#1A1F2E] relative w-full max-w-full overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-orange-500/5" />
-
-        <Container className="relative z-10 px-4">
-          <div className="text-center mb-10 w-full">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-              {copy.sections.documentChanges.title}
-            </h2>
-          </div>
-
-          <PremiumCard className="border border-gray-700 bg-[#1A1F2E] hover:border-amber-500/50 transition-all duration-300 relative overflow-hidden group max-w-3xl mx-auto">
-            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <PremiumCardContent className="p-8 relative z-10">
-              <p className="text-sm text-gray-300 leading-relaxed">
-                {copy.sections.documentChanges.content}
-              </p>
-            </PremiumCardContent>
-          </PremiumCard>
-        </Container>
-      </Section>
-
-      <div className="border-t border-border/10" />
-
-      {/* CTA */}
-      <Section className="py-20 bg-gradient-to-br from-[#0B0E11] via-[#1A1F2E] to-[#2A1F3A] relative w-full max-w-full overflow-hidden pb-24">
-        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-transparent to-red-500/10" />
-        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-amber-500/20 to-red-500/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-red-500/20 to-amber-500/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
-
-        <Container className="relative z-10 px-4">
-          <div className="text-center">
-            <div className="relative w-full mx-auto max-w-lg mb-8">
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 rounded-xl blur-2xl opacity-60" />
-              <div className="relative border-2 border-amber-500/30 rounded-xl bg-gradient-to-r from-amber-500/20 to-red-500/20 backdrop-blur-sm">
-                <PremiumButton
-                  href={publicPath(lang, "/presale")}
-                  size="md"
-                  fullWidth
-                  className="relative bg-gradient-to-r from-amber-500 to-orange-500 hover:from-orange-500 hover:to-red-500 text-white border-0 shadow-2xl transform hover:scale-105 transition-all duration-300 font-bold text-lg py-4"
-                >
-                  <span className="relative z-10">{copy.cta.primary}</span>
-                </PremiumButton>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Link
-                href={publicPath(lang, "/transparency")}
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-lg hover:from-blue-500/30 hover:to-purple-500/30 transition-all duration-300 group"
-              >
-                <span className="text-blue-300 group-hover:text-blue-200 font-medium transition-colors">
-                  {copy.cta.secondary}
-                </span>
-              </Link>
-
-              <Link
-                href={publicPath(lang, "/terms")}
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-lg hover:from-purple-500/30 hover:to-pink-500/30 transition-all duration-300 group"
-              >
-                <span className="text-purple-300 group-hover:text-purple-200 font-medium transition-colors">
-                  {copy.cta.tertiary}
-                </span>
-              </Link>
             </div>
           </div>
-        </Container>
-      </Section>
+
+          {/* Footer */}
+          <div className="text-center mt-12">
+            <Link 
+              href={`/${normalizedLang}`}
+              className="inline-flex items-center px-6 py-3 bg-amber-500 text-black font-semibold rounded-lg hover:bg-amber-600 transition-colors"
+            >
+              {normalizedLang === 'id' ? 'Kembali ke Beranda' : 'Back to Home'}
+            </Link>
+          </div>
+        </div>
+      </Container>
     </PremiumShell>
   );
 }
