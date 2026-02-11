@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { supabase } from '@/lib/supabase/client'
+import { getAuthRedirectUrl, validateProductionRedirect } from '@/lib/siteUrl'
 
 function RegisterForm() {
   const [email, setEmail] = useState('')
@@ -40,9 +41,15 @@ function RegisterForm() {
         throw new Error('Supabase client not initialized')
       }
       
+      // Get secure redirect URL
+      const redirectTo = validateProductionRedirect(getAuthRedirectUrl("/login"))
+      
       const { error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: redirectTo
+        }
       })
 
       console.log('Signup response:', { error })

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import { sanitizeReturnTo } from '@/lib/security/returnTo'
+import { getAuthRedirectUrl, validateProductionRedirect } from '@/lib/siteUrl'
 
 function ForgotPasswordForm() {
   const [email, setEmail] = useState('')
@@ -24,8 +25,11 @@ function ForgotPasswordForm() {
         throw new Error('Supabase client not initialized')
       }
       
+      // Get secure redirect URL
+      const redirectTo = validateProductionRedirect(getAuthRedirectUrl("/reset-password"))
+      
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`
+        redirectTo: redirectTo
       })
 
       // Always show success message for anti-enumeration

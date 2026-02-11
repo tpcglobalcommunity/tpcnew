@@ -20,6 +20,40 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Auth Redirect Lock
+
+For production deployment, ensure Supabase Auth settings are configured correctly:
+
+### Supabase Dashboard → Authentication → URL Configuration
+
+**Site URL:**
+```
+https://tpcglobal.io
+```
+
+**Redirect URLs:**
+```
+https://tpcglobal.io/*
+https://www.tpcglobal.io/*
+```
+
+**Important:**
+- Remove `localhost` URLs from production Supabase project
+- Ensure `NEXT_PUBLIC_SITE_URL` is set to `https://tpcglobal.io` in production
+- Local development can use `http://localhost:3000`
+
+### Environment Variables
+
+Production environment must set:
+```env
+NEXT_PUBLIC_SITE_URL=https://tpcglobal.io
+```
+
+Local development can use:
+```env
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
