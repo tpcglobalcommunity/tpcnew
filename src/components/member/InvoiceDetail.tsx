@@ -91,12 +91,14 @@ export default function InvoiceDetail() {
     }
   }
 
-  const getStatusIcon = (status: string, expiresAt: string) => {
-    if (isExpired(expiresAt) && status !== 'paid') {
+  const getStatusIcon = (status: string, deadlineAt: string | null) => {
+    if (deadlineAt && isExpired(deadlineAt) && status !== 'paid') {
       return <XCircle className="w-5 h-5 text-gray-400" />
     }
     
     switch (status) {
+      case 'DRAFT':
+        return <Clock className="w-5 h-5 text-yellow-400" />
       case 'paid':
         return <CheckCircle className="w-5 h-5 text-green-400" />
       case 'pending':
@@ -108,12 +110,14 @@ export default function InvoiceDetail() {
     }
   }
 
-  const getStatusText = (status: string, expiresAt: string) => {
-    if (isExpired(expiresAt) && status !== 'paid') {
+  const getStatusText = (status: string, deadlineAt: string | null) => {
+    if (deadlineAt && isExpired(deadlineAt) && status !== 'paid') {
       return 'Kadaluarsa'
     }
     
     switch (status) {
+      case 'DRAFT':
+        return 'Draft'
       case 'paid':
         return 'Lunas'
       case 'pending':
@@ -141,11 +145,19 @@ export default function InvoiceDetail() {
     )
   }
 
-  const isInvoiceExpired = isExpired(invoice.deadline_at)
+  const isInvoiceExpired = invoice.deadline_at ? isExpired(invoice.deadline_at) : false
   const treasuryAddress = process.env.NEXT_PUBLIC_TPC_TREASURY || ''
 
   // Check if pricing data needs repair
   const needsPricingRepair = invoice.price_per_tpc === 0 || invoice.total_usdc === 0
+
+  // Format deadline safely
+  const formatDeadline = (deadline: string | null) => {
+    if (!deadline) {
+      return 'Tidak ada deadline'
+    }
+    return formatDate(deadline)
+  }
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -229,7 +241,7 @@ export default function InvoiceDetail() {
           </div>
           <div className="flex justify-between">
             <span className="text-gray-400">Deadline:</span>
-            <span className="text-white">{formatDate(invoice.deadline_at)}</span>
+            <span className="text-white">{formatDeadline(invoice.deadline_at)}</span>
           </div>
         </div>
       </div>
@@ -284,7 +296,7 @@ export default function InvoiceDetail() {
       )}
 
       {/* Expired Notice */}
-      {isInvoiceExpired && invoice.status !== 'paid' && (
+      {invoice.deadline_at && isInvoiceExpired && invoice.status !== 'paid' && (
         <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-6">
           <div className="flex items-center gap-2 text-red-400">
             <XCircle className="w-5 h-5" />

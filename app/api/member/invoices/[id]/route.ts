@@ -15,7 +15,7 @@ export async function GET(
 
     const { data: invoice, error } = await supabase
       .from('tpc_invoices')
-      .select('*')
+      .select('id, stage_number, price_per_tpc, total_usdc, quantity_tpc, deadline_at, wallet_address, referral_code, status, proof_url, tx_signature, created_at')
       .eq('id', params.id)
       .eq('user_id', user.id)
       .single()
