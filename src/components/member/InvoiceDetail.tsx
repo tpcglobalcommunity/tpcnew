@@ -8,16 +8,17 @@ import { Copy, Upload, CheckCircle, Clock, XCircle } from 'lucide-react'
 
 interface Invoice {
   id: string
-  stage: number
-  price_usdc: number
-  amount_usdc: number
-  qty_tpc: number
-  method: string
+  stage_number: number
+  price_per_tpc: number
+  total_usdc: number
+  quantity_tpc: number
+  wallet_address?: string
+  referral_code?: string
   status: string
   proof_url?: string
   tx_signature?: string
   created_at: string
-  expires_at: string
+  deadline_at: string
 }
 
 export default function InvoiceDetail() {
@@ -140,8 +141,11 @@ export default function InvoiceDetail() {
     )
   }
 
-  const isInvoiceExpired = isExpired(invoice.expires_at)
+  const isInvoiceExpired = isExpired(invoice.deadline_at)
   const treasuryAddress = process.env.NEXT_PUBLIC_TPC_TREASURY || ''
+
+  // Check if pricing data needs repair
+  const needsPricingRepair = invoice.price_per_tpc === 0 || invoice.total_usdc === 0
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -152,9 +156,9 @@ export default function InvoiceDetail() {
             Detail Invoice
           </h2>
           <div className="flex items-center gap-2">
-            {getStatusIcon(invoice.status, invoice.expires_at)}
+            {getStatusIcon(invoice.status, invoice.deadline_at)}
             <span className="text-white font-medium">
-              {getStatusText(invoice.status, invoice.expires_at)}
+              {getStatusText(invoice.status, invoice.deadline_at)}
             </span>
           </div>
         </div>
@@ -164,6 +168,28 @@ export default function InvoiceDetail() {
         </div>
       </div>
 
+      {/* Pricing Repair Warning */}
+      {needsPricingRepair && (
+        <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-2xl p-6">
+          <div className="flex items-start gap-3">
+            <XCircle className="w-5 h-5 text-yellow-400 mt-0.5" />
+            <div>
+              <p className="text-yellow-400 font-medium mb-2">Perlu Perbaikan Data</p>
+              <p className="text-gray-300 text-sm mb-3">
+                Data pricing pada invoice ini tidak lengkap. Silakan refresh pricing.
+              </p>
+              <PremiumButton
+                onClick={fetchInvoice}
+                variant="outline"
+                className="border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10"
+              >
+                Refresh Pricing
+              </PremiumButton>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Invoice Details */}
       <div className="bg-[#0B0E11] border border-yellow-500/30 rounded-2xl p-6">
         <h3 className="text-lg font-semibold text-yellow-400 mb-4">Informasi Transaksi</h3>
@@ -171,37 +197,45 @@ export default function InvoiceDetail() {
         <div className="space-y-3">
           <div className="flex justify-between">
             <span className="text-gray-400">Stage:</span>
-            <span className="text-white">{invoice.stage}</span>
+            <span className="text-white">{invoice.stage_number}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-400">Harga per TPC:</span>
-            <span className="text-yellow-400">{formatUSDC(invoice.price_usdc)} USDC</span>
+            <span className="text-yellow-400">{formatUSDC(invoice.price_per_tpc)} USDC</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-400">Total USDC:</span>
-            <span className="text-yellow-400">{formatUSDC(invoice.amount_usdc)} USDC</span>
+            <span className="text-yellow-400">{formatUSDC(invoice.total_usdc)} USDC</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-400">Jumlah TPC:</span>
-            <span className="text-white">{formatUSDC(invoice.qty_tpc)} TPC</span>
+            <span className="text-white">{formatUSDC(invoice.quantity_tpc)} TPC</span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-gray-400">Metode:</span>
-            <span className="text-white">{invoice.method}</span>
-          </div>
+          {invoice.wallet_address && (
+            <div className="flex justify-between">
+              <span className="text-gray-400">Wallet:</span>
+              <span className="text-white text-sm">{invoice.wallet_address.slice(0, 8)}...{invoice.wallet_address.slice(-8)}</span>
+            </div>
+          )}
+          {invoice.referral_code && (
+            <div className="flex justify-between">
+              <span className="text-gray-400">Referral:</span>
+              <span className="text-white">{invoice.referral_code}</span>
+            </div>
+          )}
           <div className="flex justify-between">
             <span className="text-gray-400">Dibuat:</span>
             <span className="text-white">{formatDate(invoice.created_at)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-400">Deadline:</span>
-            <span className="text-white">{formatDate(invoice.expires_at)}</span>
+            <span className="text-white">{formatDate(invoice.deadline_at)}</span>
           </div>
         </div>
       </div>
 
       {/* Payment Instructions */}
-      {invoice.method === 'USDC' && invoice.status === 'pending' && !isInvoiceExpired && (
+      {invoice.wallet_address && invoice.status === 'DRAFT' && !isInvoiceExpired && (
         <div className="bg-[#0B0E11] border border-yellow-500/30 rounded-2xl p-6">
           <h3 className="text-lg font-semibold text-yellow-400 mb-4">Instruksi Pembayaran USDC</h3>
           
@@ -229,38 +263,6 @@ export default function InvoiceDetail() {
                 </PremiumButton>
               </div>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* IDR Proof Upload */}
-      {invoice.method === 'IDR' && invoice.status === 'pending' && !isInvoiceExpired && (
-        <div className="bg-[#0B0E11] border border-yellow-500/30 rounded-2xl p-6">
-          <h3 className="text-lg font-semibold text-yellow-400 mb-4">Upload Bukti Pembayaran</h3>
-          
-          <div className="space-y-4">
-            <div>
-              <label className="block text-gray-400 mb-2">Pilih File Bukti:</label>
-              <input
-                type="file"
-                accept="image/*,.pdf"
-                onChange={handleFileUpload}
-                disabled={uploading}
-                className="w-full bg-black/30 border border-yellow-500/30 rounded-lg px-4 py-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-yellow-500/20 file:text-yellow-400 hover:file:bg-yellow-500/30"
-              />
-            </div>
-            
-            {invoice.proof_url && (
-              <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3 text-green-400">
-                ✓ Bukti pembayaran telah diupload
-              </div>
-            )}
-            
-            {error && (
-              <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 text-red-400">
-                {error}
-              </div>
-            )}
           </div>
         </div>
       )}

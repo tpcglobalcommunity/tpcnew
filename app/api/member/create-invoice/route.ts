@@ -1,6 +1,6 @@
 import { createServerClient } from '@/lib/supabase/server-client'
-import { getStagePrice } from '@/lib/presale'
 import { NextRequest, NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,23 +13,6 @@ export async function POST(request: NextRequest) {
         ok: false, 
         message: 'Unauthorized' 
       }, { status: 401 })
-    }
-
-    // Schema check - cheap test
-    const { error: schemaError } = await supabase
-      .from('tpc_invoices')
-      .select('id')
-      .limit(1)
-
-    if (schemaError) {
-      console.error('[create-invoice] Schema error:', { 
-        code: schemaError.code, 
-        message: schemaError.message 
-      })
-      return NextResponse.json({ 
-        ok: false, 
-        message: 'Database belum siap' 
-      }, { status: 500 })
     }
 
     // Rate limiting check
@@ -60,90 +43,55 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { stage, amountUsdc, method, walletAddress, sponsorCode } = body
+    const { quantityTpc, walletAddress } = body
 
     // Input validation
-    if (!stage || !amountUsdc || !method) {
+    if (!quantityTpc) {
       return NextResponse.json({ 
         ok: false, 
-        message: 'Data tidak lengkap' 
+        message: 'Quantity TPC wajib diisi' 
       }, { status: 400 })
     }
 
-    if (stage < 1 || stage > 20) {
+    const quantity = parseFloat(quantityTpc)
+    if (isNaN(quantity) || quantity <= 0) {
       return NextResponse.json({ 
         ok: false, 
-        message: 'Stage tidak valid (1-20)' 
+        message: 'Quantity TPC tidak valid (harus > 0)' 
       }, { status: 400 })
     }
 
-    const amount = parseFloat(amountUsdc)
-    if (isNaN(amount) || amount < 10) {
-      return NextResponse.json({ 
-        ok: false, 
-        message: 'Jumlah USDC tidak valid (min 10)' 
-      }, { status: 400 })
-    }
+    // Get referral code from cookie
+    const cookieStore = await cookies()
+    const referralCode = cookieStore.get('reff')?.value || null
 
-    if (!['USDC', 'IDR'].includes(method)) {
-      return NextResponse.json({ 
-        ok: false, 
-        message: 'Metode pembayaran tidak valid' 
-      }, { status: 400 })
-    }
-
-    if (method === 'USDC' && !walletAddress) {
-      return NextResponse.json({ 
-        ok: false, 
-        message: 'Wallet address wajib diisi untuk pembayaran USDC' 
-      }, { status: 400 })
-    }
-
-    // Server-side calculations
-    const RATE_IDR = 17000
-    const price_per_tpc = getStagePrice(stage)
-    const qty_tpc = amount / price_per_tpc
-    const total_usdc = amount
-    const total_idr = amount * RATE_IDR
-
-    // Create invoice
-    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours expiry
-
-    const { data: invoice, error: insertError } = await supabase
-      .from('tpc_invoices')
-      .insert({
-        user_id: user.id,
-        qty_tpc,
-        price_per_tpc,
-        total_usdc,
-        total_idr,
-        payment_method: method,
-        wallet_address: walletAddress || null,
-        sponsor_code: sponsorCode || 'TPC-GLOBAL',
-        status: 'DRAFT',
-        expires_at: expiresAt.toISOString(),
-        created_at: new Date().toISOString()
+    // Create invoice using RPC (server-side pricing)
+    const { data: invoiceResult, error: rpcError } = await supabase
+      .rpc('tpc_create_invoice', {
+        p_quantity_tpc: quantity,
+        p_wallet: walletAddress,
+        p_referral_code: referralCode
       })
-      .select('id')
-      .single()
 
-    if (insertError) {
-      console.error('[create-invoice] Insert error:', { 
-        code: insertError.code, 
-        message: insertError.message 
+    if (rpcError) {
+      console.error('[create-invoice] RPC error:', { 
+        code: rpcError.code, 
+        message: rpcError.message 
       })
       
       let safeMessage = 'Gagal membuat invoice'
-      if (insertError.code === '42501') {
-        safeMessage = 'Permission denied'
-      } else if (insertError.code === '23505') {
-        safeMessage = 'Invoice sudah ada'
+      if (rpcError.message?.includes('No active presale stage')) {
+        safeMessage = 'Tidak ada stage presale yang aktif'
+      } else if (rpcError.message?.includes('Unauthorized')) {
+        safeMessage = 'Tidak memiliki otorisasi'
+      } else if (rpcError.message?.includes('Invalid quantity')) {
+        safeMessage = 'Quantity tidak valid'
       }
 
       return NextResponse.json({ 
         ok: false, 
         message: safeMessage,
-        detail: insertError.message 
+        detail: rpcError.message 
       }, { status: 400 })
     }
 
@@ -152,16 +100,18 @@ export async function POST(request: NextRequest) {
       await supabase
         .from('tpc_audit_logs')
         .insert({
-          invoice_id: invoice.id,
+          invoice_id: invoiceResult.invoice_id,
           action: 'create_invoice',
           old_status: null,
           new_status: 'DRAFT',
           actor_id: user.id,
           meta: {
-            stage,
-            total_usdc: amount,
-            payment_method: method,
-            sponsor_code: sponsorCode || 'TPC-GLOBAL'
+            quantity_tpc: quantity,
+            wallet_address: walletAddress,
+            referral_code: referralCode,
+            stage_number: invoiceResult.stage_number,
+            price_per_tpc: invoiceResult.price_per_tpc,
+            total_usdc: invoiceResult.total_usdc
           }
         })
     } catch (auditError) {
@@ -171,7 +121,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ 
       ok: true, 
-      invoiceId: invoice.id 
+      invoiceId: invoiceResult.invoice_id,
+      invoice: invoiceResult
     })
 
   } catch (error) {
