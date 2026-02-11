@@ -50,16 +50,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- 3) Add unique constraint for tx_signature (anti-replay)
-ALTER TABLE tpc_invoices
-  ADD CONSTRAINT IF NOT EXISTS uq_tx_signature 
-  UNIQUE (tx_signature);
-
--- 4) Add meta column to audit logs
-ALTER TABLE tpc_audit_logs
-  ADD COLUMN IF NOT EXISTS meta jsonb DEFAULT '{}'::jsonb;
-
--- 5) Create missing tables if not exist
+-- 3) Create missing tables if not exist (FIRST!)
 CREATE TABLE IF NOT EXISTS tpc_referral_ledger (
   id uuid primary key default gen_random_uuid(),
   invoice_id uuid,
@@ -82,13 +73,30 @@ CREATE TABLE IF NOT EXISTS tpc_audit_logs (
   meta jsonb DEFAULT '{}'::jsonb
 );
 
--- 6) Create indexes for performance
+-- 4) Add unique constraint for tx_signature (anti-replay) - ONLY if tpc_invoices exists
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'tpc_invoices') THEN
+    ALTER TABLE tpc_invoices
+      ADD CONSTRAINT IF NOT EXISTS uq_tx_signature 
+      UNIQUE (tx_signature);
+  END IF;
+END $$;
+
+-- 5) Create indexes for performance
 CREATE INDEX IF NOT EXISTS idx_tpc_rate_limits_key ON tpc_rate_limits(key);
 CREATE INDEX IF NOT EXISTS idx_tpc_rate_limits_window ON tpc_rate_limits(window_start);
 CREATE INDEX IF NOT EXISTS idx_tpc_audit_logs_meta ON tpc_audit_logs USING GIN(meta);
-CREATE INDEX IF NOT EXISTS idx_tpc_invoices_tx_signature ON tpc_invoices(tx_signature) WHERE tx_signature IS NOT NULL;
 CREATE INDEX IF NOT EXISTS idx_tpc_referral_ledger_referrer ON tpc_referral_ledger(referrer_id);
 CREATE INDEX IF NOT EXISTS idx_tpc_audit_logs_invoice ON tpc_audit_logs(invoice_id);
+
+-- Add tx_signature index only if tpc_invoices exists
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'tpc_invoices') THEN
+    CREATE INDEX IF NOT EXISTS idx_tpc_invoices_tx_signature ON tpc_invoices(tx_signature) WHERE tx_signature IS NOT NULL;
+  END IF;
+END $$;
 
 -- 7) Update RLS policies untuk rate limits (disable - system internal)
 -- Rate limits adalah system table, tidak perlu RLS
