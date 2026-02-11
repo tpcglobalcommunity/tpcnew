@@ -77,7 +77,7 @@ export default async function HomePage({ params }: HomePageProps) {
   return (
     <PremiumShell>
       {/* HERO SECTION */}
-      <Section className="py-24 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
+      <Section className="py-28 bg-[#0B0E11] relative w-full max-w-full overflow-hidden">
         <Container className="relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             {/* Badge */}
@@ -88,6 +88,9 @@ export default async function HomePage({ params }: HomePageProps) {
             {/* Title */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight tracking-tight">
               TPC
+              <span className="block text-2xl md:text-3xl font-normal text-gray-300 mt-2">
+                (Trader Professional Community)
+              </span>
             </h1>
             
             {/* Main Description - EXACT TEXT AS REQUIRED */}
@@ -136,7 +139,7 @@ export default async function HomePage({ params }: HomePageProps) {
             {/* 4 Premium Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Card 1: Edukasi Terstruktur */}
-              <div className="bg-[#1A1F2E] border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-colors">
+              <div className="bg-[#11161c] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-colors">
                 <div className="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center mb-4">
                   <svg className="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253" />
@@ -144,12 +147,12 @@ export default async function HomePage({ params }: HomePageProps) {
                 </div>
                 <h3 className="text-white font-semibold text-lg mb-3">Edukasi Terstruktur</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
-                  Program pembelajaran sistematis dari dasar hingga lanjutan dengan fokus pada pemahaman konsep dan manajemen risiko yang bertanggung jawab.
+                  Pendekatan pembelajaran yang sistematis dan berbasis pengalaman nyata.
                 </p>
               </div>
 
               {/* Card 2: Transparansi */}
-              <div className="bg-[#1A1F2E] border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-colors">
+              <div className="bg-[#11161c] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-colors">
                 <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4">
                   <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -158,12 +161,12 @@ export default async function HomePage({ params }: HomePageProps) {
                 </div>
                 <h3 className="text-white font-semibold text-lg mb-3">Transparansi</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
-                  Semua proses dan keputusan komunitas dapat diakses dan diverifikasi, menciptakan lingkungan yang terbuka dan dapat dipercaya.
+                  Komitmen terhadap keterbukaan informasi dan pencatatan yang dapat diverifikasi.
                 </p>
               </div>
 
               {/* Card 3: Literasi Risiko */}
-              <div className="bg-[#1A1F2E] border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-colors">
+              <div className="bg-[#11161c] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-colors">
                 <div className="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center mb-4">
                   <svg className="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 15.5c-.77.833.192 2.5 1.732 2.5z" />
@@ -171,12 +174,12 @@ export default async function HomePage({ params }: HomePageProps) {
                 </div>
                 <h3 className="text-white font-semibold text-lg mb-3">Literasi Risiko</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
-                  Pendidikan tentang pengelolaan risiko yang jujur dan komprehensif, membantu anggota membuat keputusan yang informasi.
+                  Penekanan pada pengelolaan risiko sebelum mengambil keputusan yang informasi.
                 </p>
               </div>
 
               {/* Card 4: Komunitas Profesional */}
-              <div className="bg-[#1A1F2E] border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-colors">
+              <div className="bg-[#11161c] border border-white/5 rounded-2xl p-8 hover:border-white/10 transition-colors">
                 <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-4">
                   <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -184,7 +187,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 </div>
                 <h3 className="text-white font-semibold text-lg mb-3">Komunitas Profesional</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
-                  Lingkungan kolaboratif yang mendukung pertumbuhan bersama dengan standar etika dan integritas yang tinggi.
+                  Lingkungan diskusi yang mendorong etika dan tanggung jawab.
                 </p>
               </div>
             </div>
@@ -245,7 +248,7 @@ export default async function HomePage({ params }: HomePageProps) {
         </Container>
       </Section>
 
-      {/* KOMITMEN SECTION */}
+      {/* KOMITMEN TRANSPARANSI SECTION */}
       <Section className="py-20 bg-[#1A1F2E] relative w-full max-w-full overflow-hidden">
         <Container className="relative z-10">
           <div className="max-w-2xl mx-auto text-center">
