@@ -75,9 +75,16 @@ CREATE TABLE IF NOT EXISTS tpc_audit_logs (
 DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'tpc_invoices' AND table_schema = 'public') THEN
-    ALTER TABLE tpc_invoices
-      ADD CONSTRAINT IF NOT EXISTS uq_tx_signature 
-      UNIQUE (tx_signature);
+    -- Check if constraint already exists
+    IF NOT EXISTS (
+      SELECT 1 FROM information_schema.table_constraints 
+      WHERE table_name = 'tpc_invoices' 
+      AND constraint_name = 'uq_tx_signature'
+      AND constraint_type = 'UNIQUE'
+    ) THEN
+      ALTER TABLE tpc_invoices
+        ADD CONSTRAINT uq_tx_signature UNIQUE (tx_signature);
+    END IF;
   END IF;
 END $$;
 
