@@ -48,7 +48,51 @@ export async function POST(request: Request) {
       try {
         const verification = await verifyUSDCPayment(invoice)
 
-        if (verification.valid) {
+        if (verification.valid && verification.signature) {
+          // Anti-replay: Check if tx_signature already used
+          const { data: existingTx, error: txError } = await adminClient
+            .from('tpc_invoices')
+            .select('id')
+            .eq('tx_signature', verification.signature)
+            .neq('id', invoice.id)
+            .single()
+
+          if (txError && txError.code !== 'PGRST116') {
+            console.error('Check replay error:', txError)
+            results.push({
+              invoiceId: invoice.id,
+              status: 'error',
+              error: 'Gagal cek replay'
+            })
+            errorCount++
+            continue
+          }
+
+          if (existingTx) {
+            // Replay detected - block verification
+            await adminClient
+              .from('tpc_audit_logs')
+              .insert({
+                invoice_id: invoice.id,
+                action: 'verify_replay_blocked',
+                old_status: 'pending',
+                new_status: 'pending',
+                actor_id: user.id,
+                meta: {
+                  tx_signature: verification.signature,
+                  detected_amount: verification.amount,
+                  existing_invoice_id: existingTx.id
+                }
+              })
+
+            results.push({
+              invoiceId: invoice.id,
+              status: 'replay_blocked',
+              error: 'Transaction signature already used'
+            })
+            continue
+          }
+
           // Update invoice status to paid using admin client
           const { error: updateError } = await adminClient
             .from('tpc_invoices')
@@ -74,10 +118,14 @@ export async function POST(request: Request) {
             .from('tpc_audit_logs')
             .insert({
               invoice_id: invoice.id,
-              action: 'admin_verify_payment',
+              action: 'verify_paid',
               old_status: 'pending',
               new_status: 'paid',
-              actor_id: user.id
+              actor_id: user.id,
+              meta: {
+                tx_signature: verification.signature,
+                detected_amount: verification.amount
+              }
             })
 
           // TODO: Trigger referral commission

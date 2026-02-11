@@ -30,6 +30,25 @@ export default function AdminTopBar({ title, user }: AdminTopBarProps) {
     }
   }
 
+  const handleExpireInvoices = async () => {
+    try {
+      const response = await fetch('/api/admin/expire-invoices', {
+        method: 'POST'
+      })
+
+      const data = await response.json()
+      
+      if (response.ok && data.ok) {
+        alert(`Expire selesai: ${data.expired}/${data.processed} invoice expired, ${data.errors} errors`)
+      } else {
+        alert('Gagal expire: ' + (data.error || 'Unknown error'))
+      }
+    } catch (error) {
+      console.error('Expire invoices error:', error)
+      alert('Gagal expire')
+    }
+  }
+
   const handleVerifyUSDC = async () => {
     try {
       const response = await fetch('/api/admin/verify-usdc', {
@@ -66,6 +85,15 @@ export default function AdminTopBar({ title, user }: AdminTopBarProps) {
           </div>
           
           <div className="flex items-center gap-3">
+            <PremiumButton
+              onClick={handleExpireInvoices}
+              variant="outline"
+              size="sm"
+              className="border-orange-500/50 text-orange-400 hover:bg-orange-500/10"
+            >
+              Jalankan Expire
+            </PremiumButton>
+            
             <PremiumButton
               onClick={handleVerifyUSDC}
               variant="outline"

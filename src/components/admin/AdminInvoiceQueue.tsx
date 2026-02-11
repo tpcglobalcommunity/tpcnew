@@ -4,7 +4,13 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { PremiumButton } from '@/components/ui/PremiumButton'
 import { formatInvoiceId, formatUSDC, formatDate, isExpired } from '@/lib/presale'
-import { FileText, Eye, CheckCircle, XCircle, Clock, RefreshCw } from 'lucide-react'
+import { FileText, Eye, CheckCircle, XCircle, Clock, RefreshCw, AlertCircle } from 'lucide-react'
+
+interface AdminStats {
+  pendingCount: number
+  expiredTodayCount: number
+  paidTodayCount: number
+}
 
 interface Invoice {
   id: string
@@ -25,11 +31,17 @@ interface Invoice {
 
 export default function AdminInvoiceQueue() {
   const [invoices, setInvoices] = useState<Invoice[]>([])
+  const [stats, setStats] = useState<AdminStats>({
+    pendingCount: 0,
+    expiredTodayCount: 0,
+    paidTodayCount: 0
+  })
   const [isLoading, setIsLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'pending' | 'paid' | 'expired'>('pending')
 
   useEffect(() => {
     fetchInvoices()
+    fetchStats()
   }, [filter])
 
   const fetchInvoices = async () => {
@@ -47,6 +59,23 @@ export default function AdminInvoiceQueue() {
     }
   }
 
+  const fetchStats = async () => {
+    try {
+      const response = await fetch('/api/admin/stats')
+      const data = await response.json()
+      
+      if (response.ok) {
+        setStats(data.stats || {
+          pendingCount: 0,
+          expiredTodayCount: 0,
+          paidTodayCount: 0
+        })
+      }
+    } catch (error) {
+      console.error('Error fetching stats:', error)
+    }
+  }
+
   const handleApprove = async (invoiceId: string) => {
     try {
       const response = await fetch(`/api/admin/invoices/${invoiceId}/approve`, {
@@ -55,6 +84,7 @@ export default function AdminInvoiceQueue() {
 
       if (response.ok) {
         await fetchInvoices()
+        await fetchStats()
       } else {
         const data = await response.json()
         alert('Gagal approve: ' + data.error)
@@ -75,6 +105,7 @@ export default function AdminInvoiceQueue() {
 
       if (response.ok) {
         await fetchInvoices()
+        await fetchStats()
       } else {
         const data = await response.json()
         alert('Gagal void: ' + data.error)
@@ -82,6 +113,27 @@ export default function AdminInvoiceQueue() {
     } catch (error) {
       console.error('Void error:', error)
       alert('Gagal void')
+    }
+  }
+
+  const handleExpire = async () => {
+    try {
+      const response = await fetch('/api/admin/expire-invoices', {
+        method: 'POST'
+      })
+
+      const data = await response.json()
+      
+      if (response.ok && data.ok) {
+        alert(`Expire selesai: ${data.expired}/${data.processed} invoice expired, ${data.errors} errors`)
+        await fetchInvoices()
+        await fetchStats()
+      } else {
+        alert('Gagal expire: ' + (data.error || 'Unknown error'))
+      }
+    } catch (error) {
+      console.error('Expire error:', error)
+      alert('Gagal expire')
     }
   }
 
@@ -133,6 +185,45 @@ export default function AdminInvoiceQueue() {
 
   return (
     <div className="space-y-6">
+      {/* Admin Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-[#0B0E11] border border-yellow-500/30 rounded-2xl p-6">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-yellow-500/20 rounded-lg">
+              <Clock className="w-6 h-6 text-yellow-400" />
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-white">{stats.pendingCount}</div>
+              <div className="text-gray-400 text-sm">Pending</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[#0B0E11] border border-yellow-500/30 rounded-2xl p-6">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-green-500/20 rounded-lg">
+              <CheckCircle className="w-6 h-6 text-green-400" />
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-white">{stats.paidTodayCount}</div>
+              <div className="text-gray-400 text-sm">Lunas Hari Ini</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[#0B0E11] border border-yellow-500/30 rounded-2xl p-6">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-red-500/20 rounded-lg">
+              <XCircle className="w-6 h-6 text-red-400" />
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-white">{stats.expiredTodayCount}</div>
+              <div className="text-gray-400 text-sm">Kadaluarsa Hari Ini</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-bold text-yellow-400">Queue Invoice</h2>
@@ -147,6 +238,11 @@ export default function AdminInvoiceQueue() {
             <option value="expired">Kadaluarsa</option>
             <option value="all">Semua</option>
           </select>
+          
+          <PremiumButton onClick={handleExpire} variant="outline" size="sm" className="border-orange-500/50 text-orange-400 hover:bg-orange-500/10">
+            <AlertCircle className="w-4 h-4 mr-2" />
+            Jalankan Expire
+          </PremiumButton>
           
           <PremiumButton onClick={fetchInvoices} variant="outline" size="sm">
             <RefreshCw className="w-4 h-4" />
