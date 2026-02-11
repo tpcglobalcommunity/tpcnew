@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import { PremiumButton } from '@/components/ui/PremiumButton'
 import { formatInvoiceId, formatDate, isExpired } from '@/lib/presale'
-import { Copy, Upload, CheckCircle, Clock, XCircle } from 'lucide-react'
+import { Copy, Upload, CheckCircle, Clock, XCircle, AlertTriangle } from 'lucide-react'
 
 // Safe number formatter to prevent zero-ghost
 function formatNumberSafe(value: number | null | undefined, options?: Intl.NumberFormatOptions) {
@@ -36,9 +36,11 @@ export default function InvoiceDetail() {
   const [isLoading, setIsLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState('')
+  const [treasuryAddr, setTreasuryAddr] = useState<string | null>(null)
 
   useEffect(() => {
     fetchInvoice()
+    fetchTreasuryAddress()
   }, [invoiceId])
 
   const fetchInvoice = async () => {
@@ -58,9 +60,23 @@ export default function InvoiceDetail() {
     }
   }
 
+  const fetchTreasuryAddress = async () => {
+    try {
+      const response = await fetch('/api/admin/settings/treasury')
+      const data = await response.json()
+      
+      if (response.ok && data.ok) {
+        setTreasuryAddr(data.data.treasuryAddress)
+      }
+    } catch (error) {
+      console.error('Failed to fetch treasury address:', error)
+    }
+  }
+
   const handleCopyAddress = () => {
-    const treasuryAddress = process.env.NEXT_PUBLIC_TPC_TREASURY || ''
-    navigator.clipboard.writeText(treasuryAddress)
+    if (treasuryAddr) {
+      navigator.clipboard.writeText(treasuryAddr)
+    }
   }
 
   const handleCopyMemo = () => {
@@ -154,7 +170,6 @@ export default function InvoiceDetail() {
   }
 
   const isInvoiceExpired = invoice.deadline_at ? isExpired(invoice.deadline_at) : false
-  const treasuryAddress = process.env.NEXT_PUBLIC_TPC_TREASURY || ''
 
   // Check if pricing data needs repair
   const needsPricingRepair = invoice.price_per_tpc === 0 || invoice.total_usdc === 0
@@ -264,7 +279,7 @@ export default function InvoiceDetail() {
               <label className="block text-gray-400 mb-2">Alamat Treasury:</label>
               <div className="flex items-center gap-2">
                 <code className="bg-black/30 text-yellow-400 px-3 py-2 rounded-lg font-mono text-sm flex-1">
-                  {treasuryAddress}
+                  {treasuryAddr}
                 </code>
                 <PremiumButton onClick={handleCopyAddress} variant="outline" size="sm">
                   <Copy className="w-4 h-4" />
