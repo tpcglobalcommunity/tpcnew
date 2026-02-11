@@ -29,18 +29,17 @@ interface Invoice {
   deadline_at: string | null
 }
 
-export default function InvoiceDetail() {
+export default function InvoiceDetail({ treasuryAddress: propTreasuryAddress }: { treasuryAddress?: string | null }) {
   const params = useParams()
   const invoiceId = params.id as string
   const [invoice, setInvoice] = useState<Invoice | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState('')
-  const [treasuryAddr, setTreasuryAddr] = useState<string | null>(null)
+  const [treasuryAddr, setTreasuryAddr] = useState<string | null>(propTreasuryAddress || null)
 
   useEffect(() => {
     fetchInvoice()
-    fetchTreasuryAddress()
   }, [invoiceId])
 
   const fetchInvoice = async () => {
@@ -57,19 +56,6 @@ export default function InvoiceDetail() {
       setError('Gagal mengambil invoice')
     } finally {
       setIsLoading(false)
-    }
-  }
-
-  const fetchTreasuryAddress = async () => {
-    try {
-      const response = await fetch('/api/admin/settings/treasury')
-      const data = await response.json()
-      
-      if (response.ok && data.ok) {
-        setTreasuryAddr(data.data.treasuryAddress)
-      }
-    } catch (error) {
-      console.error('Failed to fetch treasury address:', error)
     }
   }
 
@@ -274,31 +260,55 @@ export default function InvoiceDetail() {
         <div className="bg-[#0B0E11] border border-yellow-500/30 rounded-2xl p-6">
           <h3 className="text-lg font-semibold text-yellow-400 mb-4">Instruksi Pembayaran USDC</h3>
           
-          <div className="space-y-4">
-            <div>
-              <label className="block text-gray-400 mb-2">Alamat Treasury:</label>
-              <div className="flex items-center gap-2">
-                <code className="bg-black/30 text-yellow-400 px-3 py-2 rounded-lg font-mono text-sm flex-1">
-                  {treasuryAddr}
-                </code>
-                <PremiumButton onClick={handleCopyAddress} variant="outline" size="sm">
-                  <Copy className="w-4 h-4" />
-                </PremiumButton>
+          {treasuryAddr ? (
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-green-400 text-sm">✓ Alamat Resmi</span>
+              </div>
+              <div>
+                <label className="block text-gray-400 mb-2">Alamat Treasury:</label>
+                <div className="flex items-center gap-2">
+                  <code className="bg-black/30 text-yellow-400 px-3 py-2 rounded-lg font-mono text-sm flex-1">
+                    {treasuryAddr}
+                  </code>
+                  <PremiumButton onClick={handleCopyAddress} variant="outline" size="sm">
+                    <Copy className="w-4 h-4" />
+                  </PremiumButton>
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-gray-400 mb-2">Memo/Reference:</label>
+                <div className="flex items-center gap-2">
+                  <code className="bg-black/30 text-yellow-400 px-3 py-2 rounded-lg font-mono text-sm flex-1">
+                    {formatInvoiceId(invoiceId)}
+                  </code>
+                  <PremiumButton onClick={handleCopyMemo} variant="outline" size="sm">
+                    <Copy className="w-4 h-4" />
+                  </PremiumButton>
+                </div>
               </div>
             </div>
-            
-            <div>
-              <label className="block text-gray-400 mb-2">Memo/Reference:</label>
-              <div className="flex items-center gap-2">
-                <code className="bg-black/30 text-yellow-400 px-3 py-2 rounded-lg font-mono text-sm flex-1">
-                  {formatInvoiceId(invoice.id)}
-                </code>
-                <PremiumButton onClick={handleCopyMemo} variant="outline" size="sm">
-                  <Copy className="w-4 h-4" />
-                </PremiumButton>
+          ) : (
+            <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
+              <div className="flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-yellow-400 mt-0.5" />
+                <div>
+                  <p className="text-yellow-400 font-medium mb-2">Alamat Treasury Belum Tersedia</p>
+                  <p className="text-gray-300 text-sm mb-3">
+                    Alamat treasury untuk pembayaran USDC belum dikonfigurasi. Silakan hubungi admin untuk informasi lebih lanjut.
+                  </p>
+                  <PremiumButton
+                    href="https://t.me/tpcglobalcommunity"
+                    variant="outline"
+                    className="border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10"
+                  >
+                    Hubungi Admin
+                  </PremiumButton>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       )}
 
