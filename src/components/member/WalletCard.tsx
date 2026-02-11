@@ -1,62 +1,20 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { PremiumButton } from '@/components/ui/PremiumButton'
 import { formatAddress } from '@/lib/utils/format'
 import { Copy, Wallet, LogOut } from 'lucide-react'
-
-// Placeholder wallet interface untuk sementara
-interface WalletState {
-  connected: boolean
-  publicKey: { toString: () => string } | null
-}
+import { usePhantomWallet } from '@/components/wallet/PhantomWalletProvider'
 
 export default function WalletCard() {
-  const [wallet, setWallet] = useState<WalletState>({
-    connected: false,
-    publicKey: null
-  })
-  const [isConnecting, setIsConnecting] = useState(false)
-
-  const handleConnect = async () => {
-    setIsConnecting(true)
-    try {
-      // Placeholder untuk Phantom wallet connection
-      // TODO: Implement dengan Solana wallet adapter setelah install
-      console.log('Connecting to Phantom wallet...')
-      
-      // Simulasi connection
-      setTimeout(() => {
-        setWallet({
-          connected: true,
-          publicKey: { toString: () => 'Phan...1234' }
-        })
-        setIsConnecting(false)
-      }, 1000)
-    } catch (error) {
-      console.error('Wallet connection error:', error)
-      setIsConnecting(false)
-    }
-  }
-
-  const handleDisconnect = async () => {
-    try {
-      setWallet({
-        connected: false,
-        publicKey: null
-      })
-    } catch (error) {
-      console.error('Wallet disconnect error:', error)
-    }
-  }
+  const { connected, publicKey, connecting, error, connect, disconnect } = usePhantomWallet()
 
   const copyAddress = () => {
-    if (wallet.publicKey) {
-      navigator.clipboard.writeText(wallet.publicKey.toString())
+    if (publicKey) {
+      navigator.clipboard.writeText(publicKey)
     }
   }
 
-  if (!wallet.connected) {
+  if (!connected) {
     return (
       <div className="bg-[#0B0E11] border border-yellow-500/30 rounded-2xl p-6 shadow-lg">
         <div className="flex items-center justify-between mb-4">
@@ -67,15 +25,21 @@ export default function WalletCard() {
         </div>
         
         <div className="text-gray-400 mb-4">
-          Status: <span className="text-red-400">Belum terhubung</span>
+          Status: <span className="text-red-400">Tidak terhubung</span>
         </div>
 
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 text-red-400 mb-4">
+            {error}
+          </div>
+        )}
+
         <PremiumButton
-          onClick={handleConnect}
-          disabled={isConnecting}
+          onClick={connect}
+          disabled={connecting}
           className="w-full"
         >
-          {isConnecting ? 'Menghubungkan...' : 'Hubungkan Dompet'}
+          {connecting ? 'Menghubungkan...' : 'Connect Phantom'}
         </PremiumButton>
       </div>
     )
@@ -89,7 +53,7 @@ export default function WalletCard() {
           Dompet (Phantom)
         </h3>
         <PremiumButton
-          onClick={handleDisconnect}
+          onClick={disconnect}
           variant="outline"
           size="sm"
           className="border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10"
@@ -106,7 +70,7 @@ export default function WalletCard() {
         <div className="text-gray-400 text-sm mb-2">Alamat:</div>
         <div className="flex items-center gap-2">
           <code className="bg-black/30 text-yellow-400 px-3 py-2 rounded-lg font-mono text-sm">
-            {formatAddress(wallet.publicKey?.toString() || '')}
+            {formatAddress(publicKey || '')}
           </code>
           <PremiumButton
             onClick={copyAddress}

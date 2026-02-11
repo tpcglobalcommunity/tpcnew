@@ -4,6 +4,7 @@ import { headers } from 'next/headers'
 import { Metadata } from 'next'
 import MemberTopBar from '@/components/member/nav/MemberTopBar'
 import MemberBottomNav from '@/components/member/nav/MemberBottomNav'
+import { PhantomWalletProvider } from '@/components/wallet/PhantomWalletProvider'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -44,15 +45,17 @@ export default async function MemberLayout({
 
   return (
     <div className="min-h-screen bg-[#0B0E11]">
-      <MemberTopBar title={title} user={user} />
-      
-      <main className="pb-20">
-        <div className="max-w-6xl mx-auto px-4 py-6">
-          {children}
-        </div>
-      </main>
-      
-      <MemberBottomNav />
+      <PhantomWalletProvider>
+        <MemberTopBar title={title} user={user} />
+        
+        <main className="pb-20">
+          <div className="max-w-6xl mx-auto px-4 py-6">
+            {children}
+          </div>
+        </main>
+        
+        <MemberBottomNav />
+      </PhantomWalletProvider>
     </div>
   )
 }

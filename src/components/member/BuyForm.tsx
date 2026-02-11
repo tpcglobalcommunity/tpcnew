@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { PremiumButton } from '@/components/ui/PremiumButton'
 import { getStagePrice, calculateQty, formatUSDC, formatIDR } from '@/lib/presale'
-import { TrendingUp, DollarSign, Calculator } from 'lucide-react'
+import { TrendingUp, DollarSign, Calculator, AlertTriangle } from 'lucide-react'
+import { usePhantomWallet } from '@/components/wallet/PhantomWalletProvider'
 
 export default function BuyForm() {
   const router = useRouter()
@@ -13,6 +14,7 @@ export default function BuyForm() {
   const [method, setMethod] = useState<'USDC' | 'IDR'>('USDC')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const { connected, publicKey, connect } = usePhantomWallet()
 
   const priceUsdc = getStagePrice(stage)
   const amount = parseFloat(amountUsdc) || 0
@@ -27,12 +29,12 @@ export default function BuyForm() {
     let walletAddress = null
     
     if (method === 'USDC') {
-      if (!(window as any).solana?.publicKey) {
-        alert('Silakan connect Phantom wallet terlebih dahulu')
+      if (!connected || !publicKey) {
+        setError('Silakan connect Phantom wallet terlebih dahulu')
         setIsLoading(false)
         return
       }
-      walletAddress = (window as any).solana.publicKey.toString()
+      walletAddress = publicKey
     }
 
     try {
@@ -83,7 +85,7 @@ export default function BuyForm() {
         Beli TPC (Presale)
       </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-6">
         {/* Stage Selection */}
         <div>
           <label className="block text-gray-300 mb-2">Pilih Stage</label>
@@ -172,6 +174,28 @@ export default function BuyForm() {
           </div>
         </div>
 
+        {/* Wallet Warning for USDC */}
+        {method === 'USDC' && !connected && (
+          <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-yellow-400 mt-0.5" />
+              <div>
+                <p className="text-yellow-400 font-medium mb-2">Wallet Belum Terhubung</p>
+                <p className="text-gray-300 text-sm mb-3">
+                  Untuk pembayaran USDC, Anda perlu menghubungkan Phantom wallet terlebih dahulu.
+                </p>
+                <PremiumButton
+                  onClick={connect}
+                  variant="outline"
+                  className="border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10"
+                >
+                  Connect Phantom
+                </PremiumButton>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Error */}
         {error && (
           <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 text-red-400">
@@ -182,7 +206,7 @@ export default function BuyForm() {
         {/* Submit Button */}
         <PremiumButton
           onClick={handleSubmit}
-          disabled={isLoading || amount < 10}
+          disabled={isLoading || amount < 10 || (method === 'USDC' && !connected)}
           className="w-full"
         >
           {isLoading ? 'Membuat Invoice...' : 'Buat Invoice'}
