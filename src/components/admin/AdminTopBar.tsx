@@ -32,19 +32,16 @@ export default function AdminTopBar({ title, user }: AdminTopBarProps) {
 
   const handleVerifyUSDC = async () => {
     try {
-      const response = await fetch('/api/system/verify-usdc', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SYSTEM_SECRET || 'dev-secret'}`
-        }
+      const response = await fetch('/api/admin/verify-usdc', {
+        method: 'POST'
       })
 
       const data = await response.json()
       
-      if (response.ok) {
-        alert(`Verifikasi selesai: ${data.verified}/${data.total} invoice verified`)
+      if (response.ok && data.ok) {
+        alert(`Verifikasi selesai: ${data.paid}/${data.checked} invoice verified, ${data.errors} errors`)
       } else {
-        alert('Gagal verifikasi: ' + data.error)
+        alert('Gagal verifikasi: ' + (data.error || 'Unknown error'))
       }
     } catch (error) {
       console.error('Verify USDC error:', error)
