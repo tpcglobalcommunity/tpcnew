@@ -1,5 +1,5 @@
 import { createServerClient } from '@/lib/supabase/server-client'
-import { getStagePrice, calculateQty } from '@/lib/presale'
+import { getStagePrice } from '@/lib/presale'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { stage, amountUsdc, method } = body
+    const { stage, amountUsdc, method, walletAddress, sponsorCode } = body
 
     // Input validation
     if (!stage || !amountUsdc || !method) {
@@ -92,28 +92,35 @@ export async function POST(request: NextRequest) {
       }, { status: 400 })
     }
 
-    // Server-side price calculation
-    const priceUsdc = getStagePrice(stage)
-    const qtyTpc = calculateQty(amount, priceUsdc)
+    if (method === 'USDC' && !walletAddress) {
+      return NextResponse.json({ 
+        ok: false, 
+        message: 'Wallet address wajib diisi untuk pembayaran USDC' 
+      }, { status: 400 })
+    }
+
+    // Server-side calculations
     const RATE_IDR = 17000
+    const price_per_tpc = getStagePrice(stage)
+    const qty_tpc = amount / price_per_tpc
+    const total_usdc = amount
     const total_idr = amount * RATE_IDR
 
     // Create invoice
-    const expiresAt = new Date()
-    expiresAt.setHours(expiresAt.getHours() + 24) // 24 hours expiry
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours expiry
 
     const { data: invoice, error: insertError } = await supabase
       .from('tpc_invoices')
       .insert({
         user_id: user.id,
-        stage,
-        price_usdc: priceUsdc,
-        amount_usdc: amount,
-        total_usdc: amount,
-        total_idr: total_idr,
-        qty_tpc: qtyTpc,
+        qty_tpc,
+        price_per_tpc,
+        total_usdc,
+        total_idr,
         payment_method: method,
-        status: 'pending',
+        wallet_address: walletAddress || null,
+        sponsor_code: sponsorCode || 'TPC-GLOBAL',
+        status: 'DRAFT',
         expires_at: expiresAt.toISOString(),
         created_at: new Date().toISOString()
       })
@@ -148,12 +155,13 @@ export async function POST(request: NextRequest) {
           invoice_id: invoice.id,
           action: 'create_invoice',
           old_status: null,
-          new_status: 'pending',
+          new_status: 'DRAFT',
           actor_id: user.id,
           meta: {
             stage,
-            amount_usdc: amount,
-            payment_method: method
+            total_usdc: amount,
+            payment_method: method,
+            sponsor_code: sponsorCode || 'TPC-GLOBAL'
           }
         })
     } catch (auditError) {
