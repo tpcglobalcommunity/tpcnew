@@ -32,3 +32,12 @@ export async function getUser() {
     return null
   }
 }
+
+// Helper untuk admin check via ENV (jika project pakai ADMIN_USER_IDS)
+export async function isAdminByEnv(userId: string): Promise<boolean> {
+  const adminUserIds = process.env.ADMIN_USER_IDS;
+  if (!adminUserIds) return false;
+  
+  const adminIds = adminUserIds.split(',').map(id => id.trim()).filter(id => id.length > 0);
+  return adminIds.includes(userId);
+}
