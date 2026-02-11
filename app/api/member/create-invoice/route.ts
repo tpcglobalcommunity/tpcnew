@@ -112,7 +112,7 @@ export async function POST(request: NextRequest) {
         total_usdc: amount,
         total_idr: total_idr,
         qty_tpc: qtyTpc,
-        method,
+        payment_method: method,
         status: 'pending',
         expires_at: expiresAt.toISOString(),
         created_at: new Date().toISOString()
@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
           meta: {
             stage,
             amount_usdc: amount,
-            method
+            payment_method: method
           }
         })
     } catch (auditError) {
