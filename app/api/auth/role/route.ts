@@ -2,25 +2,18 @@ import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
-export const dynamic = 'force-static';
-
-export async function generateStaticParams() {
-  // For static export, we need to generate params for all possible roles
-  // Since this is a dynamic API route, we'll return empty array
-  // API routes are not typically exported in static builds
-  return []
-}
-
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies()
     const token = cookieStore.get('sb-access-token')?.value
 
+    // If no session, return guest (not 401)
     if (!token) {
-      return NextResponse.json(
-        { error: 'No session found' },
-        { status: 401 }
-      )
+      return NextResponse.json({
+        role: 'guest',
+        userId: null,
+        email: null
+      })
     }
 
     const supabase = createClient(
@@ -30,19 +23,21 @@ export async function GET(request: NextRequest) {
 
     const { data: { user }, error } = await supabase.auth.getUser(token)
 
+    // If invalid session, return guest (not 401)
     if (error || !user) {
-      return NextResponse.json(
-        { error: 'Invalid session' },
-        { status: 401 }
-      )
+      return NextResponse.json({
+        role: 'guest',
+        userId: null,
+        email: null
+      })
     }
 
-    // Check if user is admin
+    // Check if user is admin via ENV
     const adminUserIds = process.env.ADMIN_USER_IDS
     let isAdmin = false
 
     if (adminUserIds && user.id) {
-      const adminIds = adminUserIds.split(',').map(id => id.trim())
+      const adminIds = adminUserIds.split(',').map(id => id.trim()).filter(id => id.length > 0)
       isAdmin = adminIds.includes(user.id)
     }
 
@@ -53,10 +48,12 @@ export async function GET(request: NextRequest) {
     })
 
   } catch (error) {
+    // Always return 200 with guest role on any error
     console.error('Role check error:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({
+      role: 'guest',
+      userId: null,
+      email: null
+    })
   }
 }
